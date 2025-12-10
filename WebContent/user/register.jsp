@@ -3,14 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register - Girlly's Café</title>
+    <title>Register - Girlie's Café</title>
     <link rel="stylesheet" href="../assets/css/auth.css">
 </head>
 
 <body>
 
 <div class="auth-container">
-    <h2>Create Your Girlly’s Café Account 💕</h2>
+    <h2>Create Your Girlie’s Café Account 💕</h2>
     <p class="subtitle">Sign up to enjoy delicate treats and cozy moments ☕🍓</p>
 
     <form action="UserLoginServlet" method="post" class="auth-form">

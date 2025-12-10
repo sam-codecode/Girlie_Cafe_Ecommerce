@@ -3,14 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Girlly's Café</title>
+    <title>Login - Girlie's Café</title>
     <link rel="stylesheet" href="../assets/css/auth.css">
 </head>
 
 <body>
 
 <div class="auth-container">
-    <h2>Welcome to Girlly’s Café Website 🍰☕💕</h2>
+    <h2>Welcome to Girlie’s Café Website 🍰☕💕</h2>
     <p class="subtitle">Log in to enjoy your personalized experience</p>
 
     <form action="UserLoginServlet" method="post" class="auth-form">
