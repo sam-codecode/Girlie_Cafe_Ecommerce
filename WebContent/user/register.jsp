@@ -3,41 +3,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register - Girlie's Café</title>
+    <title>Register | Girlie Café</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/auth.css">
+
 </head>
 
 <body>
 
-<div class="auth-container">
-    <h2>Create Your Girlie’s Café Account 💕</h2>
-    <p class="subtitle">Sign up to enjoy delicate treats and cozy moments ☕🍓</p>
+<div class="register-wrapper">
 
-    <form action="UserLoginServlet" method="post" class="auth-form">
-        <input type="hidden" name="action" value="register">
+    <!-- LEFT DESIGN PANEL -->
+    <div class="left-panel">
+        <img src="../assets/images/logo.png" alt="Girlie Cafe Logo" class="logo">
+    </div>
 
-        <label>Full Name</label>
-        <input type="text" name="name" required placeholder="Your name">
+    <!-- CENTER FORM PANEL -->
+    <div class="form-panel">
 
-        <label>Email</label>
-        <input type="email" name="email" required placeholder="example@gmail.com">
+        <!-- MOVED REGISTER TITLE HERE -->
+        <h1 class="form-title">REGISTER</h1>
 
-        <label>Password</label>
-        <input type="password" name="password" required placeholder="Choose a strong password">
+        <form class="auth-form">
 
-        <label>Phone Number</label>
-        <input type="text" name="phone" required placeholder="012-3456789">
+            <label>NAME</label>
+            <input type="text" placeholder="NAME" required>
 
-        <label>Address</label>
-        <textarea name="address" rows="3" required placeholder="Enter your delivery address"></textarea>
+            <label>EMAIL</label>
+            <input type="email" placeholder="EMAIL" required>
 
-        <button type="submit" class="btn">Create Account</button>
+            <label>PASSWORD</label>
+            <input type="password" placeholder="PASSWORD" required>
 
-        <p class="switch-text">
-            Already have an account? <a href="login.jsp">Login here</a>
-        </p>
-    </form>
+            <label>PHONE NUMBER</label>
+            <input type="text" placeholder="PHONE NUMBER" required>
+
+            <label>ADDRESS</label>
+            <textarea placeholder="ADDRESS" rows="3" required></textarea>
+
+            <button type="submit" class="btn-register">Register</button>
+
+            <p class="login-text">
+                Already have an account?
+                <a href="login.jsp">Login here →</a>
+            </p>
+
+        </form>
+    </div>
+
+    <!-- RIGHT DECOR PANEL -->
+    <div class="right-panel">
+        <a href="../admin/admin_login.jsp" class="admin-login">admin login</a>
+    </div>
+
 </div>
-
 </body>
 </html>
