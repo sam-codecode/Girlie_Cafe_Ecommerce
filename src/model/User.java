@@ -1,8 +1,7 @@
 package model;
 
 public class User {
-    
-    // Attributes
+
     private int userId;
     private String name;
     private String email;
@@ -10,26 +9,16 @@ public class User {
     private String phone;
     private String address;
 
-    // Default constructor
+    // Empty constructor
     public User() {}
 
-    // Alternate constructor
-    public User(int userId, String name, String email, String password, String phone, String address) {
-        this.userId = userId;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.address = address;
-    }
-
-    // Getter and Setter Methods
+    // Getters & Setters
     public int getUserId() {
         return userId;
     }
 
-    public void setUserId(int id) {
-        this.userId = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -51,15 +40,15 @@ public class User {
     public String getPassword() {
         return password;
     }
-
-    public void setPassword(String pw) {
-        this.password = pw;
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhone() {
         return phone;
     }
-
+    
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -67,21 +56,8 @@ public class User {
     public String getAddress() {
         return address;
     }
-
-    public void setAddress(String addrs) {
-        this.address = addrs;
-    }
-
-    // toString method
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+    
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
