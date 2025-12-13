@@ -1,80 +1,141 @@
 @charset "UTF-8";
+
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
     background-color: #f9e7d3;
+
+    background-image: url('../images/cupcake.png'), url('../images/cupcake.png');
+    background-repeat: repeat, repeat;
+    background-size: 70px 70px, 70px 70px;
+    background-position: 0px 0px, 110px 110px;
+    background-attachment: fixed;
+
+    animation: cupcakeFall 18s linear infinite;
+
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes cupcakeFall {
+    from { background-position: 0px -300px, 110px -410px; }
+    to   { background-position: 0px 900px, 110px 790px; }
 }
 
 .register-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     height: 100vh;
+    position: relative;
+    z-index: 2;
 }
 
-/* LEFT PANEL */
 .left-panel {
-    background: url('../images/bg-left.png');
-    background-size: cover;
-    text-align: center;
-    padding-top: 40px;
-    opacity: 0.85; 
+    position: relative;
+    background: none;
+    opacity: 1;
+    z-index: 2;
 }
 
-.logo {
-    width: 260px;  
-    margin-top: 40px;
+.left-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.22);
+    z-index: 0;
 }
 
-/* CENTER PANEL */
 .form-panel {
-    background-color: rgba(244, 227, 195, 0.85); 
+    position: relative;
+    background-color: rgba(222, 184, 135, 0.92);
+    box-shadow: 0 0 25px rgba(91, 58, 46, 0.25);
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 40px;
+
+    padding: 14px 22px 12px;
+    padding-top: 0px;
+    z-index: 2;
+}
+
+.form-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.18);
+    z-index: 0;
+}
+
+.form-panel > * {
+    position: relative;
+    z-index: 1;
+}
+
+.register-header {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    gap: 0px;     
+    margin-bottom: 0px;    
+    margin-left : -10px;      
+}
+
+.register-logo {
+    width: 170px;               
+    height: auto;
+    display: block;
+    margin-left: -100px;
 }
 
 .form-title {
-    font-size: 45px;
+    font-size: 45px;             
     font-weight: bold;
-    margin-bottom: 20px;
     color: #ffffff;
-    text-shadow: 3px 3px #d1b08f;
+    text-shadow: 2px 2px 0 #8b5e3c;
+    line-height: 1; 
 }
 
 .auth-form {
-    width: 75%;
+    width: 80%;                 
     display: flex;
     flex-direction: column;
+    margin-top: 2px;             
 }
 
 label {
-    font-size: 14px;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    font-size: 13px;
+    margin-top: 4px;
+    margin-bottom: 3px;
     font-weight: bold;
     letter-spacing: 1px;
 }
 
 input, textarea {
-    padding: 12px;
+    padding: 10px;               
     border: none;
     outline: none;
     border-radius: 5px;
     background: #ffffff;
     box-shadow: 3px 3px 0px #d1b08f;
+    margin-bottom: 12px;
+}
+
+textarea {
+    resize: none;
 }
 
 button.btn-register {
-    margin-top: 20px;
-    padding: 12px;
-    background-color: #d57da5;
+    margin-top: 12px;           
+    padding: 11px;
+    background-color:#c97a8c;
     border: none;
     color: white;
     font-size: 18px;
     border-radius: 5px;
     cursor: pointer;
-    box-shadow: 3px 3px 0px #b35c85;
+    box-shadow:  0 4px 0 #9f5867;
 }
 
 button.btn-register:hover {
@@ -82,7 +143,7 @@ button.btn-register:hover {
 }
 
 .login-text {
-    margin-top: 15px;
+    margin-top: 10px;           
     font-size: 14px;
 }
 
@@ -92,12 +153,19 @@ button.btn-register:hover {
     text-decoration: none;
 }
 
-/* RIGHT PANEL */
 .right-panel {
-    background: url('../images/bg-right.png');
-    background-size: cover;
     position: relative;
-    opacity: 0.85;
+    background: none;
+    opacity: 1;
+    z-index: 2;
+}
+
+.right-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 0;
 }
 
 .admin-login {
@@ -107,4 +175,5 @@ button.btn-register:hover {
     font-size: 13px;
     color: black;
     text-decoration: none;
+    z-index: 1;
 }
