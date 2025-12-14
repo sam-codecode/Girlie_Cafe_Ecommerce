@@ -1,7 +1,8 @@
-package model;
+package model;// Package for application model classes
 
 import java.util.Date;// Import Date class for storing payment date
 
+// Model class for payment data
 public class Payment {
 
     // Attributes
