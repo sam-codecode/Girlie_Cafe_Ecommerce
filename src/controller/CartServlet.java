@@ -4,15 +4,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/cart")
 public class CartServlet extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -24,41 +25,43 @@ public class CartServlet extends HttpServlet {
         Map<Integer, Integer> cart =
                 (Map<Integer, Integer>) session.getAttribute("cart");
 
-        If (cart == null) {
+        if (cart == null) {
             cart = new HashMap<>();
+            session.setAttribute("cart", cart);
         }
 
-        String UserAction = request.getParameter("UserAction");
+        String action = request.getParameter("action");
 
-        if (UserAction != null){
-            int productId = Integer.parseInt(request.getParameter("productId"));
+        if (action != null) {
 
-            switch (UserAction) {
+            String productIdParam = request.getParameter("productId");
+            if (productIdParam != null) {
 
-                case "add":
-                    int addQuantity = cart.getOrDefault(productId, 0) + 1;
-                    cart.put(productId, addQuantity);
-                    break;
+                int productId = Integer.parseInt(productIdParam);
 
-                case "remove":
-                    cart.remove(productId);
-                    break;
+                switch (action) {
 
-                case "update":
-                    int newQuantity = Integer.parseInt(request.getParameter("quantity"));
-                    if (newQuantity > 0) {
-                        cart.put(productId, newQuantity);
-                    }
-                    else {
+                    case "add":
+                        cart.put(productId, cart.getOrDefault(productId, 0) + 1);
+                        break;
+
+                    case "remove":
                         cart.remove(productId);
-                    }
-                    break;
+                        break;
+
+                    case "update":
+                        int quantity = Integer.parseInt(request.getParameter("quantity"));
+                        if (quantity > 0) {
+                            cart.put(productId, quantity);
+                        } else {
+                            cart.remove(productId);
+                        }
+                        break;
+                }
             }
         }
 
         session.setAttribute("cart", cart);
-
         request.getRequestDispatcher("/cart.jsp").forward(request, response);
-    
     }
 }

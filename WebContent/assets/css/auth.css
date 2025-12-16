@@ -11,7 +11,9 @@ body {
     font-family: "Poppins", sans-serif;
     background-color: #f9e7d3;
 
-    background-image: url('cupcake.png'), url('cupcake.png');
+    background-image: 
+        url('../images/cupcake.png'),
+        url('../images/cupcake.png');
     background-repeat: repeat, repeat;
     background-size: 70px 70px, 70px 70px;
     background-position: 0px 0px, 110px 110px;
@@ -22,6 +24,7 @@ body {
     position: relative;
     overflow: hidden;
 }
+
 
 @keyframes cupcakeFall {
     from { background-position: 0px -300px, 110px -410px; }

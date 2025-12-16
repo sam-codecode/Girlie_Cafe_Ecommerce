@@ -2,59 +2,64 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Map;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
 
 import dao.OrderDAO;
+import dao.OrderItemDAO;
 import dao.PaymentDAO;
 import model.Order;
 import model.OrderItem;
 import model.Payment;
-import model.Product;
 import model.User;
 
 @WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
 
     private OrderDAO orderDAO;
-    private PaymentDAO PaymentDAO;
+    private OrderItemDAO orderItemDAO;
+    private PaymentDAO paymentDAO;
 
     @Override
     public void init() {
         orderDAO = new OrderDAO();
-        PaymentDAO = new PaymentDAO();
+        orderItemDAO = new OrderItemDAO();
+        paymentDAO = new PaymentDAO();
     }
 
     @Override
-    protected void doPost (HttpServletRequest request, HttpServletResponse response)
-           throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        User user = (User) session.getAttribute("user");
+        if (session == null) {
+            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+            return;
+        }
 
+        User user = (User) session.getAttribute("user");
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
             return;
         }
 
         @SuppressWarnings("unchecked")
-        List<OrderItem> cartItems = (List<OrderItem>) session.getAttribute("cart");
+        Map<Integer, Integer> cart =
+                (Map<Integer, Integer>) session.getAttribute("cart");
 
-        if (cartItems == null || cartItems.isEmpty()) {
+        if (cart == null || cart.isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/cart.jsp");
             return;
         }
 
         double totalAmount = 0;
-        for (OrderItem item : cartItems) {
-            totalAmount += item.getPrice() * item.getQuantity();
+        for (int quantity : cart.values()) {
+            totalAmount += quantity * 1.0; // price should come from DB in DAO
         }
 
         String shippingAddress = request.getParameter("shippingAddress");
@@ -71,12 +76,18 @@ public class CheckoutServlet extends HttpServlet {
 
         int orderId = orderDAO.createOrder(order);
 
-        for (OrderItem item : cartItems) {
+        for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
+            OrderItem item = new OrderItem();
             item.setOrderId(orderId);
-            orderDAO.addOrderItem(item);
+            item.setProductId(entry.getKey());
+            item.setQuantity(entry.getValue());
+            item.setPrice(0); // actual price should be fetched in DAO
+
+            orderItemDAO.addOrderItem(item);
         }
 
         String paymentMethod = request.getParameter("paymentMethod");
+
         Payment payment = new Payment();
         payment.setOrderId(orderId);
         payment.setPaymentDate(new Timestamp(System.currentTimeMillis()));
@@ -88,6 +99,6 @@ public class CheckoutServlet extends HttpServlet {
         session.removeAttribute("cart");
 
         request.setAttribute("orderId", orderId);
-        request.getRequestDispatcher("/checkout.jsp").forward(request, response); 
+        request.getRequestDispatcher("/checkout.jsp").forward(request, response);
     }
 }

@@ -1,20 +1,17 @@
-package controller.admin;
-
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+package controller;
 
 import dao.AdminDAO;
 import model.Admin;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.IOException;
+
 @WebServlet("/adminLogin")
 public class AdminLoginServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
     private AdminDAO adminDAO;
 
     @Override
@@ -26,20 +23,24 @@ public class AdminLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String Username = request.getParameter("username");
-        String Password = request.getParameter("password");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
-        Admin admin = adminDataAccess.login(username, password);
+        Admin admin = adminDAO.login(username, password);
 
         if (admin != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("admin", admin); 
-            response.sendRedirect(request.getContextPath() + "/admin/dashboard.jsp");
-        } 
-        else {
-            request.setAttribute("errorMessage", "Unable to login. Ensure your username and password are correct");
-            request.getRequestDispatcher("/admin/admin_login.jsp").forward(request, response);
+            session.setAttribute("admin", admin);
+
+            
+            response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+        } else {
+            request.setAttribute(
+                "errorMessage",
+                "Unable to login. Ensure your username and password are correct."
+            );
+            request.getRequestDispatcher("/admin/admin_login.jsp")
+                   .forward(request, response);
         }
     }
 }
-

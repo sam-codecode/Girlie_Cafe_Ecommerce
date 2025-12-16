@@ -1,4 +1,4 @@
-package controller.user;
+package controller;
 
 import dao.UserDAO;
 import model.User;
@@ -31,7 +31,7 @@ public class UserRegisterServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
 
-        // Check duplicate email
+        // Check if duplicate email is exist on the database
         if (userDAO.emailExists(email)) {
             request.setAttribute("errorMessage",
                     "This email is already registered. Please log in or use a different email.");
@@ -39,7 +39,7 @@ public class UserRegisterServlet extends HttpServlet {
             return;
         }
 
-        // Create User model
+        
         User newUser = new User();
         newUser.setName(name);
         newUser.setEmail(email);

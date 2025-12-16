@@ -1,21 +1,19 @@
-package controller.user;
+package controller;
 
 import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import dao.ProductDAO;
 import model.Product;
 
 @WebServlet("/products")
 public class ProductListServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
     private ProductDAO productDAO;
 
     @Override
@@ -25,24 +23,23 @@ public class ProductListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-           throws ServletException, IOException {
+            throws ServletException, IOException {
 
         List<Product> productList;
+        String categoryIdParam = request.getParameter("categoryId");
 
-        String categoryID = request.getParameter("categoryId");
-
-        if (categoryID != null && !categoryID.isEmpty()) {
-
-            int categoryId = Integer.parseInt(categoryID);
-            productList = productDAO.getProductsByCategory(categoryId);
-        }
-        else {
-
+        if (categoryIdParam != null && !categoryIdParam.isEmpty()) {
+            try {
+                int categoryId = Integer.parseInt(categoryIdParam);
+                productList = productDAO.getProductsByCategory(categoryId);
+            } catch (NumberFormatException e) {
+                productList = productDAO.getAllProducts();
+            }
+        } else {
             productList = productDAO.getAllProducts();
         }
 
         request.setAttribute("products", productList);
-
         request.getRequestDispatcher("/products.jsp").forward(request, response);
     }
 }

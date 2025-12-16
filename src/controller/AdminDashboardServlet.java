@@ -1,4 +1,4 @@
-package controller.admin;
+package controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,22 +10,21 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/admin/dashboard")
 public class AdminDashboardServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false); 
+        HttpSession session = request.getSession(false);
 
-        if (session != null && session.getAttribute("admin") != null) {
-            
-            request.getRequestDispatcher("/admin/dashboard.jsp").forward(request, response);
-        } 
-        else {
-    
+        if (session == null || session.getAttribute("admin") == null) {
             response.sendRedirect(request.getContextPath() + "/admin/admin_login.jsp");
+            return;
         }
+
+        // Later: attach dashboard stats here
+        request.getRequestDispatcher("/admin/dashboard.jsp").forward(request, response);
     }
 }
+
 
