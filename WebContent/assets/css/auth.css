@@ -1,27 +1,16 @@
-/* ======================================================
-   CHARSET & FONTS
-====================================================== */
 @charset "UTF-8";
-<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@400;500&display=swap');
 
-
-/* ======================================================
-   GLOBAL RESET & BASE STYLES
-====================================================== */
+/* Sign Up Page Styling */
 * {
     box-sizing: border-box;
 }
 
-=======
-/*Test change*/
->>>>>>> bb71059fd232db95b8b82be1cdcd1950677a0c2e
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
     background-color: #f9e7d3;
 
-    /* CUPCAKE FALLING BACKGROUND (2 layers = stagger pattern) */
     background-image: url('cupcake.png'), url('cupcake.png');
     background-repeat: repeat, repeat;
     background-size: 70px 70px, 70px 70px;
@@ -34,19 +23,11 @@ body {
     overflow: hidden;
 }
 
-
-/* ======================================================
-   BACKGROUND ANIMATION
-====================================================== */
 @keyframes cupcakeFall {
     from { background-position: 0px -300px, 110px -410px; }
     to   { background-position: 0px 900px, 110px 790px; }
 }
 
-
-/* ======================================================
-   MAIN LAYOUT (REGISTER PAGE)
-====================================================== */
 .register-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -55,12 +36,7 @@ body {
     z-index: 2;
 }
 
-
-/* ======================================================
-   LEFT & RIGHT PANELS
-====================================================== */
-.left-panel,
-.right-panel {
+.left-panel, .right-panel {
     position: relative;
     background: none;
     opacity: 1;
@@ -77,10 +53,6 @@ body {
     z-index: 1;
 }
 
-
-/* ======================================================
-   CENTER PANEL (REGISTER FORM CONTAINER)
-====================================================== */
 .form-panel {
     position: relative;
     background-color: rgba(222, 184, 135, 0.92);
@@ -98,10 +70,6 @@ body {
     z-index: 2;
 }
 
-
-/* ======================================================
-   REGISTER HEADER (LOGO + TITLE)
-====================================================== */
 .register-header {
     width: 25%;
     display: flex;
@@ -128,10 +96,6 @@ body {
     line-height: 1;
 }
 
-
-/* ======================================================
-   REGISTER FORM
-====================================================== */
 .form-panel .auth-form {
     width: 80%;
     display: flex;
@@ -190,12 +154,8 @@ button.btn-register:hover {
     text-decoration: none;
 }
 
+/* Login Page Styling */
 
-/* ======================================================
-   LOGIN PAGE STYLES
-====================================================== */
-
-/* ---------- LOGIN CONTAINER ---------- */
 .auth-container {
     position: relative;
     width: 650px;
@@ -219,9 +179,6 @@ button.btn-register:hover {
     padding-top: 30px;
 }
 
-<<<<<<< HEAD
-
-/* ---------- LOGIN HEADER ---------- */
 .login-logo {
     width: 210px;
     margin-top: -20px;
@@ -258,8 +215,6 @@ button.btn-register:hover {
     opacity: 0.9;
 }
 
-
-/* ---------- LOGIN FORM ---------- */
 .auth-container .auth-form {
     width: 80%;
     margin: 0 auto;
@@ -286,8 +241,6 @@ button.btn-register:hover {
     margin-bottom: 14px;
 }
 
-
-/* ---------- LOGIN BUTTON ---------- */
 button.btn {
     margin-top: 10px;
     padding: 12px;
@@ -304,8 +257,6 @@ button.btn:hover {
     background-color: #c06692;
 }
 
-
-/* ---------- SWITCH TEXT ---------- */
 .switch-text {
     margin-top: 14px;
     font-size: 14px;
@@ -318,7 +269,6 @@ button.btn:hover {
     font-weight: bold;
     text-decoration: none;
 }
-=======
 .admin-login {
     position: absolute;
     bottom: 10px;
@@ -328,4 +278,3 @@ button.btn:hover {
     text-decoration: none;
     z-index: 1;
 }
->>>>>>> bb71059fd232db95b8b82be1cdcd1950677a0c2e
