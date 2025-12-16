@@ -1,8 +1,9 @@
-package model;
+package model;// Package for application model classes
 
 import java.util.Date; // Import Date class for storing order date
 import java.util.List; // Import List interface to store multiple OrderItem objects
 
+// Model class for order data
 public class Order {
     
     // Attributes

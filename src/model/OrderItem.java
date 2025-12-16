@@ -1,5 +1,6 @@
-package model;
+package model;// Package for application model classes
 
+// Model class for order item data
 public class OrderItem {
     
     // Attributes
