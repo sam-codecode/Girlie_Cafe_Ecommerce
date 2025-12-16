@@ -1,20 +1,19 @@
 package controller.user;
 
-import java.io.IOException;
+import dao.UserDAO;
+import model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import dao.UserDAO;
-import model.User;
+import java.io.IOException;
 
 @WebServlet("/register")
 public class UserRegisterServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
     private UserDAO userDAO;
 
     @Override
@@ -24,33 +23,38 @@ public class UserRegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-           throws ServletException, IOException {
-        
+            throws ServletException, IOException {
+
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
 
+        // Check duplicate email
         if (userDAO.emailExists(email)) {
-            request.setAttribute("errorMessage", "This email is already registered. Please log in or use a different email.");
-            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            request.setAttribute("errorMessage",
+                    "This email is already registered. Please log in or use a different email.");
+            request.getRequestDispatcher("/user/register.jsp").forward(request, response);
             return;
         }
 
-    User newUser = new User(0, name, email, password, phone, address);
+        // Create User model
+        User newUser = new User();
+        newUser.setName(name);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+        newUser.setPhone(phone);
+        newUser.setAddress(address);
 
-    boolean success = userDAO.registerUser(newUser);
+        boolean success = userDAO.registerUser(newUser);
 
-    if (success) {
-
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        if (success) {
+            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+        } else {
+            request.setAttribute("errorMessage",
+                    "Registration was unsuccessful. Please try again.");
+            request.getRequestDispatcher("/user/register.jsp").forward(request, response);
+        }
     }
-    else {
-      
-        request.setAttribute("errorMessage", "Registration was unsuccessful. Please check your details and try again.");
-        request.getRequestDispatcher("/register.jsp").forward(request, response);
-    }
-  }
 }
-
