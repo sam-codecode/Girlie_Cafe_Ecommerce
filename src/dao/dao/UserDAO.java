@@ -6,17 +6,16 @@ import model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-//testing
-// UserDAO
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
 
+    // Create (Register User)
 
     public boolean registerUser(User user) {
 
-        String sql = "INSERT INTO users (name, email, password, phone, address) " +
-                     "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (name, email, password, phone, address) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -35,6 +34,7 @@ public class UserDAO {
         return false;
     }
 
+    // Validation (Check Email Exists)
 
     public boolean emailExists(String email) {
 
@@ -46,7 +46,7 @@ public class UserDAO {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
 
-            return rs.next(); // true if email found
+            return rs.next(); 
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,6 +54,7 @@ public class UserDAO {
         return false;
     }
 
+    // Authentication (Login)
 
     public User login(String email, String password) {
 
@@ -86,41 +87,42 @@ public class UserDAO {
         return null;
     }
 
+    // Read (Get user By ID)
 
     public User getUserById(int userId) {
 
         String sql = "SELECT * FROM users WHERE user_id = ?";
+        User user = null;
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, userId);
-            ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                User user = new User();
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    user = new User();
 
-                user.setUserId(rs.getInt("user_id"));
-                user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setPhone(rs.getString("phone"));
-                user.setAddress(rs.getString("address"));
-
-                return user;
+                    user.setUserId(rs.getInt("user_id"));
+                    user.setName(rs.getString("name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(rs.getString("password"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setAddress(rs.getString("address"));
+                }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return user;
     }
 
+    // Update (User Profile)
 
     public boolean updateUser(User user) {
 
-        String sql = "UPDATE users SET name=?, email=?, password=?, phone=?, address=? " +
-                     "WHERE user_id=?";
+        String sql = "UPDATE users SET name = ?, email = ?, password = ?, phone = ?, address = ? WHERE user_id = ?";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
