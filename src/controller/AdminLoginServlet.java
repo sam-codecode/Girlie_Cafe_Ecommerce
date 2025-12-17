@@ -16,7 +16,7 @@ public class AdminLoginServlet extends HttpServlet {
 
     @Override
     public void init() {
-        adminDAO = new AdminDAO();
+        adminDAO = new AdminDAO(); // Create DAO object for admin
     }
 
     @Override

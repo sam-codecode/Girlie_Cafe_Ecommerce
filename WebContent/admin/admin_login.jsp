@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Login - Girlie's Café</title>
+    <title>Admin Login | Girlie's Café</title>
 
     <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/admin.css">
 </head>
