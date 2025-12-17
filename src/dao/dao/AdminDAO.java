@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 
 public class AdminDAO {
 
+    // Authenthication (Admin Login)
+
     public Admin login(String username, String password) {
 
         String sql = "SELECT * FROM admins WHERE username = ? AND password = ?";
@@ -23,10 +25,12 @@ public class AdminDAO {
 
             if (rs.next()) {
                 Admin admin = new Admin();
+
                 admin.setAdminId(rs.getInt("admin_id"));
                 admin.setName(rs.getString("name"));
                 admin.setUsername(rs.getString("username"));
                 admin.setPassword(rs.getString("password"));
+                
                 return admin;
             }
 
