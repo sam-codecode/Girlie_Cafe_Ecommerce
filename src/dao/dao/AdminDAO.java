@@ -60,4 +60,32 @@ public class AdminDAO {
 
         return null;
     }
+
+    //  Read (Get Admin By ID)
+
+    public Admin getAdminById(int adminId) {
+
+        String sql = "SELECT * FROM admins WHERE admin_id = ?";
+        Admin admin = null;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, adminId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                admin = new Admin();
+
+                admin.setAdminId(rs.getInt("admin_id"));
+                admin.setName(rs.getString("name"));
+                admin.setUsername(rs.getString("username"));
+                admin.setPassword(rs.getString("password"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return admin;
+    }
 }
