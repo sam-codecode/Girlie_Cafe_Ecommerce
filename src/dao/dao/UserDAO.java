@@ -172,4 +172,22 @@ public class UserDAO {
         }
         return false;
     }
+
+    // Delete (User)
+
+    public boolean deleteUser(int userId) {
+
+        String sql = "DELETE FROM users WHERE user_id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
