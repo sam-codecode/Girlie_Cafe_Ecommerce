@@ -9,6 +9,26 @@ import java.sql.ResultSet;
 
 public class AdminDAO {
 
+    // Validation (Check Username Exists)
+
+    public boolean usernameExists(String username) {
+
+        String sql = "SELECT admin_id FROM admins WHERE username = ?";
+
+        try (Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)){
+
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next(); 
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     // Authenthication (Admin Login)
 
     public Admin login(String username, String password) {
@@ -30,7 +50,7 @@ public class AdminDAO {
                 admin.setName(rs.getString("name"));
                 admin.setUsername(rs.getString("username"));
                 admin.setPassword(rs.getString("password"));
-                
+
                 return admin;
             }
 
