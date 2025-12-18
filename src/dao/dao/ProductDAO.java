@@ -99,4 +99,48 @@ public class ProductDAO {
 
         return product;
     }
+
+    // Update (Product Details)
+    
+    public boolean updateProduct(Product product) {
+
+        String sql = "UPDATE products SET category_id=?, name=?, description=?, price=?, stock=?, image_name=? " +
+                     "WHERE product_id=?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, product.getCategoryId());
+            ps.setString(2, product.getName());
+            ps.setString(3, product.getDescription());
+            ps.setDouble(4, product.getPrice());
+            ps.setInt(5, product.getStock());
+            ps.setString(6, product.getImageName());
+            ps.setInt(7, product.getProductId());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Delete (Remove Product)
+    
+    public boolean deleteProduct(int productId) {
+
+        String sql = "DELETE FROM products WHERE product_id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, productId);
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
