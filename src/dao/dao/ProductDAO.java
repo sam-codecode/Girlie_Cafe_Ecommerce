@@ -36,7 +36,7 @@ public class ProductDAO {
     }
 
     // Read (Get All Products)
-    
+
     public List<Product> getAllProducts() {
 
         List<Product> products = new ArrayList<>();
@@ -65,5 +65,38 @@ public class ProductDAO {
         }
 
         return products;
+    }
+
+    // Read (Get Product By ID)
+
+    public Product getProductById(int productId) {
+
+        String sql = "SELECT * FROM products WHERE product_id = ?";
+        Product product = null;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, productId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    product = new Product();
+
+                    product.setProductId(rs.getInt("product_id"));
+                    product.setCategoryId(rs.getInt("category_id"));
+                    product.setName(rs.getString("name"));
+                    product.setDescription(rs.getString("description"));
+                    product.setPrice(rs.getDouble("price"));
+                    product.setStock(rs.getInt("stock"));
+                    product.setImageName(rs.getString("image_name"));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return product;
     }
 }
