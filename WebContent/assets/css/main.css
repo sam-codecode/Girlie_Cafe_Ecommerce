@@ -1,0 +1,464 @@
+/* =========================
+   GLOBAL
+========================= */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+
+  background: linear-gradient(
+    135deg,
+    #f3ebe2 0%,
+    #e6d2c3 50%,
+    #dcc3b1 100%
+  )
+}
+
+/* Thin black scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.45); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.65); }
+* { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.45) transparent; }
+
+/* =========================
+   UNIVERSAL POP EFFECT
+========================= */
+.pop-effect {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    bg 0.25s ease,
+    color 0.25s ease;
+}
+
+.pop-effect:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.25);
+}
+
+.pop-effect:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+
+/* =========================
+   SECTION 1: TOP HERO
+========================= */
+.top-hero {
+  min-height: 46vh;
+  background: url("../images/brown.jpg") center / cover no-repeat;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 18px 0 30px;
+}
+
+.top-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.35),
+    rgba(0,0,0,0.15),
+    rgba(0,0,0,0.35)
+  );
+  z-index: 0;
+}
+
+.top-navi, .hero-text { position: relative; z-index: 1; }
+
+
+/* =========================
+   NAVI (Luxury / Slanted)
+========================= */
+.top-navi {
+  width: min(1200px, 92%);
+  margin: 0 auto;
+  padding-top: 8px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto; 
+  align-items: center;
+
+  position: relative;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: rgba(243, 233, 220, 0.92);
+}
+
+.brand-logo {
+  width: 100px;       
+  height: auto;
+  object-fit: contain;
+  border-radius: 7px;
+}
+
+.brand-name {
+  font-family: "Lora", serif;
+  font-weight: 500;
+
+  font-size: 16px;             
+  letter-spacing: 1.6px;       
+  text-transform: uppercase;
+
+  color: rgba(243, 233, 220, 0.88);
+  opacity: 1;
+}
+
+.navi-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 44px;
+  flex-wrap: wrap;
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Slanted + professional */
+.navi-link {
+  position: relative;
+  text-decoration: none;
+
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 800;
+
+  font-size: 20px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+
+  color: rgba(243, 233, 220, 0.78);
+  padding: 10px 2px;
+  transition: color 0.2s ease;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navi-link:hover {
+  color: rgba(243, 233, 220, 0.98);
+  transform: translateY(-2px);
+}
+
+.navi-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 0%;
+  height: 1.6px;
+  background: rgba(243, 233, 220, 0.75);
+  transform: translateX(-50%);
+  transition: width 0.22s ease;
+}
+
+.navi-link:hover::after { width: 70%; }
+
+.navi-link.active {
+  color: rgba(243, 233, 220, 0.98);
+}
+.navi-link.active::after { width: 70%; }
+
+.nav-cta {
+  justify-self: end;
+  text-decoration: none;
+
+  font-family: "Quicksand", serif;
+  font-weight: 500;
+
+  font-size: 15px;             
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+
+  padding: 10px 18px;
+  border-radius: 999px;
+
+  color: rgba(243, 233, 220, 0.92);
+  border: 1px solid rgba(243, 233, 220, 0.55);
+  background: rgba(0,0,0,0.35);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    bg 0.25s ease;
+}
+
+.nav-cta:hover {
+  transform: translateY(-4px) scale(1.04);
+  background: rgba(0,0,0,0.55);
+  box-shadow:
+    0 10px 22px rgba(0,0,0,0.35),
+    0 0 0 1px rgba(243, 233, 220, 0.15);
+}
+
+.nav-cta:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* =========================
+   HERO TEXT
+========================= */
+.main-text {
+  text-align: center;
+  padding: 16px 10px 0;
+}
+
+.main-title {
+  margin: 0;
+  font-family: "Dancing Script", cursive;
+  color: #e6d2c3;
+  font-size: clamp(50px, 4vw, 52px);
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 2;
+  mix-blend-mode: normal;
+}
+
+.main-subtitle {
+  margin: 6px 0 0;
+  font-family: "Quicksand", serif;
+  color: #e6d2c3;
+  font-weight: 600;
+  position: relative;
+  z-index: 2;
+
+}
+
+
+/* =========================
+   SECTION 2: MENU AREA
+========================= */
+.menu-section {
+  background: linear-gradient(
+    135deg,
+    #f3ebe2 0%,
+    #e6d2c3 50%,
+    #dcc3b1 100%
+  );
+  padding: 26px 0 40px;
+}
+
+.menu-wrap {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+
+/* Center section + shorten width */
+.menu-filter {
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px 40px;
+}
+
+/* Toolbar */
+.product-toolbar {
+  background: #b08a6a;;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #8e6d55;
+
+  /* Warm ambient shadow */
+  box-shadow:
+    0 6px 16px rgba(61, 38, 23, 0.25),
+    0 2px 4px rgba(255, 255, 255, 0.10) inset;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  margin-bottom: 18px;
+
+  position: sticky;
+  top: 20px;
+  z-index: 10;
+}
+
+.search-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: centre;
+  justify-content: center;
+
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.search-row .search-input{
+  flex: 0 0 480px;
+  width: 480px;
+  max-width: 100%;
+}
+
+.search-input {
+  flex: 1 1 260px;
+  width: 100;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(75,47,36,0.18);
+  outline: none;
+  background: #e7d5c7;
+  font-family: "Cormorant Garamond", sans-serif;
+  font-weight: bold;
+}
+
+.search-btn {
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  background:#6b4630;
+  color:white;
+}
+
+.categories-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.category-pill {
+  padding: 9px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+
+  font-family: "Libre Baskerville", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+
+  background:#e7d5c7;
+  color:#6b4630;
+  border: 1px solid rgba(75,47,36,0.16);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    bg 0.25s ease;
+}
+
+.category-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+  background:#4b2b1a;
+  color:white;
+}
+
+.category-pill.active {
+  background:#e7d5c7;
+  color:#6b4630;
+  transform: translateY(-2px);
+}
+
+/* Product grid */
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.product-card {
+  background:#fff5e9;
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.10);
+  border: 1px solid rgba(255,255,255,0.65);
+  display: flex;
+  flex-direction: column;
+
+  transition:
+  transform 0.3s ease,
+  box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 44px rgba(0,0,0,0.18);
+}
+
+.product-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.product-name {
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  color: #4b2f24;
+  margin: 2px 0 6px;
+}
+
+.product-desc {
+  font-family: "Libre Baskerville", sans-serif;;
+  font-size: 14px;
+  color: #5b4037;
+  margin: 0 0 12px;
+  line-height: 1.5;
+  min-height: 20px;
+}
+
+.product-price {
+  font-family: "Libre Baskerville", sans-serif;;
+  font-size: 17px;
+  font-weight: 800;
+  color: #4b2f24;
+  margin: 0 0 10px;
+}
+
+.btn-view {
+  margin-top: auto;
+  text-align: center;
+  padding: 11px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+
+  background:#eac4cf;
+  color: #942c49;
+
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .product-container { grid-template-columns: repeat(2, 1fr); }
+  .navi-links { gap: 22px; }
+  .nav-cta { font-size: 14px; }
+}
+
+@media (max-width: 560px) {
+  .product-container { grid-template-columns: 1fr; }
+  .brand-name { display: none; }
+  .brand-logo { width: 80px; }
+  .nav-cta { display: none; }
+}
