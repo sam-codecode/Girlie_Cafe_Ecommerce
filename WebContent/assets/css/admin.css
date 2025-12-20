@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+/* =========================
+   BASE / SAFE GLOBALS
+========================= */
 * {
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
@@ -10,15 +13,17 @@ body {
     background-color: #fff7ef;
 }
 
-/* ===== Layout ===== */
-
+/* =========================
+   LAYOUT
+========================= */
 .admin-layout {
     display: flex;
     min-height: 100vh;
 }
 
-/* ===== Sidebar ===== */
-
+/* =========================
+   SIDEBAR
+========================= */
 .sidebar {
     width: 220px;
     background-color: #e2c6ad;
@@ -54,37 +59,21 @@ body {
     background-color: #c58b5a;
     color: #fff;
     text-align: center;
+    padding: 10px;
+    border-radius: 6px;
 }
 
-/* ===== Main Content ===== */
-
+/* =========================
+   MAIN CONTENT
+========================= */
 .main {
     flex: 1;
     padding: 30px 40px;
 }
 
-/* ===== Header ===== */
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header h2 {
-    margin: 0;
-    color: #4a2c1a;
-}
-
-.admin-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-}
-
-/* ===== Stats Cards ===== */
-
+/* =========================
+   DASHBOARD STATS
+========================= */
 .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -112,16 +101,13 @@ body {
     color: #c58b5a;
 }
 
-/* ===== Table ===== */
-
+/* =========================
+   TABLES (Products / Orders / Users)
+========================= */
 .table-container {
     background-color: #fff;
     border-radius: 10px;
     padding: 20px;
-}
-
-.table-container h3 {
-    margin-bottom: 15px;
 }
 
 table {
@@ -143,6 +129,7 @@ tbody tr:nth-child(even) {
     background-color: #fdf3eb;
 }
 
+/* Status pills */
 .status {
     padding: 4px 8px;
     border-radius: 6px;
@@ -157,41 +144,67 @@ tbody tr:nth-child(even) {
     background-color: #b9f6ca;
 }
 
-.action-btn {
-    background-color: #c58b5a;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 12px;
+.status.active {
+    background-color: #b9f6ca;
 }
 
-/* ===== Admin Login Page ===== */
+.status.inactive {
+    background-color: #ffb6b6;
+}
 
+/* =========================
+   BUTTONS (GLOBAL ADMIN)
+========================= */
+.btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.btn-view {
+    background-color: #c58b5a;
+    color: white;
+}
+
+.btn-edit {
+    background-color: #f0ad4e;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #d9534f;
+    color: white;
+}
+
+/* =========================
+   ADMIN LOGIN (KEEP INTACT)
+========================= */
 .admin-login-wrapper {
     height: 100vh;
-    background-color: #fff7ef;
+    background: linear-gradient(135deg, #fff7ef, #f9efe6);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .admin-login-box {
-    background: white;
-    padding: 40px;
-    width: 320px;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    background: #ffffff;
+    padding: 42px 38px;
+    width: 340px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
 .admin-login-box h2 {
     text-align: center;
-    margin-bottom: 25px;
     color: #4a2c1a;
+    margin-bottom: 20px;
 }
 
 .admin-login-box label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     margin-bottom: 6px;
     display: block;
@@ -199,32 +212,254 @@ tbody tr:nth-child(even) {
 
 .admin-login-box input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    padding: 11px 12px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
 }
 
 .admin-login-box button {
     width: 100%;
-    padding: 11px;
-    background-color: #c58b5a;
+    padding: 12px;
+    background: #c58b5a;
     border: none;
-    color: white;
-    font-size: 16px;
-    border-radius: 6px;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
 }
 
-.admin-login-box button:hover {
-    background-color: #b37645;
+/* =========================
+   🔥 PRODUCT FORM (APPENDED)
+   DOES NOT TOUCH ANYTHING ELSE
+========================= */
+.product-form-card {
+    background: #ffffff;
+    max-width: 620px;
+    padding: 34px 36px;
+    border-radius: 18px;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.12);
 }
 
-.back-link {
-    display: block;
-    margin-top: 15px;
-    text-align: center;
+.product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.product-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-field label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #4a2c1a;
+}
+
+.product-field input,
+.product-field textarea {
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid #d8c2ae;
+    font-size: 14px;
+    background: #fff;
+}
+
+.product-field textarea {
+    resize: none;
+    min-height: 90px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.product-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.product-save {
+    background: #c58b5a;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.product-cancel {
+    background: #ddd;
+    color: #333;
+    padding: 14px 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+}
+/* ===============================
+   PRODUCT MANAGEMENT – BUTTONS
+=============================== */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.btn-add {
+    background: #c58b5a;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.btn-add:hover {
+    background: #b37645;
+}
+
+/* Action buttons inside table */
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-edit {
+    background: #e0b084;
+    color: #4a2c1a;
+    padding: 6px 12px;
+    border-radius: 8px;
     font-size: 13px;
     text-decoration: none;
-    color: #6a1b9a;
+    font-weight: 600;
+}
+
+.btn-edit:hover {
+    background: #d39b6a;
+}
+
+.btn-delete {
+    background: #e57373;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-delete:hover {
+    background: #d32f2f;
+}
+
+.admin-card {
+    background: #ffffff;
+    max-width: 680px;
+    padding: 32px 36px;
+    border-radius: 18px;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 0.6px;
+    color: #4a2c1a;
+}
+
+.field input,
+.field textarea {
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    background: #f9f9f9;
+    box-shadow: inset 0 0 0 1px #d8c2ae;
+}
+
+.field textarea {
+    resize: none;
+    min-height: 90px;
+}
+
+.field input:focus,
+.field textarea:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px #c58b5a;
+    background: #fff;
+}
+
+/* GRID FOR PRICE / STOCK / CATEGORY / IMAGE */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* FILE INPUT FIX */
+.field input[type="file"] {
+    padding: 10px;
+    background: #fff;
+    box-shadow: none;
+}
+
+/* IMAGE PREVIEW */
+.field img {
+    margin-top: 8px;
+    max-width: 160px;
+    border-radius: 12px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+/* ACTION BUTTONS */
+.actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 12px;
+}
+
+.actions .btn-primary {
+    background: #c58b5a;
+    color: #fff;
+    border: none;
+    padding: 14px 22px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.actions .btn-primary:hover {
+    background: #b37645;
+}
+
+.actions .btn-secondary {
+    background: #ddd;
+    color: #333;
+    padding: 14px 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
 }

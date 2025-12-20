@@ -5,12 +5,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Products | Girlie Cafe</title>
+    <title>Products | Girlie's Cafe</title>
 
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <!-- MAIN CSS -->
     <link rel="stylesheet"
@@ -25,7 +24,7 @@
 
     <h1 class="page-title">Our Menu</h1>
 
-    <!-- SEARCH BAR (SERVER-SIDE)-->
+    <!-- SEARCH BAR -->
     <form method="get"
           action="${pageContext.request.contextPath}/products"
           class="search-row">
@@ -36,63 +35,32 @@
                placeholder="Search your favourites"
                value="${param.keyword}" />
 
-        <!-- Keep current category -->
         <input type="hidden"
                name="categoryId"
                value="${activeCategory}" />
 
-        <button type="submit" class="search-btn">
-            Search
-        </button>
+        <button type="submit" class="search-btn">Search</button>
     </form>
 
-    <!-- CATEGORY BUTTON BAR -->
+    <!-- CATEGORY BAR -->
     <div class="categories-row">
-
-        <a class="category-pill ${activeCategory == 1 ? 'active' : ''}"
-           href="${pageContext.request.contextPath}/products?categoryId=1">
-           Cozy Brunch
-        </a>
-
-        <a class="category-pill ${activeCategory == 2 ? 'active' : ''}"
-           href="${pageContext.request.contextPath}/products?categoryId=2">
-           Western Delights
-        </a>
-
-        <a class="category-pill ${activeCategory == 3 ? 'active' : ''}"
-           href="${pageContext.request.contextPath}/products?categoryId=3">
-           Pasta & Rice Bowls
-        </a>
-
-        <a class="category-pill ${activeCategory == 4 ? 'active' : ''}"
-           href="${pageContext.request.contextPath}/products?categoryId=4">
-           Desserts
-        </a>
-
-        <a class="category-pill ${activeCategory == 5 ? 'active' : ''}"
-           href="${pageContext.request.contextPath}/products?categoryId=5">
-           Beverages
-        </a>
-
-        <a class="category-pill ${activeCategory == 6 ? 'active' : ''}"
-           href="${pageContext.request.contextPath}/products?categoryId=6">
-           Snacks & Sides
-        </a>
-
+        <c:forEach var="i" begin="1" end="6">
+            <a class="category-pill ${activeCategory == i ? 'active' : ''}"
+               href="${pageContext.request.contextPath}/products?categoryId=${i}">
+               Category ${i}
+            </a>
+        </c:forEach>
     </div>
 
     <!-- PRODUCT GRID -->
     <div class="product-grid">
 
-        <!-- EMPTY STATE -->
         <c:if test="${empty products}">
             <p class="empty-text">No products found.</p>
         </c:if>
 
-        <!-- PRODUCT LOOP -->
         <c:forEach var="p" items="${products}">
 
-            <!-- CATEGORY → IMAGE FOLDER -->
             <c:choose>
                 <c:when test="${p.categoryId == 1}">
                     <c:set var="catFolder" value="cozy_brunch"/>
@@ -117,7 +85,7 @@
             <div class="product-card">
 
                 <img
-                    src="${pageContext.request.contextPath}/assets/images/menu/${catFolder}/${empty p.image ? 'placeholder.png' : p.image}"
+                    src="${pageContext.request.contextPath}/assets/images/menu/${catFolder}/${empty p.imageName ? 'placeholder.png' : p.imageName}"
                     alt="${p.name}"
                     onerror="this.src='${pageContext.request.contextPath}/assets/images/placeholder.png';"
                 />
@@ -128,9 +96,8 @@
 
                 <p class="price">RM ${p.price}</p>
 
-                <!-- VIEW DETAILS ONLY -->
                 <a class="btn view"
-                   href="${pageContext.request.contextPath}/productDetails?id=${p.id}">
+                   href="${pageContext.request.contextPath}/product/details?id=${p.productId}">
                     View Details
                 </a>
 
