@@ -1,67 +1,148 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*" %>
-<%@ page import="model.Product" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Products - Girlie's Café</title>
+    <title>Products | Girlie Cafe</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/main.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/assets/css/main.css">
 </head>
-
 <body>
 
-<h2 class="page-title">🍰 Our Delicious Products ☕</h2>
+<!-- HEADER -->
+<jsp:include page="/common/header.jsp" />
 
-<%
-    /* TEMPORARY DATA (UI ONLY – replace later with Servlet) */
-    List<Product> productList = new ArrayList<>();
+<div class="container">
 
-    productList.add(new Product(1, 1, "Strawberry Cupcake",
-            "Soft vanilla cupcake topped with strawberry frosting.",
-            6.50, 12, "cupcake.png"));
+    <h1 class="page-title">Our Menu</h1>
 
-    productList.add(new Product(2, 1, "Chocolate Muffin",
-            "Rich chocolate muffin with chocolate chips.",
-            7.90, 5, "cupcake.png"));
+    <!-- SEARCH BAR (SERVER-SIDE)-->
+    <form method="get"
+          action="${pageContext.request.contextPath}/products"
+          class="search-row">
 
-    productList.add(new Product(3, 2, "Iced Latte",
-            "Chilled latte with creamy milk and espresso.",
-            9.50, 0, "cupcake.png"));
-%>
+        <input type="text"
+               name="keyword"
+               class="search-input"
+               placeholder="Search your favourites"
+               value="${param.keyword}" />
 
-<div class="product-container">
+        <!-- Keep current category -->
+        <input type="hidden"
+               name="categoryId"
+               value="${activeCategory}" />
 
-<% for (Product product : productList) { %>
+        <button type="submit" class="search-btn">
+            Search
+        </button>
+    </form>
 
-    <div class="product-card">
+    <!-- CATEGORY BUTTON BAR -->
+    <div class="categories-row">
 
-        <img src="<%= request.getContextPath() %>/assets/images/<%= product.getImageName() %>"
-             alt="<%= product.getName() %>"
-             class="product-image">
+        <a class="category-pill ${activeCategory == 1 ? 'active' : ''}"
+           href="${pageContext.request.contextPath}/products?categoryId=1">
+           Cozy Brunch
+        </a>
 
-        <h3 class="product-name"><%= product.getName() %></h3>
+        <a class="category-pill ${activeCategory == 2 ? 'active' : ''}"
+           href="${pageContext.request.contextPath}/products?categoryId=2">
+           Western Delights
+        </a>
 
-        <p class="product-desc"><%= product.getDescription() %></p>
+        <a class="category-pill ${activeCategory == 3 ? 'active' : ''}"
+           href="${pageContext.request.contextPath}/products?categoryId=3">
+           Pasta & Rice Bowls
+        </a>
 
-        <p class="product-price">RM <%= String.format("%.2f", product.getPrice()) %></p>
+        <a class="category-pill ${activeCategory == 4 ? 'active' : ''}"
+           href="${pageContext.request.contextPath}/products?categoryId=4">
+           Desserts
+        </a>
 
-        <p class="product-stock">
-            <%= (product.getStock() > 0)
-                    ? "Stock: " + product.getStock()
-                    : "Out of stock" %>
-        </p>
+        <a class="category-pill ${activeCategory == 5 ? 'active' : ''}"
+           href="${pageContext.request.contextPath}/products?categoryId=5">
+           Beverages
+        </a>
 
-        <a href="#" class="btn-view">View Details</a>
+        <a class="category-pill ${activeCategory == 6 ? 'active' : ''}"
+           href="${pageContext.request.contextPath}/products?categoryId=6">
+           Snacks & Sides
+        </a>
 
     </div>
 
-<% } %>
+    <!-- PRODUCT GRID -->
+    <div class="product-grid">
+
+        <!-- EMPTY STATE -->
+        <c:if test="${empty products}">
+            <p class="empty-text">No products found.</p>
+        </c:if>
+
+        <!-- PRODUCT LOOP -->
+        <c:forEach var="p" items="${products}">
+
+            <!-- CATEGORY → IMAGE FOLDER -->
+            <c:choose>
+                <c:when test="${p.categoryId == 1}">
+                    <c:set var="catFolder" value="cozy_brunch"/>
+                </c:when>
+                <c:when test="${p.categoryId == 2}">
+                    <c:set var="catFolder" value="western"/>
+                </c:when>
+                <c:when test="${p.categoryId == 3}">
+                    <c:set var="catFolder" value="pasta_rice"/>
+                </c:when>
+                <c:when test="${p.categoryId == 4}">
+                    <c:set var="catFolder" value="dessert"/>
+                </c:when>
+                <c:when test="${p.categoryId == 5}">
+                    <c:set var="catFolder" value="drinks"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="catFolder" value="sides"/>
+                </c:otherwise>
+            </c:choose>
+
+            <div class="product-card">
+
+                <img
+                    src="${pageContext.request.contextPath}/assets/images/menu/${catFolder}/${empty p.image ? 'placeholder.png' : p.image}"
+                    alt="${p.name}"
+                    onerror="this.src='${pageContext.request.contextPath}/assets/images/placeholder.png';"
+                />
+
+                <h3>${p.name}</h3>
+
+                <p class="description">${p.description}</p>
+
+                <p class="price">RM ${p.price}</p>
+
+                <!-- VIEW DETAILS ONLY -->
+                <a class="btn view"
+                   href="${pageContext.request.contextPath}/productDetails?id=${p.id}">
+                    View Details
+                </a>
+
+            </div>
+        </c:forEach>
+
+    </div>
 
 </div>
+
+<!-- FOOTER -->
+<jsp:include page="/common/footer.jsp" />
 
 </body>
 </html>
