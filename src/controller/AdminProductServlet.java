@@ -92,28 +92,34 @@ public class AdminProductServlet extends HttpServlet {
         int productId = request.getParameter("productId") == null ? 0
                 : Integer.parseInt(request.getParameter("productId"));
 
-        // =========================
-        // HANDLE IMAGE UPLOAD
-        // =========================
-        Part imagePart = request.getPart("imageFile");
-        String imageName = request.getParameter("imageName");
+     // =========================
+     // HANDLE IMAGE UPLOAD
+     // =========================
+     Part imagePart = request.getPart("imageFile");
+     String imageName = null;
 
+     int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
-        if (imagePart != null && imagePart.getSize() > 0) {
-            imageName = Paths.get(imagePart.getSubmittedFileName())
-                    .getFileName()
-                    .toString();
+     if (imagePart != null && imagePart.getSize() > 0) {
 
-            String uploadPath = getServletContext()
-                    .getRealPath("/assets/images/products");
+         // Extract filename
+         imageName = Paths.get(imagePart.getSubmittedFileName())
+                 .getFileName()
+                 .toString();
 
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
-            }
+         // Build path: /assets/images/menu/{categoryId}
+         String uploadPath = getServletContext()
+                 .getRealPath("/assets/images/menu/" + categoryId);
 
-            imagePart.write(uploadPath + File.separator + imageName);
-        }
+         File uploadDir = new File(uploadPath);
+         if (!uploadDir.exists()) {
+             uploadDir.mkdirs(); // create category folder if missing
+         }
+
+         // Save file
+         imagePart.write(uploadPath + File.separator + imageName);
+     }
+
 
         Product product = new Product();
         product.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
