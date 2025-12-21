@@ -105,4 +105,46 @@ public class OrderDAO {
         }
         return orders;
     }
+
+    // =========================
+    // UPDATE : Order Status
+    // =========================
+    public boolean updateOrderStatus(int orderId, String orderStatus) {
+
+        String sql = "UPDATE orders SET order_status = ? WHERE order_id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, orderStatus);
+            ps.setInt(2, orderId);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // =========================
+    // UPDATE : Payment Status
+    // =========================
+    public boolean updatePaymentStatus(int orderId, String paymentStatus) {
+
+        String sql = "UPDATE orders SET payment_status = ? WHERE order_id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, paymentStatus);
+            ps.setInt(2, orderId);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
