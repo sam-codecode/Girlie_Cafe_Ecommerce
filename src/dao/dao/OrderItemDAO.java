@@ -14,25 +14,26 @@ public class OrderItemDAO {
     // =========================
     // CREATE : Add Item to Order
     // =========================
-    public boolean addOrderItem(OrderItem item) {
+	public boolean addOrderItem(OrderItem item) {
 
-        String sql = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+	    String sql = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
 
-        try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+	    try (Connection con = DBConnection.getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setInt(1, item.getOrderId());
-            ps.setInt(2, item.getProductId());
-            ps.setInt(3, item.getQuantity());
-            ps.setBigDecimal(4, item.getPrice());
+	        ps.setInt(1, item.getOrderId());
+	        ps.setInt(2, item.getProductId());
+	        ps.setInt(3, item.getQuantity());
+	        ps.setDouble(4, item.getPrice());
 
-            return ps.executeUpdate() > 0;
+	        return ps.executeUpdate() > 0;
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+
 
     // =========================
     // READ : Get Items by Order
@@ -55,7 +56,7 @@ public class OrderItemDAO {
                     item.setOrderId(rs.getInt("order_id"));
                     item.setProductId(rs.getInt("product_id"));
                     item.setQuantity(rs.getInt("quantity"));
-                    item.setPrice(rs.getBigDecimal("price"));
+                    item.setPrice(rs.getDouble("price"));
 
                     items.add(item);
                 }
@@ -67,4 +68,5 @@ public class OrderItemDAO {
 
         return items;
     }
+
 }

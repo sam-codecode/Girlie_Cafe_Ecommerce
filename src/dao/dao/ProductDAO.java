@@ -29,7 +29,6 @@ public class ProductDAO {
             ps.setString(6, product.getImageName());
 
             return ps.executeUpdate() > 0;
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -236,4 +235,43 @@ public class ProductDAO {
         }
         return false;
     }
+ // ===============================
+ // Search Products by Keyword + Category
+ // ===============================
+ public List<Product> searchProducts(String keyword, int categoryId) {
+
+     List<Product> products = new ArrayList<>();
+     String sql = "SELECT * FROM products " +
+                  "WHERE category_id = ? AND (name LIKE ? OR description LIKE ?)";
+
+     try (Connection con = DBConnection.getConnection();
+          PreparedStatement ps = con.prepareStatement(sql)) {
+
+         String search = "%" + keyword + "%";
+         ps.setInt(1, categoryId);
+         ps.setString(2, search);
+         ps.setString(3, search);
+
+         ResultSet rs = ps.executeQuery();
+
+         while (rs.next()) {
+             Product product = new Product();
+             product.setProductId(rs.getInt("product_id"));
+             product.setCategoryId(rs.getInt("category_id"));
+             product.setName(rs.getString("name"));
+             product.setDescription(rs.getString("description"));
+             product.setPrice(rs.getDouble("price"));
+             product.setStock(rs.getInt("stock"));
+             product.setImageName(rs.getString("image_name"));
+
+             products.add(product);
+         }
+
+     } catch (Exception e) {
+         e.printStackTrace();
+     }
+
+     return products;
+ }
+
 }

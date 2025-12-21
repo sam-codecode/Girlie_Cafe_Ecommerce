@@ -1,6 +1,7 @@
 package dao;
 
 import database.DBConnection;
+import java.sql.Timestamp;
 import model.Payment;
 
 import java.sql.Connection;
@@ -23,7 +24,7 @@ public class PaymentDAO {
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, payment.getOrderId());
-            ps.setTimestamp(2, payment.getPaymentDate());
+            ps.setTimestamp(2, new Timestamp(payment.getPaymentDate().getTime()));
             ps.setString(3, payment.getPaymentMethod());
             ps.setDouble(4, payment.getAmount());
 

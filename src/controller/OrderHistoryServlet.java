@@ -39,7 +39,7 @@ public class OrderHistoryServlet extends HttpServlet {
         }
 
         int userId = user.getUserId();
-        List<Order> ordersList = orderDAO.getOrdersByUser(userId);
+        List<Order> ordersList = orderDAO.getOrdersByUserId(userId);
 
         request.setAttribute("orders", ordersList);
         request.getRequestDispatcher("/user/orders.jsp").forward(request, response);
