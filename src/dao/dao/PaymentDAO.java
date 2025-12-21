@@ -65,4 +65,35 @@ public class PaymentDAO {
         }
         return payment;
     }
+
+    // =========================
+    // READ : Get All Payments
+    // =========================
+    public List<Payment> getAllPayments() {
+
+        List<Payment> payments = new ArrayList<>();
+        String sql = "SELECT * FROM payments";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Payment payment = new Payment();
+
+                payment.setPaymentId(rs.getInt("payment_id"));
+                payment.setOrderId(rs.getInt("order_id"));
+                payment.setPaymentDate(rs.getTimestamp("payment_date"));
+                payment.setPaymentMethod(rs.getString("payment_method"));
+                payment.setAmount(rs.getDouble("amount"));
+
+                payments.add(payment);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return payments;
+    }
 }
