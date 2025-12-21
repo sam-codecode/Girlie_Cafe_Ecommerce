@@ -97,9 +97,11 @@
                 <% if (isEdit && product.getImageName() != null && !product.getImageName().isEmpty()) { %>
                     <div class="field">
                         <label>Current Image</label>
-                        <img src="<%= request.getContextPath() %>/assets/images/products/<%= product.getImageName() %>"
-                             alt="Product Image"
-                             style="max-width: 160px; border-radius: 10px;">
+                        <img src="<%= request.getContextPath() %>/assets/images/menu/<%= product.getCategoryId() %>/<%= product.getImageName() %>"
+     					alt="Product Image"
+     					style="max-width: 160px; border-radius: 10px;">
+
+                             
                     </div>
                 <% } %>
 
