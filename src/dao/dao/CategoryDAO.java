@@ -93,4 +93,46 @@ public class CategoryDAO {
 
         return category;
     }
+
+    // =========================
+    // Update (Category Details)
+    // =========================
+    public boolean updateCategory(Category category) {
+
+        String sql = "UPDATE categories SET category_name=?, description=?, image_name=? WHERE category_id=?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, category.getCategoryName());
+            ps.setString(2, category.getDescription());
+            ps.setString(3, category.getImageName());
+            ps.setInt(4, category.getCategoryId());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // =========================
+    // Delete (Remove Category)
+    // =========================
+    public boolean deleteCategory(int categoryId) {
+
+        String sql = "DELETE FROM categories WHERE category_id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, categoryId);
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
