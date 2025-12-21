@@ -33,4 +33,38 @@ public class OrderItemDAO {
         }
         return false;
     }
+
+    // =========================
+    // READ : Get Items by Order
+    // =========================
+    public List<OrderItem> getItemsByOrderId(int orderId) {
+
+        List<OrderItem> items = new ArrayList<>();
+        String sql = "SELECT * FROM order_items WHERE order_id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, orderId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    OrderItem item = new OrderItem();
+
+                    item.setOrderItemId(rs.getInt("order_item_id"));
+                    item.setOrderId(rs.getInt("order_id"));
+                    item.setProductId(rs.getInt("product_id"));
+                    item.setQuantity(rs.getInt("quantity"));
+                    item.setPrice(rs.getBigDecimal("price"));
+
+                    items.add(item);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return items;
+    }
 }
