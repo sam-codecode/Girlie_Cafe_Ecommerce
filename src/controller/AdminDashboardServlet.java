@@ -1,8 +1,15 @@
 package controller;
 
 import dao.DashboardDAO;
+import model.Admin;
 
-// Map this servlet to handle requests sent to /admin/dashboard
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
 @WebServlet("/admin/dashboard")
 public class AdminDashboardServlet extends HttpServlet {
 
@@ -17,11 +24,9 @@ public class AdminDashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        // Retrieve the existing session without creating a new one
+
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("admin") == null) {
-            // Redirect unauthenticated users to the admin login page
             response.sendRedirect(request.getContextPath() + "/admin/admin_login.jsp");
             return;
         }
