@@ -62,4 +62,35 @@ public class CategoryDAO {
 
         return categories;
     }
+
+    // ===========================
+    // Read (Get Category By ID)
+    // ===========================
+    public Category getCategoryById(int categoryId) {
+
+        String sql = "SELECT * FROM categories WHERE category_id = ?";
+        Category category = null;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, categoryId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    category = new Category();
+
+                    category.setCategoryId(rs.getInt("category_id"));
+                    category.setCategoryName(rs.getString("category_name"));
+                    category.setDescription(rs.getString("description"));
+                    category.setImageName(rs.getString("image_name"));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return category;
+    }
 }
