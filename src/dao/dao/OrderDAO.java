@@ -69,4 +69,40 @@ public class OrderDAO {
         }
         return order;
     }
+
+    // =========================
+    // READ : Get Orders by User
+    // =========================
+    public List<Order> getOrdersByUserId(int userId) {
+
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT * FROM orders WHERE user_id = ? ORDER BY order_date DESC";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Order order = new Order();
+
+                    order.setOrderId(rs.getInt("order_id"));
+                    order.setUserId(rs.getInt("user_id"));
+                    order.setOrderDate(rs.getTimestamp("order_date"));
+                    order.setTotalAmount(rs.getDouble("total_amount"));
+                    order.setOrderStatus(rs.getString("order_status"));
+                    order.setPaymentStatus(rs.getString("payment_status"));
+                    order.setShippingAddress(rs.getString("shipping_address"));
+                    order.setNote(rs.getString("note"));
+
+                    orders.add(order);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
 }
