@@ -13,6 +13,8 @@
 
     <div class="admin-login-box">
         <h2>Admin Login</h2>
+	<p class="login-subtitle">Girlie's Cafe Administration ☕🥰</p>
+
 
         <form method="post" action="<%= request.getContextPath() %>/adminLogin">
 

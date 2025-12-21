@@ -1,36 +1,41 @@
-package controller; // Handles servlet controller
+package controller;
 
-// Import required classes for servlet handling and HTTP operations
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import dao.DashboardDAO;
 
 // Map this servlet to handle requests sent to /admin/dashboard
 @WebServlet("/admin/dashboard")
 public class AdminDashboardServlet extends HttpServlet {
-    
-    // Handle HTTP Get requests
+
+    private static final long serialVersionUID = 1L;
+    private DashboardDAO dashboardDAO;
+
+    @Override
+    public void init() {
+        dashboardDAO = new DashboardDAO();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         // Retrieve the existing session without creating a new one
         HttpSession session = request.getSession(false);
-        
-        // Verify admin session
         if (session == null || session.getAttribute("admin") == null) {
             // Redirect unauthenticated users to the admin login page
             response.sendRedirect(request.getContextPath() + "/admin/admin_login.jsp");
             return;
         }
 
-        // Forward to admin dashboard
+        // Stats
+        request.setAttribute("totalProducts", dashboardDAO.countProducts());
+        request.setAttribute("totalOrders", dashboardDAO.countOrders());
+        request.setAttribute("totalUsers", dashboardDAO.countUsers());
+        request.setAttribute("revenue", dashboardDAO.getTotalRevenue());
+
+        // Recent Orders (latest 5)
+        List<Map<String, Object>> recentOrders = dashboardDAO.getRecentOrders(5);
+        request.setAttribute("recentOrders", recentOrders);
+
         request.getRequestDispatcher("/admin/dashboard.jsp").forward(request, response);
     }
 }
-
-

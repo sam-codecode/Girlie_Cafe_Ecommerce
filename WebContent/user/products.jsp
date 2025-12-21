@@ -1,67 +1,115 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*" %>
-<%@ page import="model.Product" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Products - Girlie's Café</title>
+    <title>Products | Girlie's Cafe</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/main.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/assets/css/main.css">
 </head>
-
 <body>
 
-<h2 class="page-title">🍰 Our Delicious Products ☕</h2>
+<!-- HEADER -->
+<jsp:include page="/common/header.jsp" />
 
-<%
-    /* TEMPORARY DATA (UI ONLY – replace later with Servlet) */
-    List<Product> productList = new ArrayList<>();
+<div class="container">
 
-    productList.add(new Product(1, 1, "Strawberry Cupcake",
-            "Soft vanilla cupcake topped with strawberry frosting.",
-            6.50, 12, "cupcake.png"));
+    <h1 class="page-title">Our Menu</h1>
 
-    productList.add(new Product(2, 1, "Chocolate Muffin",
-            "Rich chocolate muffin with chocolate chips.",
-            7.90, 5, "cupcake.png"));
+    <!-- SEARCH BAR -->
+    <form method="get"
+          action="${pageContext.request.contextPath}/products"
+          class="search-row">
 
-    productList.add(new Product(3, 2, "Iced Latte",
-            "Chilled latte with creamy milk and espresso.",
-            9.50, 0, "cupcake.png"));
-%>
+        <input type="text"
+               name="keyword"
+               class="search-input"
+               placeholder="Search your favourites"
+               value="${param.keyword}" />
 
-<div class="product-container">
+        <input type="hidden"
+               name="categoryId"
+               value="${activeCategory}" />
 
-<% for (Product product : productList) { %>
+        <button type="submit" class="search-btn">Search</button>
+    </form>
 
-    <div class="product-card">
+    <!-- CATEGORY BAR -->
+    <div class="categories-row">
+        <c:forEach var="i" begin="1" end="6">
+            <a class="category-pill ${activeCategory == i ? 'active' : ''}"
+               href="${pageContext.request.contextPath}/products?categoryId=${i}">
+               Category ${i}
+            </a>
+        </c:forEach>
+    </div>
 
-        <img src="<%= request.getContextPath() %>/assets/images/<%= product.getImageName() %>"
-             alt="<%= product.getName() %>"
-             class="product-image">
+    <!-- PRODUCT GRID -->
+    <div class="product-grid">
 
-        <h3 class="product-name"><%= product.getName() %></h3>
+        <c:if test="${empty products}">
+            <p class="empty-text">No products found.</p>
+        </c:if>
 
-        <p class="product-desc"><%= product.getDescription() %></p>
+        <c:forEach var="p" items="${products}">
 
-        <p class="product-price">RM <%= String.format("%.2f", product.getPrice()) %></p>
+            <c:choose>
+                <c:when test="${p.categoryId == 1}">
+                    <c:set var="catFolder" value="cozy_brunch"/>
+                </c:when>
+                <c:when test="${p.categoryId == 2}">
+                    <c:set var="catFolder" value="western"/>
+                </c:when>
+                <c:when test="${p.categoryId == 3}">
+                    <c:set var="catFolder" value="pasta_rice"/>
+                </c:when>
+                <c:when test="${p.categoryId == 4}">
+                    <c:set var="catFolder" value="dessert"/>
+                </c:when>
+                <c:when test="${p.categoryId == 5}">
+                    <c:set var="catFolder" value="drinks"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="catFolder" value="sides"/>
+                </c:otherwise>
+            </c:choose>
 
-        <p class="product-stock">
-            <%= (product.getStock() > 0)
-                    ? "Stock: " + product.getStock()
-                    : "Out of stock" %>
-        </p>
+            <div class="product-card">
 
-        <a href="#" class="btn-view">View Details</a>
+                <img
+                    src="${pageContext.request.contextPath}/assets/images/menu/${catFolder}/${empty p.imageName ? 'placeholder.png' : p.imageName}"
+                    alt="${p.name}"
+                    onerror="this.src='${pageContext.request.contextPath}/assets/images/placeholder.png';"
+                />
+
+                <h3>${p.name}</h3>
+
+                <p class="description">${p.description}</p>
+
+                <p class="price">RM ${p.price}</p>
+
+                <a class="btn view"
+                   href="${pageContext.request.contextPath}/product/details?id=${p.productId}">
+                    View Details
+                </a>
+
+            </div>
+        </c:forEach>
 
     </div>
 
-<% } %>
-
 </div>
+
+<!-- FOOTER -->
+<jsp:include page="/common/footer.jsp" />
 
 </body>
 </html>
