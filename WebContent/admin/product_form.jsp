@@ -10,7 +10,7 @@
 <html>
 <head>
     <title><%= isEdit ? "Edit Product" : "Add Product" %> | Admin</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/admin.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/product_form.css">
 </head>
 
 <body class="admin-page">

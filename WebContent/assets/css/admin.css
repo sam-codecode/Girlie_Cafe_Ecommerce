@@ -229,15 +229,12 @@ tbody tr:nth-child(even) {
     cursor: pointer;
 }
 
-/* =========================
-   🔥 PRODUCT FORM (APPENDED)
-   DOES NOT TOUCH ANYTHING ELSE
-========================= */
+
 .product-form-card {
     background: #ffffff;
-    max-width: 620px;
+    max-width: 920px;
     padding: 34px 36px;
-    border-radius: 18px;
+    border-radius: 20spx;
     box-shadow: 0 16px 32px rgba(0,0,0,0.12);
 }
 
@@ -365,10 +362,11 @@ tbody tr:nth-child(even) {
 
 .admin-card {
     background: #ffffff;
-    max-width: 680px;
-    padding: 32px 36px;
-    border-radius: 18px;
-    box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+    width: 100%;
+    max-width: 900px;     /* wider, looks premium */
+    padding: 36px 40px;
+    border-radius: 20px;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.12);
 }
 
 .admin-form {
@@ -416,8 +414,9 @@ tbody tr:nth-child(even) {
 .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 20px;
 }
+
 
 /* FILE INPUT FIX */
 .field input[type="file"] {
