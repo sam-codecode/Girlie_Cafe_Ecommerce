@@ -405,28 +405,27 @@ html, body {
   margin-bottom: 12px;
 }
 
-.product-name {
+.product-row{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 14px;
+}
+.product-name{
+  margin: 0;
   font-family: "Playfair Display", serif;
-  font-size: 18px;
-  color: #4b2f24;
-  margin: 2px 0 6px;
+  font-size: 16px;
+  color: #3b2418;
 }
-
-.product-desc {
+    
+.product-price{
   font-family: "Libre Baskerville", sans-serif;;
-  font-size: 14px;
-  color: #5b4037;
-  margin: 0 0 12px;
-  line-height: 1.5;
-  min-height: 20px;
-}
-
-.product-price {
-  font-family: "Libre Baskerville", sans-serif;;
-  font-size: 17px;
   font-weight: 800;
-  color: #4b2f24;
-  margin: 0 0 10px;
+  font-size: 14px;
+  white-space: nowrap;
+  color: #7A2E3A; /* dark maroon */
 }
 
 .btn-view {
