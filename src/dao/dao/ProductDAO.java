@@ -136,37 +136,35 @@ public class ProductDAO {
     // ===============================
     // Search Products (Keyword)
     // ===============================
-    public List<Product> searchProducts(String keyword) {
+    public List<Product> searchProducts(String keyword, int categoryId) {
 
-        List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM products WHERE name LIKE ? OR description LIKE ?";
+        String sql = "SELECT * FROM products WHERE category_id = ? AND name LIKE ?";
+        List<Product> list = new ArrayList<>();
 
-        try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            String search = "%" + keyword + "%";
-            ps.setString(1, search);
-            ps.setString(2, search);
+            ps.setInt(1, categoryId);
+            ps.setString(2, "%" + keyword + "%");
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Product product = new Product();
-                product.setProductId(rs.getInt("product_id"));
-                product.setCategoryId(rs.getInt("category_id"));
-                product.setName(rs.getString("name"));
-                product.setDescription(rs.getString("description"));
-                product.setPrice(rs.getDouble("price"));
-                product.setStock(rs.getInt("stock"));
-                product.setImageName(rs.getString("image_name"));
-
-                products.add(product);
+                Product p = new Product();
+                p.setId(rs.getInt("product_id"));
+                p.setName(rs.getString("name"));
+                p.setDescription(rs.getString("description"));
+                p.setPrice(rs.getBigDecimal("price"));
+                p.setImage(rs.getString("image_name"));
+                p.setCategoryId(rs.getInt("category_id"));
+                list.add(p);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return products;
+
+        return list;
     }
 
     // ===============================
