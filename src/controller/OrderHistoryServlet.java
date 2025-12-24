@@ -46,9 +46,9 @@ public class OrderHistoryServlet extends HttpServlet {
         
         // Get user's order history
         int userId = user.getUserId();
-        List<Order> ordersList = orderDAO.getOrdersByUser(userId);
+        List<Order> ordersList = orderDAO.getOrdersByUserId(userId);
         
-        // Forward orders to JSP
+        // Forward request to jsp
         request.setAttribute("orders", ordersList);
         request.getRequestDispatcher("/user/orders.jsp").forward(request, response);
     }

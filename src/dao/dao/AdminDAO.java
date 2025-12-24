@@ -9,6 +9,28 @@ import java.sql.ResultSet;
 
 public class AdminDAO {
 
+    // Validation (Check Username Exists)
+
+    public boolean usernameExists(String username) {
+
+        String sql = "SELECT admin_id FROM admins WHERE username = ?";
+
+        try (Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)){
+
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next(); 
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Authenthication (Admin Login)
+
     public Admin login(String username, String password) {
 
         String sql = "SELECT * FROM admins WHERE username = ? AND password = ?";
@@ -23,10 +45,12 @@ public class AdminDAO {
 
             if (rs.next()) {
                 Admin admin = new Admin();
+
                 admin.setAdminId(rs.getInt("admin_id"));
                 admin.setName(rs.getString("name"));
                 admin.setUsername(rs.getString("username"));
                 admin.setPassword(rs.getString("password"));
+
                 return admin;
             }
 
@@ -35,5 +59,33 @@ public class AdminDAO {
         }
 
         return null;
+    }
+
+    //  Read (Get Admin By ID)
+
+    public Admin getAdminById(int adminId) {
+
+        String sql = "SELECT * FROM admins WHERE admin_id = ?";
+        Admin admin = null;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, adminId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                admin = new Admin();
+
+                admin.setAdminId(rs.getInt("admin_id"));
+                admin.setName(rs.getString("name"));
+                admin.setUsername(rs.getString("username"));
+                admin.setPassword(rs.getString("password"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return admin;
     }
 }
