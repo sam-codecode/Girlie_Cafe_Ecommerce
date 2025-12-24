@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Girlie's Café</title>
+    <title>Login | Girlie's Café</title>
 
     <link rel="stylesheet"
           href="<%= request.getContextPath() %>/assets/css/auth.css">
