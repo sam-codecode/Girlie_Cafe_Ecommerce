@@ -49,7 +49,7 @@ html, body {
 ========================= */
 .top-hero {
   min-height: 46vh;
-  background: url("../assets/images/brown.jpg") center / cover no-repeat;
+  background: url("/Girlie_Cafe_Ecommerce/assets/images/brown.jpg") center / cover no-repeat;
   position: relative;
 
   display: flex;
@@ -59,15 +59,16 @@ html, body {
   padding: 18px 0 30px;
 }
 
+/* Dark overlay for readability (NO blur) */
 .top-hero::before {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.35),
-    rgba(0,0,0,0.15),
-    rgba(0,0,0,0.35)
+    rgba(43, 25, 18, 0.65),
+    rgba(43, 25, 18, 0.45),
+    rgba(43, 25, 18, 0.65)
   );
   z-index: 0;
 }
@@ -84,7 +85,7 @@ html, body {
   padding-top: 8px;
 
   display: grid;
-  grid-template-columns: auto 1fr auto; 
+  grid-template-columns: auto 1fr auto; /* left | center | right */
   align-items: center;
 
   position: relative;
@@ -99,7 +100,7 @@ html, body {
 }
 
 .brand-logo {
-  width: 100px;       
+  width: 100px;       /* your requirement */
   height: auto;
   object-fit: contain;
   border-radius: 7px;
@@ -109,8 +110,8 @@ html, body {
   font-family: "Lora", serif;
   font-weight: 500;
 
-  font-size: 16px;             
-  letter-spacing: 1.6px;       
+  font-size: 16px;             /* SAME as navi-link */
+  letter-spacing: 1.6px;       /* SAME as navi-link */
   text-transform: uppercase;
 
   color: rgba(243, 233, 220, 0.88);
@@ -156,6 +157,7 @@ html, body {
   transform: translateY(-2px);
 }
 
+/* Underline appears on hover */
 .navi-link::after {
   content: "";
   position: absolute;
@@ -170,11 +172,13 @@ html, body {
 
 .navi-link:hover::after { width: 70%; }
 
+/* Underline stays on active page */
 .navi-link.active {
   color: rgba(243, 233, 220, 0.98);
 }
 .navi-link.active::after { width: 70%; }
 
+/* Checkout stays perfect */
 .nav-cta {
   justify-self: end;
   text-decoration: none;
@@ -182,7 +186,7 @@ html, body {
   font-family: "Quicksand", serif;
   font-weight: 500;
 
-  font-size: 15px;             
+  font-size: 15px;             /* SAME size */
   letter-spacing: 1.6px;
   text-transform: uppercase;
 
@@ -440,6 +444,128 @@ html, body {
 
   font-family: "Nunito", sans-serif;
   font-weight: 800;
+}
+
+.footer{
+  background: linear-gradient(180deg, #24150f 0%, #1c110c 100%);
+  color: rgba(243,233,220,0.88);
+  padding: 48px 0 18px;
+  position: relative;
+}
+
+/* soft top divider */
+.footer::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; top:0;
+  height:1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(243,233,220,0.25),
+    transparent
+  );
+}
+
+/* grid */
+.footer-grid{
+  display:grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* columns */
+.footer-col{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* brand */
+.footer-brand{
+  font-family: "Lora", serif;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: rgba(243,233,220,0.95);
+}
+
+/* titles */
+.footer-title{
+  font-family: "Libre Baskerville", serif;
+  font-size: 14px;
+  letter-spacing: .6px;
+  margin-bottom: 6px;
+  color: rgba(243,233,220,0.92);
+}
+
+/* text */
+.footer-text{
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(243,233,220,0.72);
+}
+
+.footer-text strong{
+  color: rgba(243,233,220,0.9);
+}
+
+/* links */
+.footer-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+
+  text-decoration: none;
+  font-size: 13px;
+  color: rgba(243,233,220,0.75);
+
+  transition: transform .2s ease, color .2s ease;
+}
+
+.footer-link:hover{
+  color: rgba(243,233,220,1);
+  transform: translateX(4px);
+}
+
+/* icons */
+.footer-link i{
+  font-size: 15px;
+  width: 18px;
+  color: #e8cbb8;
+}
+
+/* hover brand colours */
+.footer-social:hover .fa-instagram{ color:#E1306C; }
+.footer-social:hover .fa-facebook-f{ color:#1877F2; }
+
+/* bottom bar */
+.footer-bottom{
+  width: min(1200px, 92%);
+  margin: 24px auto 0;
+  padding-top: 14px;
+  border-top: 1px solid rgba(243,233,220,0.12);
+  font-size: 12px;
+  text-align: center;
+  color: rgba(243,233,220,0.55);
+}
+
+.footer .wrap{
+  width: min(1200px, 92%);
+  margin: 0 auto;
+}
+
+
+/* responsive */
+@media (max-width: 900px){
+  .footer-grid{
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 /* =========================
