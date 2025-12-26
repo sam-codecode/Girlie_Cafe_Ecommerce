@@ -1,283 +1,288 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@400;500&display=swap');
 
-/* Sign Up Page Styling */
+/* General Reset */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
+/* Updated Background Styling */
 body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    background-color: #f9e7d3;
-
-    background-image: 
-        url('../images/cupcake.png'),
-        url('../images/cupcake.png');
-    background-repeat: repeat, repeat;
-    background-size: 70px 70px, 70px 70px;
-    background-position: 0px 0px, 110px 110px;
-    background-attachment: fixed;
-
-    animation: cupcakeFall 18s linear infinite;
-
-    position: relative;
-    overflow: hidden;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #f9e7d3;
+  background-image: url('../images/background.png'); 
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
 }
 
-
-@keyframes cupcakeFall {
-    from { background-position: 0px -300px, 110px -410px; }
-    to   { background-position: 0px 900px, 110px 790px; }
-}
-
+/* Sign Up Page Styling */
 .register-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    height: 100vh;
-    position: relative;
-    z-index: 2;
+  position: relative; 
+  height: 100vh; 
+  display: flex; 
+  justify-content: flex-end; 
+  align-items: flex-start; 
+  padding: 60px 80px 0;
 }
 
-.left-panel, .right-panel {
-    position: relative;
-    background: none;
-    opacity: 1;
-    z-index: 2;
+.right-panel {
+  position: relative;
+  bottom: auto;
+  right: auto;
+  z-index: 10;
 }
 
 .admin-login {
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
-    font-size: 13px;
-    color: black;
-    text-decoration: none;
-    z-index: 1;
+  position: absolute;
+  font-size: 13px;
+  right: -81px;
+  color: #ffffff;;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1;
+  transition: color 0.3s ease;
+  margin-top: 670px;
 }
-
+.admin-login:hover { 
+  color: #6a1b9a;  
+}
 .form-panel {
-    position: relative;
-    background-color: rgba(222, 184, 135, 0.92);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    height: 100vh;
-    overflow: hidden;
-
-    padding: 14px 22px 12px;
-    padding-top: 0px;
-
-    z-index: 2;
+ width: 600px; 
+ height: auto;
+ padding: 40px 32px 24px;  
+ border-radius: 20px; 
+ background-color: rgba(255, 245, 230, 0.7); /* soft cream */ 
+ box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+ margin-right: 0;  
+ margin-left: auto;
+ margin-top: 0;
+ margin-bottom: 0;
+ position: relative;
 }
 
 .register-header {
-    width: 25%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0px;
-    margin-bottom: 0px;
-    margin-left: -10px;
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  margin-bottom: 8px;
+}
+
+.register-header::after { 
+  content: ""; 
+  display: block; 
+  height: 2px; 
+  background-color: #5b3a2e; 
+  margin: 12px 0; 
 }
 
 .register-logo {
-    width: 170px;
-    height: auto;
-    display: block;
-    margin-left: -100px;
-    margin-top: -20px;
+  width: 140px;
+  margin-bottom: 0;
 }
 
 .form-title {
-    font-size: 45px;
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow: 2px 2px 0 #8b5e3c;
-    line-height: 1;
+  font-family: 'Playfair Display', serif;
+  font-size: 45px;
+  font-weight: bold;
+  color:#5b3a2e;
+  line-height: 1;
+  margin: 0;
 }
 
 .form-panel .auth-form {
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin-top: -15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 0;
 }
 
 label {
-    font-size: 13px;
-    margin-top: 4px;
-    margin-bottom: 3px;
-    font-weight: bold;
-    letter-spacing: 1px;
+  font-size: 13px;
+  margin-top: 4px;
+  margin-bottom: 3px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-input,
-textarea {
-    padding: 10px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    background: #ffffff;
-    box-shadow: 3px 3px 0px #d1b08f;
-    margin-bottom: 12px;
+input, textarea {
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background: #ffffff;
+  box-shadow: 3px 3px 0px #d1b08f;
+  margin-bottom: 0px;
 }
 
 textarea {
-    resize: none;
+  resize: none;
 }
 
 button.btn-register {
-    margin-top: 12px;
-    padding: 11px;
-    background-color: #c97a8c;
-    border: none;
-    color: white;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 0 #9f5867;
+  margin-top: 12px;
+  padding: 11px;
+  background-color: #8b1c3f;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #5a0f28;
+  transition: background 0.3s ease;
 }
 
 button.btn-register:hover {
-    background-color: #c06692;
+  background-color: #b23a48;
 }
 
 .login-text {
-    margin-top: 10px;
-    font-size: 14px;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
 }
 
 .login-text a {
-    color: #6a1b9a;
-    font-weight: bold;
-    text-decoration: none;
+  color: #6a1b9a;
+  font-weight: bold;
+  text-decoration: underline;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.login-text a:hover { 
+  color: #8e24aa; 
+  transform: translateY(-2px); 
 }
 
 /* Login Page Styling */
 
-.auth-container {
-    position: relative;
-    width: 650px;
-    max-width: 90%;
-    min-height: 100vh;
-    margin: 0 auto;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-
-    background-color: rgba(222, 184, 135, 0.92);
-
-    padding: 28px 30px 26px;
-    border-radius: 6px;
-    text-align: center;
-    z-index: 2;
+.auth-wrapper { 
+  position: absolute; 
+  top: 50%;  
+  right: 40px;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
 }
 
-.login-panel {
-    padding-top: 30px;
+.auth-container {
+  width: 750px; 
+  background-color: rgba(255, 245, 230, 0.7); 
+  padding: 24px 26px 26px; 
+  border-radius: 6px; 
+  text-align: center; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  height: auto;
+  margin-top: -47px;
 }
 
 .login-logo {
-    width: 210px;
-    margin-top: -20px;
-    margin-bottom: 0px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  width: 200px;
+  margin-bottom: 0 px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .login-title {
-    font-size: 28px;
-    font-weight: bold;
-    color: #5b3a2e;
-    text-align: center;
-    margin-bottom: 6px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #5b3a2e;
+  text-align: center;
+  margin-bottom: 6px;
 }
 
 .auth-container h2 {
-    margin-top: -30px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 26px;
-    font-weight: 600;
-    margin-bottom: 2px;
-    color: #ffffff;
-    text-shadow: 2px 2px 0 #8b5e3c;
+  font-family: 'Playfair Display', sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #5b3a2e;
 }
 
 .subtitle {
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
-    margin-bottom: 20px;
-    color: #5d4037;
-    font-weight: bold;
-    opacity: 0.9;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: #3e2723;
+  font-weight: bold;
+  opacity: 0.9;
 }
 
 .auth-container .auth-form {
-    width: 80%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 
 .auth-form label {
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 4px;
-    letter-spacing: 1px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
 }
 
 .auth-form input {
-    padding: 11px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    background: #ffffff;
-    box-shadow: 3px 3px 0px #d1b08f;
-    margin-bottom: 14px;
+  padding: 11px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: #ffffff;
+  box-shadow: 3px 3px 0px #d1b08f;
+  margin-bottom: 10px;
 }
 
 button.btn {
-    margin-top: 10px;
-    padding: 12px;
-    background-color: #c97a8c;
-    border: none;
-    color: white;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 0 #9f5867;
-}
+  margin-top: 10px;
+  padding: 12px;
+  background-color: #8b1c3f;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #5a0f28;
+  transition: background 0.3s ease;
+  }
 
 button.btn:hover {
-    background-color: #c06692;
+  background-color: #b23a48;
 }
 
 .switch-text {
-    margin-top: 14px;
-    font-size: 14px;
-    text-align: center;
-    color: #3e2723;
+  margin-top: 14px;
+  font-size: 14px;
+  text-align: center;
+  color: #3e2723;
 }
 
 .switch-text a {
-    color: #6a1b9a;
-    font-weight: bold;
-    text-decoration: none;
+  color: #6a1b9a;
+  font-weight: bold;
+  text-decoration: underline;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
-.admin-login {
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
-    font-size: 13px;
-    color: black;
-    text-decoration: none;
-    z-index: 1;
+
+.switch-text a:hover { 
+  color: #8e24aa; 
+  transform: translateY(-2px); 
+}
+
+.background-panel::before { 
+  content: "Taste joy in every bite"; 
+  position: absolute; 
+  top: 40px; 
+  left: 40px; 
+  font-family: 'Playfair Display', serif; 
+  font-size: 28px; color: white; 
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
 }
