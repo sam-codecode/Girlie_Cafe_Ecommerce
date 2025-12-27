@@ -1,5 +1,6 @@
 package model;// Package for application model classes
 
+
 // Model class for product data
 public class Product {
 
@@ -59,7 +60,8 @@ public class Product {
         this.description = desc;
     }
 
-    public double getPrice() {
+    public double getPrice(){
+    	
         return price;
     }
 

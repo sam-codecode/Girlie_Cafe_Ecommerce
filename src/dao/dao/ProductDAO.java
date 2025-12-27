@@ -141,7 +141,7 @@ public class ProductDAO {
         String sql = "SELECT * FROM products WHERE category_id = ? AND name LIKE ?";
         List<Product> list = new ArrayList<>();
 
-        try (Connection conn = DBUtil.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, categoryId);
@@ -151,11 +151,11 @@ public class ProductDAO {
 
             while (rs.next()) {
                 Product p = new Product();
-                p.setId(rs.getInt("product_id"));
+                p.setProductId(rs.getInt("product_id"));
                 p.setName(rs.getString("name"));
                 p.setDescription(rs.getString("description"));
-                p.setPrice(rs.getBigDecimal("price"));
-                p.setImage(rs.getString("image_name"));
+                p.setPrice(rs.getDouble("price"));
+                p.setImageName(rs.getString("image_name"));
                 p.setCategoryId(rs.getInt("category_id"));
                 list.add(p);
             }
@@ -233,43 +233,6 @@ public class ProductDAO {
         }
         return false;
     }
- // ===============================
- // Search Products by Keyword + Category
- // ===============================
- public List<Product> searchProducts(String keyword, int categoryId) {
 
-     List<Product> products = new ArrayList<>();
-     String sql = "SELECT * FROM products " +
-                  "WHERE category_id = ? AND (name LIKE ? OR description LIKE ?)";
-
-     try (Connection con = DBConnection.getConnection();
-          PreparedStatement ps = con.prepareStatement(sql)) {
-
-         String search = "%" + keyword + "%";
-         ps.setInt(1, categoryId);
-         ps.setString(2, search);
-         ps.setString(3, search);
-
-         ResultSet rs = ps.executeQuery();
-
-         while (rs.next()) {
-             Product product = new Product();
-             product.setProductId(rs.getInt("product_id"));
-             product.setCategoryId(rs.getInt("category_id"));
-             product.setName(rs.getString("name"));
-             product.setDescription(rs.getString("description"));
-             product.setPrice(rs.getDouble("price"));
-             product.setStock(rs.getInt("stock"));
-             product.setImageName(rs.getString("image_name"));
-
-             products.add(product);
-         }
-
-     } catch (Exception e) {
-         e.printStackTrace();
-     }
-
-     return products;
- }
 
 }
