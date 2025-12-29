@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <!-- HOME CSS (your given path) -->
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/assests/css/home.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/home.css">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -351,11 +351,15 @@
   }
 
   function goTo(i, userAction = false) {
-    index = (i + slides.length) % slides.length;
-    track.style.transform = `translateX(-${index * 100}%)`;
-    updateDots();
-    if (userAction) restartAuto();
-  }
+	  index = (i + slides.length) % slides.length;
+
+	  const slideWidth = slides[0].offsetWidth;
+	  track.style.transform = `translateX(-${index * slideWidth}px)`;
+
+	  updateDots();
+	  if (userAction) restartAuto();
+	}
+
 
   function next() { goTo(index + 1, true); }
   function prev() { goTo(index - 1, true); }

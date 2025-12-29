@@ -534,7 +534,7 @@ html, body {
 
 /* EACH slide = 100% width */
 .fav-card{
-  min-width: 100%;
+  flex: 0 0 100%;
   background: #E7C1AE;
   border: 2px solid #4E2E22;
   border-radius: 18px;

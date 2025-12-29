@@ -28,7 +28,7 @@ body {
 }
 
 /* =========================
-   REGISTER PAGE
+   REGISTER PAGE */
 
 .register-wrapper {
   height: 100vh;
@@ -160,7 +160,7 @@ button.btn-register:hover {
 
 /* =========================
    LOGIN PAGE
-
+*/
 .auth-wrapper{
   height: 100vh;
   display: flex;
