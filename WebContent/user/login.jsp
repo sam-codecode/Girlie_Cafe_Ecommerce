@@ -11,11 +11,12 @@
 
 <body>
 
-<div class="auth-container">
+<div class="auth-wrapper">
 
     <img src="<%= request.getContextPath() %>/assets/images/logo.png"
          alt="Girlie's Café Logo"
          class="login-logo">
+    <div class="auth-container">
 
     <h2>Welcome to Girlie’s Café Website 🍰☕💕</h2>
     <p class="subtitle">Log in to enjoy your personalized experience!</p>
@@ -43,14 +44,7 @@
             Register here →
         </a>
     </p>
-
-    <!-- ADMIN LOGIN LINK (ADDED) -->
-    <a class="admin-login"
-       href="<%= request.getContextPath() %>/admin/admin_login.jsp">
-        admin login
-    </a>
-
-</div>
-
+   </div>
+  </div>
 </body>
 </html>

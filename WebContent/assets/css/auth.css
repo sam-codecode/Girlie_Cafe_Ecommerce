@@ -1,7 +1,6 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@400;500&display=swap');
 
-/* General Reset */
 * {
   box-sizing: border-box;
 }
@@ -11,86 +10,73 @@ body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   background-color: #f9e7d3;
-  background-image: url('../images/background.png'); 
+  background-image: url('../images/background.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   position: relative;
   overflow: hidden;
+
+  height: 100vh;
+
+  display: flex;           
+  justify-content: flex-end; 
+  align-items: center;     
+  padding-right: 80px;   
+
 }
 
-/* Sign Up Page Styling */
+/* =========================
+   REGISTER PAGE
+
 .register-wrapper {
-  position: relative; 
-  height: 100vh; 
-  display: flex; 
-  justify-content: flex-end; 
-  align-items: flex-start; 
-  padding: 60px 80px 0;
+  height: 100vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;     
+  padding-right: 120px;
 }
 
 .right-panel {
   position: relative;
-  bottom: auto;
-  right: auto;
   z-index: 10;
 }
-
-.admin-login {
-  position: absolute;
-  font-size: 13px;
-  right: -81px;
-  color: #ffffff;;
-  text-decoration: underline;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 1;
-  transition: color 0.3s ease;
-  margin-top: 670px;
-}
-.admin-login:hover { 
-  color: #6a1b9a;  
-}
 .form-panel {
- width: 600px; 
- height: auto;
- padding: 40px 32px 24px;  
- border-radius: 20px; 
- background-color: rgba(255, 245, 230, 0.7); /* soft cream */ 
- box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
- margin-right: 0;  
- margin-left: auto;
- margin-top: 0;
- margin-bottom: 0;
- position: relative;
+  width: 600px;
+  height: auto;
+  padding: 40px 32px 24px;
+  border-radius: 20px;
+  background-color: rgba(255, 245, 230, 0.7);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  margin-left: auto;
+  position: relative;
 }
 
 .register-header {
-  display: flex; 
-  align-items: center; 
-  gap: 12px; 
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 8px;
 }
 
-.register-header::after { 
-  content: ""; 
-  display: block; 
-  height: 2px; 
-  background-color: #5b3a2e; 
-  margin: 12px 0; 
+.register-header::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background-color: #5b3a2e;
+  margin: 12px 0;
 }
 
 .register-logo {
   width: 140px;
-  margin-bottom: 0;
 }
 
 .form-title {
   font-family: 'Playfair Display', serif;
   font-size: 45px;
   font-weight: bold;
-  color:#5b3a2e;
+  color: #5b3a2e;
   line-height: 1;
   margin: 0;
 }
@@ -100,7 +86,6 @@ body {
   display: flex;
   flex-direction: column;
   text-align: left;
-  margin-top: 0;
 }
 
 label {
@@ -111,14 +96,14 @@ label {
   letter-spacing: 1px;
 }
 
-input, textarea {
+input,
+textarea {
   padding: 10px;
   border: none;
   outline: none;
   border-radius: 5px;
   background: #ffffff;
   box-shadow: 3px 3px 0px #d1b08f;
-  margin-bottom: 0px;
 }
 
 textarea {
@@ -135,7 +120,7 @@ button.btn-register {
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 4px 0 #5a0f28;
-  transition: background 0.3s ease;
+  transition: bg 0.3s ease;
 }
 
 button.btn-register:hover {
@@ -152,82 +137,88 @@ button.btn-register:hover {
   color: #6a1b9a;
   font-weight: bold;
   text-decoration: underline;
-  transition: all 0.3s ease;
-  display: inline-block;
 }
 
-.login-text a:hover { 
-  color: #8e24aa; 
-  transform: translateY(-2px); 
+.admin-login {
+  position: fixed;
+  bottom: 20px;
+  left: 24px;      
+
+  font-size: 13px;
+  color: #6a1b9a;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+  z-index: 999;
+  transition: color 0.3s ease;
 }
 
-/* Login Page Styling */
-
-.auth-wrapper { 
-  position: absolute; 
-  top: 50%;  
-  right: 40px;
-  display: flex; 
-  flex-direction: column; 
-  align-items: center;
+.admin-login:hover {
+  color: #8e24aa;
 }
 
+
+/* =========================
+   LOGIN PAGE
+
+.auth-wrapper{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;  
+  justify-content: center; 
+  align-items: center; 
+  transform: translateY(-40px);   
+
+  padding-right: 90px;      
+}
+          
 .auth-container {
-  width: 750px; 
-  background-color: rgba(255, 245, 230, 0.7); 
-  padding: 24px 26px 26px; 
-  border-radius: 6px; 
-  text-align: center; 
+  width: 750px;
+  background-color: rgba(255, 245, 230, 0.7);
+  padding: 24px 26px 26px;
+  border-radius: 6px;
+  text-align: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  height: auto;
-  margin-top: -47px;
+  margin-top: 0;
 }
 
 .login-logo {
   width: 200px;
-  margin-bottom: 0 px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display:block;
+  margin-bottom: -50px;
 }
 
 .login-title {
   font-size: 28px;
   font-weight: bold;
   color: #5b3a2e;
-  text-align: center;
-  margin-bottom: 6px;
 }
 
 .auth-container h2 {
   font-family: 'Playfair Display', sans-serif;
   font-size: 30px;
   font-weight: 600;
-  margin-bottom: 6px;
   color: #5b3a2e;
 }
 
 .subtitle {
-  font-family: 'Poppins', sans-serif;
   font-size: 15px;
   margin-bottom: 20px;
   color: #3e2723;
   font-weight: bold;
-  opacity: 0.9;
 }
 
 .auth-container .auth-form {
   width: 100%;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
 .auth-form label {
-  font-family: 'Poppins', sans-serif;
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 4px;
-  letter-spacing: 1px;
 }
 
 .auth-form input {
@@ -250,8 +241,7 @@ button.btn {
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 4px 0 #5a0f28;
-  transition: background 0.3s ease;
-  }
+}
 
 button.btn:hover {
   background-color: #b23a48;
@@ -261,28 +251,10 @@ button.btn:hover {
   margin-top: 14px;
   font-size: 14px;
   text-align: center;
-  color: #3e2723;
 }
 
 .switch-text a {
   color: #6a1b9a;
   font-weight: bold;
   text-decoration: underline;
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.switch-text a:hover { 
-  color: #8e24aa; 
-  transform: translateY(-2px); 
-}
-
-.background-panel::before { 
-  content: "Taste joy in every bite"; 
-  position: absolute; 
-  top: 40px; 
-  left: 40px; 
-  font-family: 'Playfair Display', serif; 
-  font-size: 28px; color: white; 
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
 }
