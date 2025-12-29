@@ -1,3 +1,5 @@
+-- Category 1: Cozy Brunch
+
 INSERT INTO products (category_id, name, description, price, stock, image_name) VALUES
 
 (1,'I’m Hungry',
@@ -19,3 +21,35 @@ INSERT INTO products (category_id, name, description, price, stock, image_name) 
 (1,'Something Smashed',
 'A modern brunch favourite featuring smashed avocado blended with silky labneh, topped with delicately poached eggs and tender garden peas. Served on toasted sourdough, offering a perfect harmony of creaminess, freshness, and comfort.',
 23.00,30,'something_smashed.png');
+
+-- Category 2: Western Delights
+
+INSERT INTO products (category_id, name, description, price, stock, image_name) VALUES
+
+(2,'Fish & Chips',
+'Crispy battered fish fried to golden perfection, locking in moist flaky flesh inside, served with golden fries, classic tartar sauce, and a fresh lemon wedge. A timeless comfort dish delivering crunch, richness, and balance.',
+20.00,40,'fish_and_chips.png'),
+
+(2,'Grilled Chicken Chop',
+'A juicy grilled chicken chop marinated with aromatic spices and grilled until tender, topped with rich black pepper sauce. Served with crispy fries and seasonal vegetables for a hearty, satisfying meal.',
+18.00,35,'grilled_chicken_chop.png'),
+
+(2,'Chicken Parmigiana',
+'A Western classic featuring a crispy breaded chicken cutlet layered with savoury marinara sauce and melted cheese. Finished until golden and served with fresh salad, combining crunch, tang, and indulgence.',
+23.00,30,'chicken_parmigiana.png'),
+
+(2,'Grilled Salmon',
+'A perfectly grilled salmon fillet with a lightly crisp exterior and tender flaky interior, served with vegetables and finished with fragrant lemon butter sauce for a wholesome and elegant dish.',
+28.00,25,'grilled_salmon.png'),
+
+(2,'Meatball Platter',
+'A comforting platter of juicy chicken or beef meatballs served with creamy mashed potatoes and savoury gravy. Rich, filling, and ideal for those craving a hearty meal.',
+18.00,30,'meatball_platter.png'),
+
+(2,'Classic Beef Burger',
+'A juicy beef patty layered with melted cheese, crisp lettuce, and smooth mayonnaise inside a soft toasted bun. Served with golden crispy fries, delivering a timeless and satisfying burger experience.',
+18.00,35,'classic_beef_burger.png'),
+
+(2,'Chicken Burger',
+'A tender and crispy chicken patty layered with fresh lettuce and creamy mayonnaise, tucked into a lightly toasted bun and served with crispy fries. Comforting, flavourful, and crowd-pleasing.',
+16.00,50,'chicken_burger.png');
