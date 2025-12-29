@@ -1,13 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="model.Product" %>
 
 <%
-  Product product = (Product) request.getAttribute("product");
-  if (product == null) {
-      response.sendRedirect(request.getContextPath() + "/products.jsp");
-      return;
-  }
+    Product product = (Product) request.getAttribute("product");
+    if (product == null) {
+        response.sendRedirect(request.getContextPath() + "/user/products.jsp");
+        return;
+    }
 %>
 
 <!DOCTYPE html>
@@ -15,37 +14,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Details | Girlie’s Café</title>
+  <title><%= product.getName() %> | Girlie’s Café</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="../css/product.css" />
+  <!-- CSS (FIXED PATH) -->
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/product.css" />
 </head>
 
 <body>
 
 <!-- =========================
-     NAVIGATION (same design)
+     NAVIGATION
 ========================= -->
 <header class="top-hero">
   <nav class="top-navi">
-    <a class="brand" href="home.jsp">
-      <img src="../images/logo.png" alt="Girlie’s Café" class="brand-logo">
+    <a class="brand" href="<%= request.getContextPath() %>/user/index.jsp">
+      <img src="<%= request.getContextPath() %>/assets/images/logo.png"
+           alt="Girlie’s Café" class="brand-logo">
       <span class="brand-name">Girlie’s Café</span>
     </a>
 
     <div class="navi-links">
-      <a class="navi-link" href="home.jsp">Home</a>
-      <a class="navi-link active" href="products.jsp">Menu</a>
-      <a class="navi-link" href="cart.jsp">Cart</a>
-      <a class="navi-link" href="history.jsp">My History</a>
+      <a class="navi-link" href="<%= request.getContextPath() %>/user/index.jsp">Home</a>
+      <a class="navi-link active" href="<%= request.getContextPath() %>/user/products.jsp">Menu</a>
+      <a class="navi-link" href="<%= request.getContextPath() %>/user/cart.jsp">Cart</a>
+      <a class="navi-link" href="<%= request.getContextPath() %>/user/orders.jsp">My History</a>
     </div>
 
-    <a class="nav-cta pop-effect" href="cart.jsp">Checkout</a>
+    <a class="nav-cta pop-effect"
+       href="<%= request.getContextPath() %>/user/cart.jsp">Checkout</a>
   </nav>
 
   <div class="main-text">
@@ -54,20 +55,20 @@
   </div>
 </header>
 
-
 <!-- =========================
      PRODUCT DETAILS
 ========================= -->
 <main class="menu-section">
   <div class="menu-wrap">
 
-    <!-- Back link OUTSIDE the card (top) -->
-    <a href="products.jsp" class="back-top-link">← Back to Menu</a>
+    <!-- Back link -->
+    <a href="<%= request.getContextPath() %>/user/products.jsp"
+       class="back-top-link">← Back to Menu</a>
 
-    <!-- Pop Toast -->
-    <div class="success-toast" id="successToast" aria-live="polite">
+    <!-- Success Toast -->
+    <div class="success-toast hide" id="successToast" aria-live="polite">
       Item has successfully been added into My Cart.
-      <a href="cart.jsp">Go to Cart</a>
+      <a href="<%= request.getContextPath() %>/user/cart.jsp">Go to Cart</a>
     </div>
 
     <!-- Product Card -->
@@ -75,31 +76,35 @@
 
       <!-- Image -->
       <img id="productImage"
-           src="../images/placeholder.png"
-           alt="Product Image"
-           onerror="this.src='../images/placeholder.png'">
+           src="<%= request.getContextPath() %>/assets/images/menu/<%= product.getCategoryId() %>/<%= product.getImageName() %>"
+           alt="<%= product.getName() %>"
+           onerror="this.src='<%= request.getContextPath() %>/assets/images/placeholder.png'">
 
-      <!-- Right side info -->
+      <!-- Info -->
       <div class="product-details-info">
 
         <div class="product-row">
-          <h3 class="product-name" id="productName">Loading...</h3>
-          <span class="product-price" id="productPrice">RM 0.00</span>
+          <h3 class="product-name"><%= product.getName() %></h3>
+          <span class="product-price">
+            RM <%= String.format("%.2f", product.getPrice()) %>
+          </span>
         </div>
 
-        <p class="product-desc" id="productDesc">Loading description...</p>
+        <p class="product-desc"><%= product.getDescription() %></p>
 
-        <form id="addCartForm">
-          <input type="hidden" id="productId" value="">
+        <!-- Add to Cart -->
+        <form action="<%= request.getContextPath() %>/cart" method="post" id="addCartForm">
+          <input type="hidden" name="action" value="add">
+          <input type="hidden" name="productId" value="<%= product.getId() %>">
 
-          <!-- Quantity centered + lower -->
+          <!-- Quantity -->
           <div class="qty-area">
             <button type="button" id="minusBtn">-</button>
-            <input type="number" id="qtyInput" name="quantity" value="1" min="1" >
+            <input type="number" id="qtyInput" name="quantity"
+                   value="1" min="1" max="<%= product.getStock() %>">
             <button type="button" id="plusBtn">+</button>
           </div>
 
-          <!-- Buttons row -->
           <div class="action-row">
             <button type="submit" class="btn-addcart">ADD TO CART</button>
           </div>
@@ -112,7 +117,7 @@
 </main>
 
 <!-- =========================
-     FOOTER (same design)
+     FOOTER
 ========================= -->
 <footer class="footer">
   <div class="wrap footer-grid">
@@ -122,21 +127,25 @@
       <p class="footer-text">
         <strong>Operating Hours</strong><br>
         Mon – Sat: 8:00 AM – 7:00 PM<br>
-        Sun & Public Holidays: Closed
+        Sun &amp; Public Holidays: Closed
       </p>
     </div>
 
     <div class="footer-col">
       <div class="footer-title">Customer Care</div>
       <a class="footer-link" href="#">FAQ</a>
-      <a class="footer-link" href="https://wa.me/60123456789" target="_blank">Contact Us (WhatsApp)</a>
+      <a class="footer-link"
+         href="https://wa.me/60123456789" target="_blank">Contact Us (WhatsApp)</a>
     </div>
 
     <div class="footer-col">
       <div class="footer-title">Connect</div>
-      <a class="footer-link" href="https://instagram.com/girliescafe" target="_blank">Instagram</a>
-      <a class="footer-link" href="https://facebook.com/girliescafe" target="_blank">Facebook</a>
-      <a class="footer-link" href="tel:+60111111111">+60-11-1111111</a>
+      <a class="footer-link"
+         href="https://instagram.com/girliescafe" target="_blank">Instagram</a>
+      <a class="footer-link"
+         href="https://facebook.com/girliescafe" target="_blank">Facebook</a>
+      <a class="footer-link"
+         href="tel:+60111111111">+60-11-1111111</a>
     </div>
 
   </div>
@@ -146,7 +155,9 @@
   </div>
 </footer>
 
-
+<!-- =========================
+     JAVASCRIPT (same as HTML)
+========================= -->
 <script>
   // ===== Quantity stepper =====
   const minusBtn = document.getElementById("minusBtn");

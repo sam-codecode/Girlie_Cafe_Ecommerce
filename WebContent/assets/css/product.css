@@ -59,7 +59,6 @@ html, body {
   padding: 18px 0 30px;
 }
 
-/* Dark overlay for readability (NO blur) */
 .top-hero::before {
   content: "";
   position: absolute;
@@ -75,9 +74,8 @@ html, body {
 
 .top-navi, .hero-text { position: relative; z-index: 1; }
 
-
 /* =========================
-   NAVI (Luxury / Slanted)
+   NAVI 
 ========================= */
 .top-navi {
   width: min(1200px, 92%);
@@ -85,7 +83,7 @@ html, body {
   padding-top: 8px;
 
   display: grid;
-  grid-template-columns: auto 1fr auto; /* left | center | right */
+  grid-template-columns: auto 1fr auto;
   align-items: center;
 
   position: relative;
@@ -100,7 +98,7 @@ html, body {
 }
 
 .brand-logo {
-  width: 100px;       /* your requirement */
+  width: 100px;       
   height: auto;
   object-fit: contain;
   border-radius: 7px;
@@ -110,8 +108,8 @@ html, body {
   font-family: "Lora", serif;
   font-weight: 500;
 
-  font-size: 16px;             /* SAME as navi-link */
-  letter-spacing: 1.6px;       /* SAME as navi-link */
+  font-size: 16px;            
+  letter-spacing: 1.6px;      
   text-transform: uppercase;
 
   color: rgba(243, 233, 220, 0.88);
@@ -130,7 +128,6 @@ html, body {
   transform: translateX(-50%);
 }
 
-/* Slanted + professional */
 .navi-link {
   position: relative;
   text-decoration: none;
@@ -157,7 +154,6 @@ html, body {
   transform: translateY(-2px);
 }
 
-/* Underline appears on hover */
 .navi-link::after {
   content: "";
   position: absolute;
@@ -172,13 +168,11 @@ html, body {
 
 .navi-link:hover::after { width: 70%; }
 
-/* Underline stays on active page */
 .navi-link.active {
   color: rgba(243, 233, 220, 0.98);
 }
 .navi-link.active::after { width: 70%; }
 
-/* Checkout stays perfect */
 .nav-cta {
   justify-self: end;
   text-decoration: none;
@@ -186,7 +180,7 @@ html, body {
   font-family: "Quicksand", serif;
   font-weight: 500;
 
-  font-size: 15px;             /* SAME size */
+  font-size: 15px;            
   letter-spacing: 1.6px;
   text-transform: uppercase;
 
@@ -246,7 +240,6 @@ html, body {
 
 }
 
-
 /* =========================
    SECTION 2: MENU AREA
 ========================= */
@@ -265,21 +258,18 @@ html, body {
   margin: 0 auto;
 }
 
-/* Center section + shorten width */
 .menu-filter {
     display: flex;
     justify-content: center;
     padding: 32px 16px 40px;
 }
 
-/* Toolbar */
 .product-toolbar {
   background: #b08a6a;;
   border-radius: 12px;
   padding: 16px;
   border: 1px solid #8e6d55;
 
-  /* Warm ambient shadow */
   box-shadow:
     0 6px 16px rgba(61, 38, 23, 0.25),
     0 2px 4px rgba(255, 255, 255, 0.10) inset;
@@ -453,7 +443,6 @@ html, body {
   position: relative;
 }
 
-/* soft top divider */
 .footer::before{
   content:"";
   position:absolute;
@@ -467,7 +456,6 @@ html, body {
   );
 }
 
-/* grid */
 .footer-grid{
   display:grid;
   grid-template-columns: 1.4fr 1fr 1fr;
@@ -475,14 +463,12 @@ html, body {
   align-items: start;
 }
 
-/* columns */
 .footer-col{
   display:flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* brand */
 .footer-brand{
   font-family: "Lora", serif;
   font-weight: 700;
@@ -492,7 +478,6 @@ html, body {
   color: rgba(243,233,220,0.95);
 }
 
-/* titles */
 .footer-title{
   font-family: "Libre Baskerville", serif;
   font-size: 14px;
@@ -501,7 +486,6 @@ html, body {
   color: rgba(243,233,220,0.92);
 }
 
-/* text */
 .footer-text{
   margin: 0;
   font-size: 13px;
@@ -513,7 +497,6 @@ html, body {
   color: rgba(243,233,220,0.9);
 }
 
-/* links */
 .footer-link{
   display: inline-flex;
   align-items: center;
@@ -532,18 +515,15 @@ html, body {
   transform: translateX(4px);
 }
 
-/* icons */
 .footer-link i{
   font-size: 15px;
   width: 18px;
   color: #e8cbb8;
 }
 
-/* hover brand colours */
 .footer-social:hover .fa-instagram{ color:#E1306C; }
 .footer-social:hover .fa-facebook-f{ color:#1877F2; }
 
-/* bottom bar */
 .footer-bottom{
   width: min(1200px, 92%);
   margin: 24px auto 0;
@@ -559,34 +539,6 @@ html, body {
   margin: 0 auto;
 }
 
-
-/* responsive */
-@media (max-width: 900px){
-  .footer-grid{
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 900px) {
-  .product-container { grid-template-columns: repeat(2, 1fr); }
-  .navi-links { gap: 22px; }
-  .nav-cta { font-size: 14px; }
-}
-
-@media (max-width: 560px) {
-  .product-container { grid-template-columns: 1fr; }
-  .brand-name { display: none; }
-  .brand-logo { width: 80px; }
-  .nav-cta { display: none; }
-}
 
 /* Product details styling */
 
@@ -751,7 +703,6 @@ html, body {
   box-shadow: 0 18px 30px rgba(0,0,0,0.16);
 }
 
-/* SUCCESS TOAST POP */
 .success-toast{
   position: fixed;
   top: 18px;
@@ -801,6 +752,34 @@ html, body {
   animation: toastOut .25s ease both;
 }
 
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px){
+  .footer-grid{
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .product-container { grid-template-columns: repeat(2, 1fr); }
+  .navi-links { gap: 22px; }
+  .nav-cta { font-size: 14px; }
+}
+
+@media (max-width: 560px) {
+  .product-container { grid-template-columns: 1fr; }
+  .brand-name { display: none; }
+  .brand-logo { width: 80px; }
+  .nav-cta { display: none; }
+}
+
 @keyframes toastPop{
   from { transform: translateX(-50%) translateY(-18px) scale(0.96); opacity: 0; }
   to   { transform: translateX(-50%) translateY(0px) scale(1); opacity: 1; }
@@ -811,7 +790,6 @@ html, body {
   to   { transform: translateX(-50%) translateY(-12px) scale(0.98); opacity: 0; }
 }
 
-/* Responsive */
 @media (max-width: 900px){
   .product-details{
     grid-template-columns: 1fr;
