@@ -93,3 +93,39 @@ INSERT INTO products (category_id, name, description, price, stock, image_name) 
 (3,'Unagi Rice Bowl',
 'Grilled eel glazed in a sweet teriyaki sauce, served over fluffy Japanese rice and topped with a perfectly cooked sunny side up egg. Rich, smoky, and deeply savoury, this dish offers a premium and comforting dining experience.',
 25.00,30,'unagi_rice_bowl.png');
+
+-- Category 4 : Desserts
+
+INSERT INTO products (category_id, name, description, price, stock, image_name) VALUES
+
+(4,'Red Velvet Cake',
+'A moist and velvety red velvet sponge layered generously with smooth cream cheese frosting. Light cocoa notes blend beautifully with the creamy tang of the frosting, creating a soft, rich, and indulgent dessert that melts in your mouth.',
+8.00,40,'red_velvet_cake.png'),
+
+(4,'New York Cheesecake',
+'A rich and creamy baked cheesecake with a dense yet silky texture, set on a buttery biscuit crust. Smooth, lightly tangy, and perfectly balanced in sweetness, this timeless classic is made for true cheesecake lovers.',
+9.00,35,'new_york_cheesecake.png'),
+
+(4,'Strawberry Shortcake',
+'Soft vanilla sponge cake layered with fresh whipped cream and juicy strawberries. Light, airy, and refreshing, this dessert delivers a gentle sweetness with every bite.',
+15.00,30,'strawberry_shortcake.png'),
+
+(4,'Chocolate Lava Cake',
+'A warm, decadent chocolate cake with a molten, gooey centre that flows when cut. Rich cocoa flavour and soft texture make this an indulgent treat for serious chocolate lovers.',
+10.00,30,'chocolate_lava_cake.png'),
+
+(4,'Honey Butter Waffle',
+'A crispy golden waffle drizzled with fragrant honey and served with butter that melts slowly into every pocket. Simple, comforting, and perfectly balanced between crisp and soft.',
+12.00,35,'honey_butter_waffle.png'),
+
+(4,'Brownie Sundae',
+'A dense and fudgy chocolate brownie topped with a scoop of smooth vanilla ice cream and finished with rich chocolate drizzle. A classic hot-and-cold dessert combination that satisfies every sweet craving.',
+12.00,35,'brownie_sundae.png'),
+
+(4,'Matcha Tiramisu',
+'A Japanese-inspired twist on the classic tiramisu, featuring layers of soft sponge and creamy matcha-infused mascarpone. Earthy, smooth, and delicately sweet with a refined finish.',
+16.00,30,'matcha_tiramisu.png'),
+
+(4,'Croffle',
+'A crispy croissant waffle with flaky layers and a buttery interior, served warm with your choice of honey, chocolate, or strawberry sauce. Light, indulgent, and irresistibly crunchy.',
+10.00,40,'croffle.png');
