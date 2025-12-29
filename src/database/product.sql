@@ -2,7 +2,7 @@
 
 INSERT INTO products (category_id, name, description, price, stock, image_name) VALUES
 
-(1,'I’m Hungry',
+(1,'Im Hungry',
 'A generous all-day brunch platter revealing a perfectly cooked sunny side up egg with a rich runny yolk, creamy ripe avocado slices, sautéed mushrooms bursting with earthy aroma, sweet baked beans, juicy chicken sausage, crisp toasted sourdough bread, and a refreshing side salad to balance the richness. A complete, hearty plate made for serious brunch lovers.',
 17.60,40,'im_hungry.png'),
 
@@ -26,7 +26,7 @@ INSERT INTO products (category_id, name, description, price, stock, image_name) 
 
 INSERT INTO products (category_id, name, description, price, stock, image_name) VALUES
 
-(2,'Fish & Chips',
+(2,'Fish and Chips',
 'Crispy battered fish fried to golden perfection, locking in moist flaky flesh inside, served with golden fries, classic tartar sauce, and a fresh lemon wedge. A timeless comfort dish delivering crunch, richness, and balance.',
 20.00,40,'fish_and_chips.png'),
 
@@ -67,7 +67,7 @@ INSERT INTO products (category_id, name, description, price, stock, image_name) 
 19.00,40,'pesto_pasta.png'),
 
 (3,'Pesto Genovese',
-'Al dente spaghetti generously coated in rich walnut pesto, offering deep nutty and herbal flavours. Paired with king oyster mushroom “vegan scallops” that provide a meaty texture and umami depth, creating a refined and satisfying plant-based gourmet dish.',
+'Al dente spaghetti generously coated in rich walnut pesto, offering deep nutty and herbal flavours. Paired with king oyster mushroom vegan scallops that provide a meaty texture and umami depth, creating a refined and satisfying plant-based gourmet dish.',
 25.00,30,'pesto_genovese.png'),
 
 (3,'Truffle Carbonara',
@@ -78,7 +78,7 @@ INSERT INTO products (category_id, name, description, price, stock, image_name) 
 'Spaghetti noodles tossed in a fragrant spicy garlic butter sauce infused with slow-cooked garlic, chili flakes, and savoury aromatics. Finished with herbs and spring onions, this dish delivers a bold, warming kick with smooth, satisfying texture.',
 25.00,35,'spicy_garlic_noodles.png'),
 
-(3,'Garlic Mac & Cheese',
+(3,'Garlic Mac and Cheese',
 'Creamy macaroni baked in a rich garlic-infused cheese sauce until perfectly gooey, then topped with crispy bacon chips for added texture and savoury depth. A comforting and indulgent dish made for cheese lovers.',
 24.00,35,'garlic_mac_and_cheese.png'),
 
@@ -274,6 +274,54 @@ INSERT INTO products (category_id, name, description, price, stock, image_name) 
 'Pink strawberry milk blended with ice into a smooth, creamy, and refreshing drink.',
 13.00,50,'strawberry_milk_frappe.png'),
 
-(5,'Cookies & Cream Frappe',
+(5,'Cookies and Cream Frappe',
 'Creamy milk blended with crushed chocolate cookies, delivering a rich and indulgent cookies-and-cream flavour.',
 15.00,50,'cookies_and_cream_frappe.png');
+
+-- Category 6 : Snacks & Sides
+
+INSERT INTO products (category_id, name, description, price, stock, image_name) VALUES
+
+(6,'French Fries',
+'Classic golden fries fried until perfectly crisp on the outside while remaining fluffy on the inside. Lightly seasoned and served hot, making them an ideal side dish or snack that pairs well with any main meal.',
+6.00,80,'french_fries.png'),
+
+(6,'Cheesy Fries',
+'Crispy fries generously topped with warm, melted cheese sauce that coats every bite. Rich, indulgent, and comforting, this snack is perfect for sharing or enjoying on its own.',
+8.00,70,'cheesy_fries.png'),
+
+(6,'Chicken Nuggets',
+'Golden crispy chicken nuggets with a crunchy outer coating and tender, juicy interior. A familiar and satisfying snack that is perfect for dipping and sharing.',
+8.00,70,'chicken_nuggets.png'),
+
+(6,'Crispy Chicken Bites',
+'Bite-sized pieces of seasoned chicken coated in a crunchy crust and fried until golden brown. Packed with flavour and texture, these bites are addictive and satisfying.',
+10.00,60,'crispy_chicken_bites.png'),
+
+(6,'Onion Rings',
+'Thick-cut onion rings battered and deep-fried until crispy and golden, delivering a sweet onion centre with a crunchy exterior. Served hot with dipping sauce.',
+6.00,65,'onion_rings.png'),
+
+(6,'Sourdough Bread',
+'A thick slice of sourdough bread toasted until golden and crisp on the outside while remaining soft inside. Perfect as an add-on to brunch or main dishes.',
+2.00,90,'sourdough_bread.png'),
+
+(6,'Scrambled Egg',
+'Creamy scrambled eggs cooked gently to achieve a soft, fluffy texture with rich buttery flavour. A comforting add-on that complements any meal.',
+3.00,90,'scrambled_egg.png'),
+
+(6,'Chicken Sausage',
+'A single juicy chicken sausage grilled until tender and lightly browned, offering a savoury and satisfying protein add-on.',
+5.00,80,'chicken_sausage.png'),
+
+(6,'Avocado',
+'Fresh ripe avocado served sliced, delivering a creamy texture and mild flavour that adds richness and balance to any dish.',
+5.00,80,'avocado.png'),
+
+(6,'Poached Egg',
+'A perfectly poached egg with delicate whites and a rich, runny yolk that flows beautifully when cut. Ideal as a topping or side.',
+5.00,80,'poached_egg.png'),
+
+(6,'Ice Cream',
+'A scoop of smooth and creamy ice cream available in vanilla or chocolate. Cold, comforting, and perfect as a light dessert or add-on.',
+5.00,100,'ice_cream.png');
