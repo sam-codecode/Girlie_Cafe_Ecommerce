@@ -129,3 +129,151 @@ INSERT INTO products (category_id, name, description, price, stock, image_name) 
 (4,'Croffle',
 'A crispy croissant waffle with flaky layers and a buttery interior, served warm with your choice of honey, chocolate, or strawberry sauce. Light, indulgent, and irresistibly crunchy.',
 10.00,40,'croffle.png');
+
+-- Category 5 : Beverages
+
+INSERT INTO products (category_id, name, description, price, stock, image_name) VALUES
+
+-- ICED COFFEE
+(5,'Iced Long Black',
+'A refreshing chilled black coffee brewed from quality espresso and poured over ice, delivering a bold, crisp flavour with clean bitterness. Perfect for those who enjoy coffee in its purest form.',
+10.00,60,'iced_long_black.png'),
+
+(5,'Iced Latte',
+'Smooth espresso combined with cold fresh milk and ice, creating a creamy and balanced coffee drink that is light, refreshing, and comforting.',
+11.00,60,'iced_latte.png'),
+
+(5,'Iced Lotus Latte',
+'A creamy iced latte infused with rich Lotus Biscoff flavour, delivering sweet caramelised notes that blend beautifully with espresso and milk.',
+12.00,55,'iced_lotus_latte.png'),
+
+(5,'Iced Hazelnut Latte',
+'A velvety iced latte blended with aromatic hazelnut syrup, offering a nutty sweetness that complements the smooth coffee base.',
+13.00,55,'iced_hazelnut_latte.png'),
+
+(5,'Iced Vanilla Latte',
+'Chilled espresso mixed with milk and a touch of vanilla syrup, creating a softly sweet and smooth coffee drink that is easy to enjoy.',
+13.00,55,'iced_vanilla_latte.png'),
+
+(5,'Iced Rose Latte',
+'A visually striking pink iced latte infused with delicate rose flavour, offering a light floral aroma with a smooth creamy finish.',
+13.00,50,'iced_rose_latte.png'),
+
+(5,'Iced Cappuccino',
+'A chilled version of the café classic, combining espresso, cold milk, and a layer of velvety foam for a refreshing yet familiar taste.',
+11.00,55,'iced_cappuccino.png'),
+
+(5,'Iced Mocha',
+'A rich blend of chocolate and espresso served over ice, combining deep cocoa notes with coffee bitterness for a satisfying indulgent drink.',
+15.00,55,'iced_mocha.png'),
+
+(5,'Iced Belgian Chocolate Mocha',
+'A premium iced drink combining smooth espresso with rich Belgian chocolate, delivering a deep, luxurious chocolate flavour with a coffee kick.',
+16.00,50,'iced_belgian_chocolate_mocha.png'),
+
+(5,'Iced As-presso',
+'A unique fusion of iced coffee and Assam tea, delivering a bold and unexpected flavour profile that balances caffeine strength with tea depth.',
+11.00,50,'iced_as_presso.png'),
+
+(5,'Foamy Black (Iced)',
+'Espresso shaken vigorously with sparkling iced water to create a light foamy texture and fizzy finish, resulting in a bold and refreshing coffee experience.',
+10.00,50,'foamy_black_iced.png'),
+
+(5,'Iced Espresso (on Ice)',
+'A single shot of freshly brewed espresso served chilled over ice, delivering an intense, bold flavour for true coffee enthusiasts.',
+6.00,60,'iced_espresso.png'),
+
+-- CHOCOLATE & SODAS
+(5,'Belgian Chocolate',
+'A creamy and indulgent Belgian chocolate drink blended with fresh milk, delivering a smooth texture and deep cocoa richness.',
+12.00,55,'belgian_chocolate.png'),
+
+(5,'Lemonade Soda',
+'Sparkling lemonade with bright citrus notes and refreshing fizz, perfect for cooling down on a warm day.',
+12.00,60,'lemonade_soda.png'),
+
+(5,'Lychee Peach Soda',
+'A refreshing sparkling soda infused with sweet lychee and juicy peach flavours, light and fruity with every sip.',
+12.00,55,'lychee_peach_soda.png'),
+
+(5,'White Passion Soda',
+'A vibrant passionfruit soda offering a light tropical flavour with a refreshing sparkling finish.',
+12.00,55,'white_passion_soda.png'),
+
+(5,'Fairy Berry',
+'A colourful berry-infused soda that is sweet, fruity, and refreshing, perfect for those who enjoy playful flavours.',
+12.00,55,'fairy_berry.png'),
+
+(5,'Honey Lemon',
+'A soothing warm drink made with natural honey and fresh lemon, offering gentle sweetness and comforting citrus warmth.',
+10.00,50,'honey_lemon.png'),
+
+(5,'Sparkling Apple Mint',
+'A crisp apple soda infused with refreshing mint, delivering a clean, cool finish that is light and revitalising.',
+12.00,55,'sparkling_apple_mint.png'),
+
+-- FRESH JUICES
+(5,'Orange Juice',
+'Freshly squeezed orange juice packed with natural sweetness and bright citrus flavour, served chilled for maximum refreshment.',
+9.00,60,'orange_juice.png'),
+
+(5,'Apple Juice',
+'Pressed apple juice served cold, offering a crisp and naturally sweet flavour that is light and refreshing.',
+9.00,60,'apple_juice.png'),
+
+(5,'Watermelon Juice',
+'A refreshing chilled watermelon juice with natural sweetness and hydrating freshness.',
+8.00,60,'watermelon_juice.png'),
+
+(5,'Pineapple Juice',
+'Sweet and tangy tropical pineapple juice served chilled, bursting with bright fruity flavour.',
+9.00,60,'pineapple_juice.png'),
+
+(5,'Mixed Fruit Juice',
+'A refreshing blend of orange, apple, and pineapple juices, offering balanced sweetness and fruity depth.',
+10.00,55,'mixed_fruit_juice.png'),
+
+(5,'Carrot Orange Boost',
+'A healthy and refreshing blend of carrot and orange juice, combining earthy sweetness with bright citrus notes.',
+10.00,55,'carrot_orange_boost.png'),
+
+(5,'Green Detox',
+'A cleansing blend of apple, cucumber, and lemon, delivering a light, refreshing drink that feels clean and revitalising.',
+12.00,50,'green_detox.png'),
+
+-- FLOATS & FRAPPES
+(5,'Coke Float',
+'Classic Coca-Cola topped with a scoop of creamy vanilla ice cream, creating a nostalgic sweet-and-fizzy treat.',
+9.00,50,'coke_float.png'),
+
+(5,'Root Beer Float',
+'Chilled root beer topped with vanilla ice cream, delivering creamy sweetness balanced by herbal soda notes.',
+9.00,50,'root_beer_float.png'),
+
+(5,'Lemonade Float',
+'Sparkling lemonade topped with creamy ice cream, combining tangy citrus with smooth sweetness.',
+12.00,45,'lemonade_float.png'),
+
+(5,'Hojicha Float',
+'Creamy roasted green tea hojicha served cold and topped with ice cream, offering deep nutty tea flavours with a smooth finish.',
+18.00,40,'hojicha_float.png'),
+
+(5,'Caramel Coffee Frappe',
+'A cold blended coffee drink infused with sweet caramel and cream, smooth, rich, and refreshing.',
+14.00,50,'caramel_coffee_frappe.png'),
+
+(5,'Mocha Frappe',
+'A creamy blended drink combining coffee and chocolate, delivering a balanced and indulgent iced beverage.',
+15.00,50,'mocha_frappe.png'),
+
+(5,'Chocolate Frappe',
+'Rich chocolate blended into a thick and creamy iced drink, perfect for chocolate lovers.',
+14.00,50,'chocolate_frappe.png'),
+
+(5,'Strawberry Milk Frappe',
+'Pink strawberry milk blended with ice into a smooth, creamy, and refreshing drink.',
+13.00,50,'strawberry_milk_frappe.png'),
+
+(5,'Cookies & Cream Frappe',
+'Creamy milk blended with crushed chocolate cookies, delivering a rich and indulgent cookies-and-cream flavour.',
+15.00,50,'cookies_and_cream_frappe.png');
