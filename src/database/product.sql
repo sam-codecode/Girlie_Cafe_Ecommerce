@@ -53,3 +53,43 @@ INSERT INTO products (category_id, name, description, price, stock, image_name) 
 (2,'Chicken Burger',
 'A tender and crispy chicken patty layered with fresh lettuce and creamy mayonnaise, tucked into a lightly toasted bun and served with crispy fries. Comforting, flavourful, and crowd-pleasing.',
 16.00,50,'chicken_burger.png');
+
+-- Category 3: Pasta & Rice Bowls
+
+INSERT INTO products (category_id, name, description, price, stock, image_name) VALUES
+
+(3,'Aglio e Olio',
+'A simple yet flavourful Italian classic featuring al dente spaghetti tossed gently in fragrant olive oil, slow-cooked garlic, and chili flakes. Finished with smoked duck slices that add a rich, aromatic depth, this dish balances simplicity with bold, savoury character.',
+19.00,40,'aglio_e_olio.png'),
+
+(3,'Pesto Pasta',
+'A comforting pasta dish coated in fresh basil pesto blended with olive oil and parmesan cheese, delivering bright herbal notes and creamy richness. Served with sautéed mushrooms that add an earthy, savoury balance to every bite.',
+19.00,40,'pesto_pasta.png'),
+
+(3,'Pesto Genovese',
+'Al dente spaghetti generously coated in rich walnut pesto, offering deep nutty and herbal flavours. Paired with king oyster mushroom “vegan scallops” that provide a meaty texture and umami depth, creating a refined and satisfying plant-based gourmet dish.',
+25.00,30,'pesto_genovese.png'),
+
+(3,'Truffle Carbonara',
+'A luxuriously creamy carbonara prepared with egg yolk and parmesan cheese, enhanced with aromatic truffle oil for an indulgent finish. Topped with crispy bacon chips that add crunch and savoury contrast, making this dish rich, comforting, and decadent.',
+25.00,30,'truffle_carbonara.png'),
+
+(3,'Spicy Garlic Noodles',
+'Spaghetti noodles tossed in a fragrant spicy garlic butter sauce infused with slow-cooked garlic, chili flakes, and savoury aromatics. Finished with herbs and spring onions, this dish delivers a bold, warming kick with smooth, satisfying texture.',
+25.00,35,'spicy_garlic_noodles.png'),
+
+(3,'Garlic Mac & Cheese',
+'Creamy macaroni baked in a rich garlic-infused cheese sauce until perfectly gooey, then topped with crispy bacon chips for added texture and savoury depth. A comforting and indulgent dish made for cheese lovers.',
+24.00,35,'garlic_mac_and_cheese.png'),
+
+(3,'Tonkatsu Rice',
+'Crispy panko-coated chicken cutlet sliced and served over warm steamed rice, drizzled with Japanese Worcestershire sauce and finished with sesame seeds and fresh salad. A hearty and satisfying rice bowl with crunchy texture and savoury flavour.',
+19.00,40,'tonkatsu_rice.png'),
+
+(3,'Kimchi Fried Rice',
+'Fragrant stir-fried rice cooked with in-house fermented kimchi, spring onions, and sesame oil, delivering bold spicy and umami flavours. Topped with a sunny side up egg that adds richness and balance to every bite.',
+13.00,45,'kimchi_fried_rice.png'),
+
+(3,'Unagi Rice Bowl',
+'Grilled eel glazed in a sweet teriyaki sauce, served over fluffy Japanese rice and topped with a perfectly cooked sunny side up egg. Rich, smoky, and deeply savoury, this dish offers a premium and comforting dining experience.',
+25.00,30,'unagi_rice_bowl.png');
