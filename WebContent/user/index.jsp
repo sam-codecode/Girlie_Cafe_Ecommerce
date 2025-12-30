@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <!-- HOME CSS (your given path) -->
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/assests/css/home.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/home.css">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -155,7 +155,7 @@
                 <h3>Chicken Parmigiana</h3>
                 <p>Crispy chicken with marinara, melted cheese &amp; fresh salad.</p>
                 <div class="fav-price">Price: RM 23.00</div>
-                <a class="view-btn" href="<%= request.getContextPath() %>/user/products.jsp">View Details</a>
+                <a class="view-btn" href="<%= request.getContextPath() %>/user/product_details.jsp">View Details</a>
               </div>
             </article>
 
@@ -167,7 +167,7 @@
                 <h3>Truffle Carbonara</h3>
                 <p>Creamy carbonara with parmesan, truffle aroma &amp; crispy bacon.</p>
                 <div class="fav-price">Price: RM 25.00</div>
-                <a class="view-btn" href="<%= request.getContextPath() %>/user/products.jsp">View Details</a>
+                <a class="view-btn" href="<%= request.getContextPath() %>/user/product_details.jsp">View Details</a>
               </div>
             </article>
 
@@ -179,7 +179,7 @@
                 <h3>Tonkatsu Rice</h3>
                 <p>Crispy chicken cutlet with Japanese sauce, rice &amp; fresh salad.</p>
                 <div class="fav-price">Price: RM 19.00</div>
-                <a class="view-btn" href="<%= request.getContextPath() %>/user/products.jsp">View Details</a>
+                <a class="view-btn" href="<%= request.getContextPath() %>/user/product_details.jsp">View Details</a>
               </div>
             </article>
 
@@ -191,7 +191,7 @@
                 <h3>Chocolate Lava Cake</h3>
                 <p>Warm chocolate cake with molten centre.</p>
                 <div class="fav-price">Price: RM 10.00</div>
-                <a class="view-btn" href="<%= request.getContextPath() %>/user/products.jsp">View Details</a>
+                <a class="view-btn" href="<%= request.getContextPath() %>/user/product_details.jsp">View Details</a>
               </div>
             </article>
 
@@ -203,7 +203,7 @@
                 <h3>Iced Lotus Latte</h3>
                 <p>Chilled latte blended with sweet Lotus Biscoff flavour.</p>
                 <div class="fav-price">Price: RM 12.00</div>
-                <a class="view-btn" href="<%= request.getContextPath() %>/user/products.jsp">View Details</a>
+                <a class="view-btn" href="<%= request.getContextPath() %>/user/product_details.jsp">View Details</a>
               </div>
             </article>
 
@@ -274,6 +274,110 @@
 </section>
 
 <!-- =========================
+     SECTION: MEET OUR TEAM (SLIDER)
+========================== -->
+<section class="team-section" id="ourTeam">
+  <div class="team-overlay">
+
+    <div class="wrap team-wrap">
+
+      <div class="team-head">
+        <h2 class="team-title">Meet Our Team</h2>
+        <p class="team-subtitle">The people behind your cozy café moments ☕</p>
+      </div>
+
+      <div class="team-slider" id="teamSlider">
+
+        <!-- viewport -->
+        <div class="team-viewport">
+          <div class="team-track" id="teamTrack">
+
+            <!-- Slide 1 -->
+            <article class="team-card">
+              <img class="team-img" src="<%= request.getContextPath() %>/assets/images/team/samuel.jpeg" alt="Samuel">
+              <div class="team-body">
+                <div class="team-info-box">
+                  <div class="team-role">Café Founder</div>
+                  <h3 class="team-name">Samuel Raj</h3>
+                  <p class="team-desc">The café founder brings ideas to life by shaping the vision and identity of the café. He focus on creating a cozy atmosphere and meaningful moments that make guests feel at home.</p>
+
+                  <div class="team-tags">
+                    <span class="team-tag">Visionary</span>
+                    <span class="team-tag">Espresso</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Slide 2 -->
+            <article class="team-card">
+              <img class="team-img" src="<%= request.getContextPath() %>/assets/images/team/menakha.png" alt="Menakha">
+              <div class="team-body">
+                <div class="team-info-box">
+                  <div class="team-role">Café Operations Manager</div>
+                  <h3 class="team-name">Menakha</h3>
+                  <p class="team-desc">The café operations manager ensures that everything runs smoothly behind the scenes. They maintain consistency and efficiency so every customer enjoys a relaxed experience.</p>
+
+                  <div class="team-tags">
+                    <span class="team-tag">Problem Solver</span>
+                    <span class="team-tag">Cold Brew</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Slide 3 -->
+            <article class="team-card">
+              <img class="team-img" src="<%= request.getContextPath() %>/assets/images/team/venmadhi.png" alt="Venmadhi">
+              <div class="team-body">
+                <div class="team-info-box">
+                  <div class="team-role">Creative Director</div>
+                  <h3 class="team-name">Venmadhi</h3>
+                  <p class="team-desc">The creative director shapes the look and feel of the café through thoughtful design and details. They create warm, inviting experiences that reflect the café’s personality and charm.</p>
+
+                  <div class="team-tags">
+                    <span class="team-tag">Creative Mind</span>
+                    <span class="team-tag">Frappe</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Slide 4 -->
+            <article class="team-card">
+              <img class="team-img" src="<%= request.getContextPath() %>/assets/images/team/anunitha.png" alt="Anunitha">
+              <div class="team-body">
+                <div class="team-info-box">
+                  <div class="team-role">Strategy Director</div>
+                  <h3 class="team-name">Anunitha</h3>
+                  <p class="team-desc">The strategy director plans thoughtful ideas that support the café’s growth and direction. They focus on long-term success while staying true to the café’s core values.</p>
+
+                  <div class="team-tags">
+                    <span class="team-tag">Forward Thinker</span>
+                    <span class="team-tag">Cakes</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- arrows -->
+        <button class="team-arrow left" id="teamPrev" type="button" aria-label="Previous">‹</button>
+        <button class="team-arrow right" id="teamNext" type="button" aria-label="Next">›</button>
+
+      </div>
+
+      <!-- dots -->
+      <div class="team-dots" id="teamDots" aria-label="Team slider pagination"></div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
      FOOTER
 ========================== -->
 <footer class="footer">
@@ -321,10 +425,11 @@
   </div>
 </footer>
 
-<!-- =========================
-     SLIDER JS (ADDED TO JSP ✅)
-========================== -->
-<script>
+  <!-- =========================
+       SLIDER JS (cafe highlights)
+  ========================== -->
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
   const track = document.getElementById("favTrack");
   const slides = Array.from(track.querySelectorAll(".fav-card"));
   const prevBtn = document.getElementById("favPrev");
@@ -332,10 +437,14 @@
   const dotsWrap = document.getElementById("favDots");
   const slider = document.getElementById("favSlider");
 
+  if (!track || !prevBtn || !nextBtn || !dotsWrap || !slider) return;
+
   let index = 0;
   let timer = null;
-  const intervalMs = 5000;
+  const intervalMs = 3000;
 
+  // Build dots
+  dotsWrap.innerHTML = "";
   const dots = slides.map((_, i) => {
     const b = document.createElement("button");
     b.className = "fav-dot";
@@ -383,6 +492,56 @@
 
   goTo(0);
   startAuto();
+});
+</script>
+
+
+  <!-- =========================
+       SLIDER JS (our team)
+  ========================== -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const track = document.getElementById("teamTrack");
+  const slides = Array.from(track.querySelectorAll(".team-card")); // ✅ FIX
+  const prevBtn = document.getElementById("teamPrev");
+  const nextBtn = document.getElementById("teamNext");
+  const dotsWrap = document.getElementById("teamDots");
+  const slider = document.getElementById("teamSlider");
+
+  if(!track || !prevBtn || !nextBtn || !dotsWrap || !slider){
+    console.log("TEAM slider missing: teamTrack/teamPrev/teamNext/teamDots/teamSlider");
+    return;
+  }
+
+  let index = 0;
+
+  // ✅ Build dots
+  dotsWrap.innerHTML = "";
+  const dots = slides.map((_, i) => {
+    const b = document.createElement("button");
+    b.className = "team-dot";
+    b.type = "button";
+    b.setAttribute("aria-label", `Go to team slide ${i + 1}`);
+    b.addEventListener("click", () => goTo(i));
+    dotsWrap.appendChild(b);
+    return b;
+  });
+
+  function updateDots(){
+    dots.forEach((d,i) => d.classList.toggle("active", i === index));
+  }
+
+  function goTo(i){
+    index = (i + slides.length) % slides.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    updateDots();
+  }
+
+  prevBtn.addEventListener("click", () => goTo(index - 1));
+  nextBtn.addEventListener("click", () => goTo(index + 1));
+
+  goTo(0);
+});
 </script>
 
 </body>
