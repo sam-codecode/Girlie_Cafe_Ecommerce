@@ -1,135 +1,141 @@
 package controller;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Map;
+import dao.*;
+import model.*;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
-import dao.OrderDAO;
-import dao.OrderItemDAO;
-import dao.PaymentDAO;
-import dao.ProductDAO;
-import model.Order;
-import model.OrderItem;
-import model.Payment;
-import model.Product;
-import model.User;
+import java.io.IOException;
+import java.util.Map;
 
 @WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-
     private OrderDAO orderDAO;
     private OrderItemDAO orderItemDAO;
-    private PaymentDAO paymentDAO;
     private ProductDAO productDAO;
+    private PaymentDAO paymentDAO;
 
     @Override
     public void init() {
         orderDAO = new OrderDAO();
         orderItemDAO = new OrderItemDAO();
-        paymentDAO = new PaymentDAO();
         productDAO = new ProductDAO();
+        paymentDAO = new PaymentDAO();
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
 
-        // 1. Check session
         HttpSession session = request.getSession(false);
         if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
             return;
         }
 
-        // 2. Check logged-in user
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
             return;
         }
 
-        // 3. Get cart (session-based)
+        String cartKey = "cart_" + user.getUserId();
+
         @SuppressWarnings("unchecked")
         Map<Integer, Integer> cart =
-                (Map<Integer, Integer>) session.getAttribute("cart");
+                (Map<Integer, Integer>) session.getAttribute(cartKey);
 
         if (cart == null || cart.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/cart.jsp");
+            response.sendRedirect(request.getContextPath() + "/user/cart.jsp");
             return;
         }
 
-        // 4. Calculate total amount using DB prices
-        double totalAmount = 0.0;
+        String paymentMethod = request.getParameter("paymentMethod");
+        String orderType = request.getParameter("orderType");
+        String note = request.getParameter("note");
 
-        for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
-            int productId = entry.getKey();
-            int quantity = entry.getValue();
-
-            Product product = productDAO.getProductById(productId);
-            if (product == null) {
-                continue; // safety check
-            }
-
-            totalAmount += product.getPrice() * quantity;
+        if (paymentMethod == null || orderType == null) {
+            response.sendRedirect(request.getContextPath() + "/user/checkout.jsp");
+            return;
         }
 
-        // 5. Get checkout form data
-        String shippingAddress = request.getParameter("shippingAddress");
-        String note = request.getParameter("note");
-        String paymentMethod = request.getParameter("paymentMethod");
+        // Resolve address server-side
+        String shippingAddress = "";
+        if ("DELIVERY".equalsIgnoreCase(orderType)) {
+            shippingAddress = user.getAddress();
+            if (shippingAddress == null || shippingAddress.trim().isEmpty()) {
+                response.sendRedirect(request.getContextPath() + "/user/checkout.jsp");
+                return;
+            }
+        }
 
-        // 6. Create Order
+        // 1️⃣ Calculate total
+        double total = 0.0;
+
+        for (Map.Entry<Integer, Integer> e : cart.entrySet()) {
+            Product p = productDAO.getProductById(e.getKey());
+            if (p == null) continue;
+
+            int qty = Math.min(e.getValue(), p.getStock());
+            if (qty <= 0) continue;
+
+            total += p.getPrice() * qty;
+        }
+
+        if (total <= 0) {
+            response.sendRedirect(request.getContextPath() + "/user/cart.jsp");
+            return;
+        }
+
+        // 2️⃣ Create order
         Order order = new Order();
         order.setUserId(user.getUserId());
-        order.setOrderDate(new Timestamp(System.currentTimeMillis()));
-        order.setTotalAmount(totalAmount);
+        order.setTotalAmount(total);
         order.setOrderStatus("PENDING");
-        order.setPaymentStatus("PAID");
+        order.setPaymentStatus(
+                "ONLINE_BANKING".equalsIgnoreCase(paymentMethod) ? "PAID" : "UNPAID"
+        );
         order.setShippingAddress(shippingAddress);
-        order.setNote(note);
+        order.setNote(note == null ? "" : note);
 
         int orderId = orderDAO.createOrder(order);
+        if (orderId <= 0) {
+            response.sendRedirect(request.getContextPath() + "/user/checkout.jsp");
+            return;
+        }
 
-        // 7. Insert Order Items
-        for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
+        // 3️⃣ Order items + stock update
+        for (Map.Entry<Integer, Integer> e : cart.entrySet()) {
+            Product p = productDAO.getProductById(e.getKey());
+            if (p == null) continue;
 
-            int productId = entry.getKey();
-            int quantity = entry.getValue();
-
-            Product product = productDAO.getProductById(productId);
-            if (product == null) {
-                continue;
-            }
+            int qty = Math.min(e.getValue(), p.getStock());
+            if (qty <= 0) continue;
 
             OrderItem item = new OrderItem();
             item.setOrderId(orderId);
-            item.setProductId(productId);
-            item.setQuantity(quantity);
-            item.setPrice(product.getPrice()); // price at purchase time
+            item.setProductId(p.getProductId());
+            item.setQuantity(qty);
+            item.setPrice(p.getPrice());
 
             orderItemDAO.addOrderItem(item);
+            productDAO.updateStock(p.getProductId(), qty);
         }
 
-        // 8. Insert Payment (simulation)
+        // 4️⃣ CREATE PAYMENT RECORD (THIS WAS MISSING)
         Payment payment = new Payment();
         payment.setOrderId(orderId);
-        payment.setPaymentDate(new Timestamp(System.currentTimeMillis()));
+        payment.setPaymentDate(new java.util.Date());
         payment.setPaymentMethod(paymentMethod);
-        payment.setAmount(totalAmount);
+        payment.setAmount(total);
 
         paymentDAO.addPayment(payment);
 
-        // 9. Clear cart
-        session.removeAttribute("cart");
+        // 5️⃣ Clear cart
+        session.removeAttribute(cartKey);
 
-        // 10. Forward to success page
-        request.setAttribute("orderId", orderId);
-        request.getRequestDispatcher("/checkout.jsp").forward(request, response);
+        // 6️⃣ Success
+        response.sendRedirect(request.getContextPath() + "/user/checkout.jsp?success=1");
     }
 }

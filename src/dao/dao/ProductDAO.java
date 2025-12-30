@@ -233,6 +233,66 @@ public class ProductDAO {
         }
         return false;
     }
+    public List<Product> getRandomProducts(int limit) {
+
+        List<Product> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM products ORDER BY RAND() LIMIT ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, limit);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setProductId(rs.getInt("product_id"));
+                    p.setCategoryId(rs.getInt("category_id"));
+                    p.setName(rs.getString("name"));
+                    p.setDescription(rs.getString("description"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setImageName(rs.getString("image_name"));
+                    list.add(p);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    public List<Product> searchProductsAll(String keyword) {
+
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE name LIKE ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + keyword + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Product p = new Product();
+                p.setProductId(rs.getInt("product_id"));
+                p.setCategoryId(rs.getInt("category_id"));
+                p.setName(rs.getString("name"));
+                p.setDescription(rs.getString("description"));
+                p.setPrice(rs.getDouble("price"));
+                p.setImageName(rs.getString("image_name"));
+                list.add(p);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+
 
 
 }

@@ -49,31 +49,32 @@ public class AdminOrderServlet extends HttpServlet {
 
         switch (action) {
 
-            case "list":
-                // Get all orders
-                List<Order> orderList = orderDAO.getAllOrders();
-                request.setAttribute("orders", orderList);
-                request.getRequestDispatcher("/admin/orders.jsp").forward(request, response);
-                break;
+        case "list":
+            List<Order> orderList = orderDAO.getAllOrders();
+            request.setAttribute("orders", orderList);
+            request.getRequestDispatcher("/admin/manage_orders.jsp")
+                   .forward(request, response);
+            break;
 
-            case "view":
-            case "update":
-                // Get order details
-                int orderId = Integer.parseInt(request.getParameter("orderId"));
+        case "view":
+            int orderId = Integer.parseInt(request.getParameter("orderId"));
 
-                Order order = orderDAO.getOrderById(orderId);
-                List<OrderItem> items = orderItemDAO.getItemsByOrderId(orderId);
+            Order order = orderDAO.getOrderById(orderId);
+            List<OrderItem> items = orderItemDAO.getItemsByOrderId(orderId);
 
-                request.setAttribute("order", order);
-                request.setAttribute("items", items);
+            request.setAttribute("order", order);
+            request.setAttribute("items", items);
 
-                request.getRequestDispatcher("/admin/manage_orders.jsp").forward(request, response);
-                break;
+            // ✅ IMPORTANT: forward to order_details.jsp
+            request.getRequestDispatcher("/admin/order_details.jsp")
+                   .forward(request, response);
+            break;
 
-            default:
-                // Redirect to list if action unknown
-                response.sendRedirect(request.getContextPath() + "/admin/orders?action=list");
-        }
+        default:
+            response.sendRedirect(request.getContextPath() +
+                                  "/admin/orders?action=list");
+    }
+
     }
     
     // Handle POST requests (update order status)
@@ -102,6 +103,7 @@ public class AdminOrderServlet extends HttpServlet {
             // Show error if update fails
             request.setAttribute("errorMessage", "Order status update failed.");
             request.getRequestDispatcher("/admin/manage_orders.jsp").forward(request, response);
+
         }
     }
 }

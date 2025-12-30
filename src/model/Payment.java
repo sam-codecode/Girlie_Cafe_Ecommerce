@@ -1,60 +1,61 @@
-package model;// Package for application model classes
+package model;
 
-import java.util.Date;// Import Date class for storing payment date
+import java.util.Date;
 
-// Model class for payment data
 public class Payment {
 
-    // Attributes
     private int paymentId;
     private int orderId;
     private Date paymentDate;
     private String paymentMethod;
     private double amount;
-    
+    private String paymentStatus;   // ✅ REQUIRED
+
     // Default constructor
     public Payment() {}
-    
-    // Alternate constructor
-    public Payment(int paymentId, int orderId, Date paymentDate, String paymentMethod, double amount) {
+
+    // Full constructor
+    public Payment(int paymentId, int orderId, Date paymentDate,
+                   String paymentMethod, double amount, String paymentStatus) {
         this.paymentId = paymentId;
         this.orderId = orderId;
         this.paymentDate = paymentDate;
         this.paymentMethod = paymentMethod;
         this.amount = amount;
+        this.paymentStatus = paymentStatus;
     }
 
-    // Getter and Setter methods
+    // Getters & Setters
     public int getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(int paymentID) {
-        this.paymentId = paymentID;
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
     }
 
     public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderID) {
-        this.orderId = orderID;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public Date getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(Date date) {
-        this.paymentDate = date;
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public String getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(String method) {
-        this.paymentMethod = method;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public double getAmount() {
@@ -65,7 +66,14 @@ public class Payment {
         this.amount = amount;
     }
 
-    // toString method
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
     @Override
     public String toString() {
         return "Payment{" +
@@ -74,7 +82,7 @@ public class Payment {
                 ", paymentDate=" + paymentDate +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 ", amount=" + amount +
+                ", paymentStatus='" + paymentStatus + '\'' +
                 '}';
     }
-
 }

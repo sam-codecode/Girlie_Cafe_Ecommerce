@@ -15,43 +15,30 @@ import model.Product;
 @WebServlet("/products")
 public class ProductListServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
     private ProductDAO productDAO;
-    
-    // Initialize DAO
+
     @Override
     public void init() {
         productDAO = new ProductDAO();
     }
-    
-    // Handle GET request
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         List<Product> productList;
 
-        // Read request parameters
         String categoryIdParam = request.getParameter("categoryId");
         String keyword = request.getParameter("keyword");
-        
-        // Filter products by category if parameter provided
+
+        // Keyword search 
         if (keyword != null && !keyword.trim().isEmpty()) {
-            
-            // Use selected category if provided, otherwise default to category 1
-            int categoryId;
-            if (categoryIdParam == null || categoryIdParam.isEmpty()){
-                categoryId = 1;
-            } 
-            else {
-                categoryId = Integer.parseInt(categoryIdParam);
-            }
-                   
-            productList = productDAO.searchProducts(keyword, categoryId);
-            request.setAttribute("activeCategory", categoryId);
+
+            productList = productDAO.searchProductsAll(keyword);
+            request.setAttribute("activeCategory", 0);
 
         }
-        // Filter products by category
+        // ategory filter
         else if (categoryIdParam != null && !categoryIdParam.isEmpty()) {
 
             int categoryId = Integer.parseInt(categoryIdParam);
@@ -59,16 +46,14 @@ public class ProductListServlet extends HttpServlet {
             request.setAttribute("activeCategory", categoryId);
 
         }
-        // Display products from category ID = 1
+        //Default random products
         else {
-
-            productList = productDAO.getProductsByCategory(1);
-            request.setAttribute("activeCategory", 1);
+            productList = productDAO.getRandomProducts(10);
+            request.setAttribute("activeCategory", 0);
         }
 
-       
-        // Forward product list to JSP
         request.setAttribute("products", productList);
-        request.getRequestDispatcher("/products.jsp").forward(request, response);
+        request.getRequestDispatcher("/user/products.jsp").forward(request, response);
     }
+
 }

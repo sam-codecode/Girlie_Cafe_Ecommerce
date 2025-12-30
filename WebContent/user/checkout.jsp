@@ -7,7 +7,7 @@
 <%
     HttpSession sess = request.getSession(false);
     if (sess == null) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/user/login.jsp");
         return;
     }
 
@@ -18,7 +18,10 @@
     }
 
     @SuppressWarnings("unchecked")
-    Map<Integer, Integer> cart = (Map<Integer, Integer>) sess.getAttribute("cart");
+    int userId = user.getUserId();
+    Map<Integer, Integer> cart =
+        (Map<Integer, Integer>) sess.getAttribute("cart_" + userId);
+
     if (cart == null || cart.isEmpty()) {
         response.sendRedirect(request.getContextPath() + "/user/cart.jsp");
         return;
@@ -77,9 +80,12 @@
 
     <div class="navi-links">
       <a class="navi-link" href="<%= request.getContextPath() %>/user/index.jsp">Home</a>
-      <a class="navi-link" href="<%= request.getContextPath() %>/user/products.jsp">Menu</a>
+      <a class="navi-link" href="<%= request.getContextPath() %>/products">Menu</a>
       <a class="navi-link" href="<%= request.getContextPath() %>/user/cart.jsp">Cart</a>
-      <a class="navi-link" href="<%= request.getContextPath() %>/user/orders.jsp">My History</a>
+      <a class="navi-link" href="<%= request.getContextPath() %>/orderHistory">
+    My History
+</a>
+
     </div>
 
     <a class="nav-cta pop-effect" href="<%= request.getContextPath() %>/user/cart.jsp">Back</a>
@@ -152,12 +158,16 @@
         <section class="checkout-box">
           <h3 class="checkout-box-title">Payment Method</h3>
           <div class="option-row">
-            <label class="radio-pill pop-effect">
-              <input type="radio" name="paymentMethod" value="CASH"> Cash
-            </label>
-            <label class="radio-pill pop-effect">
-              <input type="radio" name="paymentMethod" value="ONLINE_BANKING"> Online Banking
-            </label>
+<label class="radio-pill pop-effect">
+  <input type="radio" name="paymentMethod" value="CASH" required>
+  Cash
+</label>
+
+<label class="radio-pill pop-effect">
+  <input type="radio" name="paymentMethod" value="ONLINE_BANKING">
+  Online Banking
+</label>
+
           </div>
           <p class="small-note">You must choose a payment method.</p>
         </section>
@@ -166,12 +176,16 @@
           <h3 class="checkout-box-title">Order Type</h3>
 
           <div class="option-row">
-            <label class="radio-pill pop-effect">
-              <input type="radio" name="orderType" value="DINE_IN"> Dine-In
-            </label>
-            <label class="radio-pill pop-effect">
-              <input type="radio" name="orderType" value="DELIVERY"> Delivery
-            </label>
+<label class="radio-pill pop-effect">
+  <input type="radio" name="orderType" value="DINE_IN" required>
+  Dine-In
+</label>
+
+<label class="radio-pill pop-effect">
+  <input type="radio" name="orderType" value="DELIVERY">
+  Delivery
+</label>
+
           </div>
 
           <div class="delivery-address" id="deliveryBox">
@@ -180,7 +194,7 @@
           </div>
 
           <!-- hidden values sent to servlet -->
-          <input type="hidden" name="shippingAddress" id="shippingAddress" value="" />
+          
           <input type="hidden" name="note" value="" />
 
           <p class="small-note" id="prepTimeText">Estimated Preparation Time: —</p>
@@ -188,7 +202,13 @@
 
         <div class="checkout-bottom">
           <div class="total-badge">Total: RM <%= String.format("%.2f", grandTotal) %></div>
-          <button type="submit" class="place-btn pop-effect" id="placeOrderBtn" disabled>Place Order</button>
+<button type="submit" id="placeOrderBtn" class="place-btn pop-effect">
+  Place Order
+</button>
+
+
+
+
         </div>
 
       </form>
@@ -244,86 +264,54 @@
 <input type="hidden" id="orderSuccessFlag" value="<%= showSuccess ? 1 : 0 %>">
 
 <script>
-  const deliveryBox = document.getElementById("deliveryBox");
-  const prepTimeText = document.getElementById("prepTimeText");
-  const placeBtn = document.getElementById("placeOrderBtn");
-  const hintLine = document.getElementById("hintLine");
-  const form = document.getElementById("checkoutForm");
+const placeBtn = document.getElementById("placeOrderBtn");
 
-  const orderModal = document.getElementById("orderModal");
-  const shippingAddress = document.getElementById("shippingAddress");
+function getSelected(name){
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : "";
+}
 
-  // JS-safe address from JSP
-  const userAddress = "<%= userAddressJs %>";
-
-  function getSelected(name){
-    const el = document.querySelector(`input[name="${name}"]:checked`);
-    return el ? el.value : "";
-  }
-
-  function updateUI(){
+function updateUI(){
     const orderType = getSelected("orderType");
-    const payment = getSelected("paymentMethod");
+    const payment  = getSelected("paymentMethod");
 
-    if (orderType === "DELIVERY"){
-      deliveryBox.style.display = "block";
-      prepTimeText.textContent = "Estimated Preparation Time: 30 – 40 minutes";
-      shippingAddress.value = userAddress; // ✅ send address to servlet
-    } else if (orderType === "DINE_IN"){
-      deliveryBox.style.display = "none";
-      prepTimeText.textContent = "Estimated Preparation Time: 15 – 20 minutes";
-      shippingAddress.value = ""; // ✅ no address for dine-in
+    if (orderType === "DELIVERY") {
+        deliveryBox.style.display = "block";
+        prepTimeText.textContent = "Estimated Preparation Time: 30 – 40 minutes";
+        shippingAddress.value = userAddress;
+    } else if (orderType === "DINE_IN") {
+        deliveryBox.style.display = "none";
+        prepTimeText.textContent = "Estimated Preparation Time: 15 – 20 minutes";
+        shippingAddress.value = "";
     } else {
-      deliveryBox.style.display = "none";
-      prepTimeText.textContent = "Estimated Preparation Time: —";
-      shippingAddress.value = "";
+        deliveryBox.style.display = "none";
+        prepTimeText.textContent = "Estimated Preparation Time: —";
+        shippingAddress.value = "";
     }
 
-    const canPlace = (orderType !== "" && payment !== "");
+    const canPlace = orderType !== "" && payment !== "";
+
+    // ✅ THIS is the ONLY correct way
     placeBtn.disabled = !canPlace;
 
     hintLine.innerHTML = canPlace
-      ? "<b>All set!</b> You can place your order now."
-      : "Please choose <b>Order Type</b> and <b>Payment Method</b> to continue.";
-  }
+        ? "<b>All set!</b> You can place your order now."
+        : "Please choose <b>Order Type</b> and <b>Payment Method</b> to continue.";
+}
 
-  function showModal(){
-    if (!orderModal) return;
-    orderModal.classList.add("show");
-  }
 
-  function closeModal(){
-    if (!orderModal) return;
-    orderModal.classList.remove("show");
-  }
+// listeners
+document.querySelectorAll('input[name="orderType"]').forEach(r =>
+  r.addEventListener("change", updateUI)
+);
+document.querySelectorAll('input[name="paymentMethod"]').forEach(r =>
+  r.addEventListener("change", updateUI)
+);
 
-  window.closeModal = closeModal;
-
-  if (orderModal){
-    orderModal.addEventListener("click", (e) => {
-      if (e.target === orderModal) closeModal();
-    });
-  }
-
-  document.querySelectorAll('input[name="orderType"]').forEach(r =>
-    r.addEventListener("change", updateUI)
-  );
-
-  document.querySelectorAll('input[name="paymentMethod"]').forEach(r =>
-    r.addEventListener("change", updateUI)
-  );
-
-  // ✅ IMPORTANT: NO preventDefault here — form submits to servlet normally
-
-  updateUI();
-
-  const successFlag = document.getElementById("orderSuccessFlag");
-
-  if (successFlag && successFlag.value === "1") {
-    showModal();
-  }
-
+// initial state
+updateUI();
 </script>
+
 
 </body>
 </html>

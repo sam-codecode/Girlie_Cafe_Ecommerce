@@ -1,14 +1,12 @@
-package controller; // Handles servlet controller
+package controller;
 
-// Java and servlet imports
-import java.io.IOException;
+import dao.ProductDAO;
+import model.Product;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
-// DAO and model imports
-import dao.ProductDAO;
-import model.Product;
+import java.io.IOException;
 
 @WebServlet("/product/details")
 public class ProductDetailsServlet extends HttpServlet {
@@ -27,30 +25,20 @@ public class ProductDetailsServlet extends HttpServlet {
         String idParam = request.getParameter("id");
 
         if (idParam == null) {
-            request.setAttribute("errorMessage",
-                    "This product may have been removed or is no longer available.");
-            request.getRequestDispatcher("/user/products.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/products");
             return;
         }
 
-        int productId;
-        try {
-            productId = Integer.parseInt(idParam);
-        } catch (NumberFormatException e) {
-            request.setAttribute("errorMessage", "Invalid product request.");
-            request.getRequestDispatcher("/user/products.jsp").forward(request, response);
-            return;
-        }
-
+        int productId = Integer.parseInt(idParam);
         Product product = productDAO.getProductById(productId);
 
-        if (product != null) {
-            request.setAttribute("product", product);
-            request.getRequestDispatcher("/user/product_details.jsp").forward(request, response);
-        } else {
-            request.setAttribute("errorMessage",
-                    "This product may have been removed or is no longer available.");
-            request.getRequestDispatcher("/user/products.jsp").forward(request, response);
+        if (product == null) {
+            response.sendRedirect(request.getContextPath() + "/products");
+            return;
         }
+
+        request.setAttribute("product", product);
+        request.getRequestDispatcher("/user/product_details.jsp")
+               .forward(request, response);
     }
 }

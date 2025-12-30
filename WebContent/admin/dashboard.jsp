@@ -118,7 +118,7 @@
                         <td>RM <%= String.format("%.2f", total) %></td>
                         <td><span class="status <%= statusClass %>"><%= status %></span></td>
                         <td>
-                            <a class="action-btn"
+                            <a class="btn-edit"
                                href="<%= request.getContextPath() %>/admin/orders?action=view&orderId=<%= orderId %>">
                                 View
                             </a>
