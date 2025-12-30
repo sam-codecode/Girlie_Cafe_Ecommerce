@@ -460,11 +460,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function goTo(i, userAction = false) {
-    index = (i + slides.length) % slides.length;
-    track.style.transform = `translateX(-${index * 100}%)`;
-    updateDots();
-    if (userAction) restartAuto();
-  }
+	  index = (i + slides.length) % slides.length;
+
+	  const slideWidth = slides[0].offsetWidth;
+	  track.style.transform = `translateX(-${index * slideWidth}px)`;
+
+	  updateDots();
+	  if (userAction) restartAuto();
+	}
+
 
   function next() { goTo(index + 1, true); }
   function prev() { goTo(index - 1, true); }

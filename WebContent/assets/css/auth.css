@@ -5,6 +5,7 @@
   box-sizing: border-box;
 }
 
+/* Updated Background Styling */
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
@@ -27,8 +28,7 @@ body {
 }
 
 /* =========================
-   REGISTER PAGE
-========================= */
+   REGISTER PAGE */
 
 .register-wrapper {
   height: 100vh;
@@ -42,7 +42,6 @@ body {
   position: relative;
   z-index: 10;
 }
-
 .form-panel {
   width: 600px;
   height: auto;
@@ -161,8 +160,7 @@ button.btn-register:hover {
 
 /* =========================
    LOGIN PAGE
-========================= */
-
+*/
 .auth-wrapper{
   height: 100vh;
   display: flex;
