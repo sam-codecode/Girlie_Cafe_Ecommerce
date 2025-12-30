@@ -27,13 +27,11 @@
     ProductDAO productDAO = new ProductDAO();
     double grandTotal = 0.0;
 
-    // ✅ IMPORTANT: use the REAL getter your User model has
-    // Example: user.getUserAddress() or user.getHomeAddress()
+    // Address from user profile
     String userAddress = "";
-    // CHANGE THIS LINE:
     userAddress = (user.getAddress() == null) ? "" : user.getAddress().trim();
 
-    // ✅ HTML version for display (with line breaks)
+    // HTML-safe version for display
     String userAddressHtml = userAddress
             .replace("&", "&amp;")
             .replace("<", "&lt;")
@@ -41,13 +39,17 @@
             .replace("\r\n", "<br>")
             .replace("\n", "<br>");
 
-    // ✅ JS-safe version (escape quotes/newlines)
+    // JS-safe version (escape quotes/newlines)
     String userAddressJs = userAddress
-            .replace("\\", "\\\\")
-            .replace("\r", "")
-            .replace("\n", "\\n")
-            .replace("\"", "\\\"")
-            .replace("`", "\\`");
+        .replace("\\", "\\\\")
+        .replace("\r", "")
+        .replace("\n", "\\n")
+        .replace("\"", "\\\"")
+        .replace("`", "\\`")
+        .replace("'", "\\'");
+
+    // Show modal only when redirected back with success=1 (servlet should do this)
+    boolean showSuccess = "1".equals(request.getParameter("success"));
 %>
 
 <!DOCTYPE html>
@@ -138,6 +140,7 @@
         </table>
       </div>
 
+      <!-- Form submits normally to servlet -->
       <form id="checkoutForm" class="checkout-grid"
             action="<%= request.getContextPath() %>/checkout"
             method="post">
@@ -156,6 +159,7 @@
               <input type="radio" name="paymentMethod" value="ONLINE_BANKING"> Online Banking
             </label>
           </div>
+          <p class="small-note">You must choose a payment method.</p>
         </section>
 
         <section class="checkout-box">
@@ -175,6 +179,7 @@
             <%= (userAddressHtml.isEmpty() ? "No address found in your profile." : userAddressHtml) %>
           </div>
 
+          <!-- hidden values sent to servlet -->
           <input type="hidden" name="shippingAddress" id="shippingAddress" value="" />
           <input type="hidden" name="note" value="" />
 
@@ -190,6 +195,23 @@
     </div>
 
   </div>
+
+  <!-- ORDER SUCCESS MODAL (kept) -->
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal-box">
+      <button class="modal-close" type="button" onclick="closeModal()">×</button>
+
+      <div class="modal-icon">🍓🧁🍫✨</div>
+      <h3 class="modal-title">Order Placed Successfully!</h3>
+      <p class="modal-text">
+        Your order is on the way to our kitchen 💗<br>
+        Thanks for choosing Girlie’s Café — we’ll serve the goodness soon ✨
+      </p>
+
+      <button class="modal-btn" type="button" onclick="closeModal()">Okay</button>
+    </div>
+  </div>
+
 </main>
 
 <footer class="footer">
@@ -219,14 +241,20 @@
   <div class="footer-bottom">© 2025 Girlie’s Café. All Rights Reserved.</div>
 </footer>
 
+<input type="hidden" id="orderSuccessFlag" value="<%= showSuccess ? 1 : 0 %>">
+
 <script>
   const deliveryBox = document.getElementById("deliveryBox");
   const prepTimeText = document.getElementById("prepTimeText");
   const placeBtn = document.getElementById("placeOrderBtn");
   const hintLine = document.getElementById("hintLine");
-  const shippingAddressInput = document.getElementById("shippingAddress");
+  const form = document.getElementById("checkoutForm");
 
-  const userAddressRaw = "<%= userAddressJs %>";
+  const orderModal = document.getElementById("orderModal");
+  const shippingAddress = document.getElementById("shippingAddress");
+
+  // JS-safe address from JSP
+  const userAddress = "<%= userAddressJs %>";
 
   function getSelected(name){
     const el = document.querySelector(`input[name="${name}"]:checked`);
@@ -240,28 +268,61 @@
     if (orderType === "DELIVERY"){
       deliveryBox.style.display = "block";
       prepTimeText.textContent = "Estimated Preparation Time: 30 – 40 minutes";
-      shippingAddressInput.value = userAddressRaw;
+      shippingAddress.value = userAddress; // ✅ send address to servlet
     } else if (orderType === "DINE_IN"){
       deliveryBox.style.display = "none";
       prepTimeText.textContent = "Estimated Preparation Time: 15 – 20 minutes";
-      shippingAddressInput.value = "";
+      shippingAddress.value = ""; // ✅ no address for dine-in
     } else {
       deliveryBox.style.display = "none";
       prepTimeText.textContent = "Estimated Preparation Time: —";
-      shippingAddressInput.value = "";
+      shippingAddress.value = "";
     }
 
     const canPlace = (orderType !== "" && payment !== "");
     placeBtn.disabled = !canPlace;
 
     hintLine.innerHTML = canPlace
-      ? "✅ All set! You can place your order now."
+      ? "<b>All set!</b> You can place your order now."
       : "Please choose <b>Order Type</b> and <b>Payment Method</b> to continue.";
   }
 
-  document.querySelectorAll('input[name="orderType"]').forEach(r => r.addEventListener("change", updateUI));
-  document.querySelectorAll('input[name="paymentMethod"]').forEach(r => r.addEventListener("change", updateUI));
+  function showModal(){
+    if (!orderModal) return;
+    orderModal.classList.add("show");
+  }
+
+  function closeModal(){
+    if (!orderModal) return;
+    orderModal.classList.remove("show");
+  }
+
+  window.closeModal = closeModal;
+
+  if (orderModal){
+    orderModal.addEventListener("click", (e) => {
+      if (e.target === orderModal) closeModal();
+    });
+  }
+
+  document.querySelectorAll('input[name="orderType"]').forEach(r =>
+    r.addEventListener("change", updateUI)
+  );
+
+  document.querySelectorAll('input[name="paymentMethod"]').forEach(r =>
+    r.addEventListener("change", updateUI)
+  );
+
+  // ✅ IMPORTANT: NO preventDefault here — form submits to servlet normally
+
   updateUI();
+
+  const successFlag = document.getElementById("orderSuccessFlag");
+
+  if (successFlag && successFlag.value === "1") {
+    showModal();
+  }
+
 </script>
 
 </body>
