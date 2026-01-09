@@ -62,7 +62,7 @@
 
             <!-- MONTHLY SALES -->
             <div class="stat-card">
-                <h3 style="margin-bottom: 14px;">Monthly Sales (RM)</h3>
+                <h3 style="margin-bottom: 14px;">Yearly Sales (RM)</h3>
 
                 <canvas id="salesChart" height="140"></canvas>
 
