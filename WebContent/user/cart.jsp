@@ -215,7 +215,7 @@
         <i class="fab fa-facebook-f"></i> Facebook
       </a>
 
-      <a class="footer-link footer-contact" href="tel:+60111111111">
+      <a class="footer-link footer-contact" href="tel:+60-11-1111111">
         <i class="fas fa-phone-alt"></i> +60-11-1111111
       </a>
     </div>

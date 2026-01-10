@@ -159,7 +159,11 @@
           <h3>Chicken Parmigiana</h3>
           <p>Crispy chicken with marinara, melted cheese &amp; fresh salad.</p>
           <div class="fav-price">Price: RM 23.00</div>
-          <a class="view-btn" href="<%= request.getContextPath() %>/user/product_details.jsp">View Details</a>
+          <a class="view-btn"
+   href="<%= request.getContextPath() %>/product/details?id=13">
+   View Details
+</a>
+
         </div>
       </article>
     </div>
@@ -173,7 +177,10 @@
           <h3>Truffle Carbonara</h3>
           <p>Creamy carbonara with parmesan, truffle aroma &amp; crispy bacon.</p>
           <div class="fav-price">Price: RM 25.00</div>
-          <a class="view-btn" href="<%= request.getContextPath() %>/user/product_details.jsp">View Details</a>
+                    <a class="view-btn"
+   href="<%= request.getContextPath() %>/product/details?id=21">
+   View Details
+</a>
         </div>
       </article>
     </div>
@@ -187,7 +194,10 @@
           <h3>Tonkatsu Rice</h3>
           <p>Crispy chicken cutlet with Japanese sauce, rice &amp; fresh salad.</p>
           <div class="fav-price">Price: RM 19.00</div>
-          <a class="view-btn" href="<%= request.getContextPath() %>/user/product_details.jsp">View Details</a>
+                    <a class="view-btn"
+   href="<%= request.getContextPath() %>/product/details?id=24">
+   View Details
+</a>
         </div>
       </article>
     </div>
@@ -201,7 +211,10 @@
           <h3>Chocolate Lava Cake</h3>
           <p>Warm chocolate cake with molten centre.</p>
           <div class="fav-price">Price: RM 10.00</div>
-          <a class="view-btn" href="<%= request.getContextPath() %>/user/product_details.jsp">View Details</a>
+                    <a class="view-btn"
+   href="<%= request.getContextPath() %>/product/details?id=30">
+   View Details
+</a>
         </div>
       </article>
     </div>
@@ -215,7 +228,10 @@
           <h3>Iced Lotus Latte</h3>
           <p>Chilled latte blended with sweet Lotus Biscoff flavour.</p>
           <div class="fav-price">Price: RM 12.00</div>
-          <a class="view-btn" href="<%= request.getContextPath() %>/user/product_details.jsp">View Details</a>
+                    <a class="view-btn"
+   href="<%= request.getContextPath() %>/product/details?id=37">
+   View Details
+</a>
         </div>
       </article>
     </div>
@@ -263,7 +279,7 @@
         <h3 class="service-title">Reserve Table (WhatsApp)</h3>
         <p class="service-text">Book your seat in seconds via WhatsApp.</p>
         <p class="service-meta">Instant reply • No calls needed</p>
-        <a class="service-link" href="https://wa.me/60123456789" target="_blank" rel="noopener">
+        <a class="service-link" href="https://wa.me/601112399379" target="_blank" rel="noopener">
           Reserve Now →
         </a>
       </div>
@@ -415,7 +431,7 @@
         <i class="fab fa-facebook-f"></i> Facebook
       </a>
 
-      <a class="footer-link footer-contact" href="tel:+60111111111">
+      <a class="footer-link footer-contact" href="tel:+60-11-1111111">
         <i class="fas fa-phone-alt"></i> +60-11-1111111
       </a>
     </div>
