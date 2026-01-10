@@ -58,7 +58,7 @@
                         <td><%= o.getOrderDate() %></td>
                         <td>RM <%= String.format("%.2f", o.getTotalAmount()) %></td>
                         <td>
-                            <span class="status <%= o.getOrderStatus().toLowerCase() %>">
+                            <span class="status <%= o.getOrderStatus().toUpperCase() %>">
                                 <%= o.getOrderStatus() %>
                             </span>
                         </td>

@@ -24,6 +24,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/product.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -130,7 +131,7 @@
 
 <!-- =========================
      FOOTER
-========================= -->
+========================== -->
 <footer class="footer">
   <div class="wrap footer-grid">
 
@@ -138,23 +139,35 @@
       <div class="footer-brand">Girlie’s Café</div>
       <p class="footer-text">
         <strong>Operating Hours</strong><br>
-        Mon – Sat: 8:00 AM – 7:00 PM<br>
-        Sun & Public Holidays: Closed
+        Monday – Saturday: 8:00 AM – 7:00 PM<br>
+        Sunday &amp; Public Holidays: Closed
       </p>
     </div>
 
     <div class="footer-col">
       <div class="footer-title">Customer Care</div>
       <a class="footer-link" href="#">FAQ</a>
-      <a class="footer-link" href="https://wa.me/60123456789" target="_blank">
-        WhatsApp Us
-      </a>
+      <a class="footer-link" href="https://wa.me/60123456789" target="_blank" rel="noopener">WhatsApp Us</a>
     </div>
 
     <div class="footer-col">
       <div class="footer-title">Connect</div>
-      <a class="footer-link" href="#">Instagram</a>
-      <a class="footer-link" href="#">Facebook</a>
+
+      <a class="footer-link footer-social"
+         href="https://instagram.com/girliescafe"
+         target="_blank" rel="noopener">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+
+      <a class="footer-link footer-social"
+         href="https://facebook.com/girliescafe"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i> Facebook
+      </a>
+
+      <a class="footer-link footer-contact" href="tel:+60111111111">
+        <i class="fas fa-phone-alt"></i> +60-11-1111111
+      </a>
     </div>
 
   </div>

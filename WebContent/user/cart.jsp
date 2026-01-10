@@ -4,6 +4,12 @@
 <%@ page import="model.Product" %>
 <%@ page import="model.User" %>
 
+    <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <%
     // ---------- AUTH CHECK ----------
     HttpSession sess = request.getSession(false);
@@ -118,13 +124,23 @@
                         <form action="<%= request.getContextPath() %>/cart" method="post">
                             <input type="hidden" name="productId" value="<%= productId %>">
                             <input type="hidden" name="action" value="update">
+                            
+                            
+                            
+                            
+                            <button class="qty-btn" onclick="changeQty(${index}, -1)">−</button>
 
-                            <input type="number"
+                            <input class ="qty-input" type="number"
                                    name="quantity"
                                    value="<%= qty %>"
                                    min="1"
                                    max="<%= p.getStock() %>"
                                    onchange="this.form.submit()">
+                            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                            
+                            
+                            
+                            
                         </form>
                     </td>
 
@@ -151,8 +167,8 @@
             </table>
 
             <div class="cart-actions">
-                <a class="btn-secondary" href="<%= request.getContextPath() %>/products">Add More</a>
-                <a class="btn-primary" href="<%= request.getContextPath() %>/user/checkout.jsp">
+                <a class="btn-secondary pop-effect" href="<%= request.getContextPath() %>/products">+ Add More Items</a>
+                <a class="btn-primary pop-effect" href="<%= request.getContextPath() %>/user/checkout.jsp">
                     Proceed to Checkout
                 </a>
             </div>
@@ -163,10 +179,52 @@
     </div>
 </main>
 
+<!-- =========================
+     FOOTER
+========================== -->
 <footer class="footer">
-    <div class="footer-bottom">
-        © 2025 Girlie’s Café. All Rights Reserved.
+  <div class="wrap footer-grid">
+
+    <div class="footer-col">
+      <div class="footer-brand">Girlie’s Café</div>
+      <p class="footer-text">
+        <strong>Operating Hours</strong><br>
+        Monday – Saturday: 8:00 AM – 7:00 PM<br>
+        Sunday &amp; Public Holidays: Closed
+      </p>
     </div>
+
+    <div class="footer-col">
+      <div class="footer-title">Customer Care</div>
+      <a class="footer-link" href="#">FAQ</a>
+      <a class="footer-link" href="https://wa.me/60123456789" target="_blank" rel="noopener">WhatsApp Us</a>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-title">Connect</div>
+
+      <a class="footer-link footer-social"
+         href="https://instagram.com/girliescafe"
+         target="_blank" rel="noopener">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+
+      <a class="footer-link footer-social"
+         href="https://facebook.com/girliescafe"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i> Facebook
+      </a>
+
+      <a class="footer-link footer-contact" href="tel:+60111111111">
+        <i class="fas fa-phone-alt"></i> +60-11-1111111
+      </a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Girlie’s Café. All Rights Reserved.
+  </div>
 </footer>
 
 </body>

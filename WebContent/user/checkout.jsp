@@ -67,6 +67,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/cart.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -197,7 +198,7 @@
           
           <input type="hidden" name="note" value="" />
 
-          <p class="small-note" id="prepTimeText">Estimated Preparation Time: —</p>
+          <p class="small-note" id="prepTimeText">Estimated Preparation Time: --</p>
         </section>
 
         <div class="checkout-bottom">
@@ -234,37 +235,59 @@
 
 </main>
 
+<!-- =========================
+     FOOTER
+========================== -->
 <footer class="footer">
   <div class="wrap footer-grid">
+
     <div class="footer-col">
       <div class="footer-brand">Girlie’s Café</div>
       <p class="footer-text">
         <strong>Operating Hours</strong><br>
-        Mon – Sat: 8:00 AM – 7:00 PM<br>
-        Sun &amp; Public Holidays: Closed
+        Monday – Saturday: 8:00 AM – 7:00 PM<br>
+        Sunday &amp; Public Holidays: Closed
       </p>
     </div>
 
     <div class="footer-col">
       <div class="footer-title">Customer Care</div>
       <a class="footer-link" href="#">FAQ</a>
-      <a class="footer-link" href="https://wa.me/60123456789" target="_blank" rel="noopener">Contact Us (WhatsApp)</a>
+      <a class="footer-link" href="https://wa.me/60123456789" target="_blank" rel="noopener">WhatsApp Us</a>
     </div>
 
     <div class="footer-col">
       <div class="footer-title">Connect</div>
-      <a class="footer-link" href="https://instagram.com/girliescafe" target="_blank" rel="noopener">Instagram</a>
-      <a class="footer-link" href="https://facebook.com/girliescafe" target="_blank" rel="noopener">Facebook</a>
-      <a class="footer-link" href="tel:+60111111111">+60-11-1111111</a>
+
+      <a class="footer-link footer-social"
+         href="https://instagram.com/girliescafe"
+         target="_blank" rel="noopener">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+
+      <a class="footer-link footer-social"
+         href="https://facebook.com/girliescafe"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i> Facebook
+      </a>
+
+      <a class="footer-link footer-contact" href="tel:+60111111111">
+        <i class="fas fa-phone-alt"></i> +60-11-1111111
+      </a>
     </div>
+
   </div>
-  <div class="footer-bottom">© 2025 Girlie’s Café. All Rights Reserved.</div>
+
+  <div class="footer-bottom">
+    © 2025 Girlie’s Café. All Rights Reserved.
+  </div>
 </footer>
 
 <input type="hidden" id="orderSuccessFlag" value="<%= showSuccess ? 1 : 0 %>">
 
 <script>
 const placeBtn = document.getElementById("placeOrderBtn");
+const prepTimeText = document.getElementById("prepTimeText");
 
 function getSelected(name){
   const el = document.querySelector(`input[name="${name}"]:checked`);
@@ -285,7 +308,7 @@ function updateUI(){
         shippingAddress.value = "";
     } else {
         deliveryBox.style.display = "none";
-        prepTimeText.textContent = "Estimated Preparation Time: —";
+        prepTimeText.textContent = "Estimated Preparation Time: 15 – 20 minutes";
         shippingAddress.value = "";
     }
 
@@ -299,6 +322,21 @@ function updateUI(){
         : "Please choose <b>Order Type</b> and <b>Payment Method</b> to continue.";
 }
 
+function showModal(){
+    orderModal.classList.add("show");
+  }
+
+  function closeModal(){
+    orderModal.classList.remove("show");
+  }
+
+  // ✅ expose closeModal for the X / OK buttons (onclick)
+  window.closeModal = closeModal;
+
+  // Close modal when clicking outside the modal box
+  orderModal.addEventListener("click", (e) => {
+    if (e.target === orderModal) closeModal();
+  });
 
 // listeners
 document.querySelectorAll('input[name="orderType"]').forEach(r =>

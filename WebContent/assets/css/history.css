@@ -302,7 +302,7 @@ html, body {
   color: #8a5a00;
 }
 
-.status.cancelled{
+.status.shipped{
   background: rgba(215, 75, 75, 0.16);
   border: 1px solid rgba(215, 75, 75, 0.35);
   color: #8a1b1b;
@@ -324,27 +324,44 @@ html, body {
 /* =========================
    FOOTER
 ========================= */
+
 .footer{
   background: linear-gradient(180deg, #24150f 0%, #1c110c 100%);
   color: rgba(243,233,220,0.88);
   padding: 48px 0 18px;
   position: relative;
 }
+
+/* soft top divider */
 .footer::before{
   content:"";
   position:absolute;
   left:0; right:0; top:0;
   height:1px;
-  background: linear-gradient(90deg, transparent, rgba(243,233,220,0.25), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(243,233,220,0.25),
+    transparent
+  );
 }
-.footer .wrap{ width: min(1200px, 92%); margin: 0 auto; }
+
+/* grid */
 .footer-grid{
   display:grid;
   grid-template-columns: 1.4fr 1fr 1fr;
   gap: 28px;
   align-items: start;
 }
-.footer-col{ display:flex; flex-direction: column; gap: 10px; }
+
+/* columns */
+.footer-col{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* brand */
 .footer-brand{
   font-family: "Lora", serif;
   font-weight: 700;
@@ -353,6 +370,8 @@ html, body {
   font-size: 16px;
   color: rgba(243,233,220,0.95);
 }
+
+/* titles */
 .footer-title{
   font-family: "Libre Baskerville", serif;
   font-size: 14px;
@@ -360,25 +379,50 @@ html, body {
   margin-bottom: 6px;
   color: rgba(243,233,220,0.92);
 }
+
+/* text */
 .footer-text{
   margin: 0;
   font-size: 13px;
   line-height: 1.8;
   color: rgba(243,233,220,0.72);
 }
-.footer-text strong{ color: rgba(243,233,220,0.9); }
+
+.footer-text strong{
+  color: rgba(243,233,220,0.9);
+}
+
+/* links */
 .footer-link{
   display: inline-flex;
   align-items: center;
   gap: 10px;
   width: fit-content;
+
   text-decoration: none;
   font-size: 13px;
   color: rgba(243,233,220,0.75);
+
   transition: transform .2s ease, color .2s ease;
 }
-.footer-link:hover{ color: rgba(243,233,220,1); transform: translateX(4px); }
 
+.footer-link:hover{
+  color: rgba(243,233,220,1);
+  transform: translateX(4px);
+}
+
+/* icons */
+.footer-link i{
+  font-size: 15px;
+  width: 18px;
+  color: #e8cbb8;
+}
+
+/* hover brand colours */
+.footer-social:hover .fa-instagram{ color:#E1306C; }
+.footer-social:hover .fa-facebook-f{ color:#1877F2; }
+
+/* bottom bar */
 .footer-bottom{
   width: min(1200px, 92%);
   margin: 24px auto 0;
