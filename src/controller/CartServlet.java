@@ -44,9 +44,11 @@ public class CartServlet extends HttpServlet {
         int productId = Integer.parseInt(request.getParameter("productId"));
 
         switch (action) {
-            case "add":
-                cart.put(productId, cart.getOrDefault(productId, 0) + 1);
-                break;
+        case "add":
+            int qtyToAdd = Integer.parseInt(request.getParameter("quantity"));
+            int existingQty = cart.getOrDefault(productId, 0);
+            cart.put(productId, existingQty + qtyToAdd);
+            break;
 
             case "update":
                 int qty = Integer.parseInt(request.getParameter("quantity"));

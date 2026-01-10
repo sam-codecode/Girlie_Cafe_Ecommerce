@@ -120,29 +120,24 @@
                     <td><%= p.getName() %></td>
                     <td><%= String.format("%.2f", p.getPrice()) %></td>
 
-                    <td>
-                        <form action="<%= request.getContextPath() %>/cart" method="post">
-                            <input type="hidden" name="productId" value="<%= productId %>">
-                            <input type="hidden" name="action" value="update">
-                            
-                            
-                            
-                            
-                            <button class="qty-btn" onclick="changeQty(${index}, -1)">−</button>
+<td>
+    <form action="<%= request.getContextPath() %>/cart" method="post" style="display:inline;">
+        <input type="hidden" name="action" value="update">
+        <input type="hidden" name="productId" value="<%= productId %>">
+        <input type="hidden" name="quantity" value="<%= qty - 1 %>">
+        <button type="submit" class="qty-btn" <%= qty <= 1 ? "disabled" : "" %>>−</button>
+    </form>
 
-                            <input class ="qty-input" type="number"
-                                   name="quantity"
-                                   value="<%= qty %>"
-                                   min="1"
-                                   max="<%= p.getStock() %>"
-                                   onchange="this.form.submit()">
-                            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
-                            
-                            
-                            
-                            
-                        </form>
-                    </td>
+    <span class="qty-display"><%= qty %></span>
+
+    <form action="<%= request.getContextPath() %>/cart" method="post" style="display:inline;">
+        <input type="hidden" name="action" value="update">
+        <input type="hidden" name="productId" value="<%= productId %>">
+        <input type="hidden" name="quantity" value="<%= qty + 1 %>">
+        <button type="submit" class="qty-btn" <%= qty >= p.getStock() ? "disabled" : "" %>>+</button>
+    </form>
+</td>
+
 
                     <td><%= String.format("%.2f", subtotal) %></td>
 

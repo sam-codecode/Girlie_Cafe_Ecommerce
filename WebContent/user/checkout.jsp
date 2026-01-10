@@ -160,12 +160,12 @@
           <h3 class="checkout-box-title">Payment Method</h3>
           <div class="option-row">
 <label class="radio-pill pop-effect">
-  <input type="radio" name="paymentMethod" value="CASH" required>
+<input type="radio" name="paymentMethod" value="CASH" onclick="updateUI()">
   Cash
 </label>
 
 <label class="radio-pill pop-effect">
-  <input type="radio" name="paymentMethod" value="ONLINE_BANKING">
+<input type="radio" name="paymentMethod" value="ONLINE_BANKING" onclick="updateUI()">
   Online Banking
 </label>
 
@@ -178,12 +178,12 @@
 
           <div class="option-row">
 <label class="radio-pill pop-effect">
-  <input type="radio" name="orderType" value="DINE_IN" required>
+<input type="radio" name="orderType" value="DINE_IN" onclick="updateUI()">
   Dine-In
 </label>
 
 <label class="radio-pill pop-effect">
-  <input type="radio" name="orderType" value="DELIVERY">
+<input type="radio" name="orderType" value="DELIVERY" onclick="updateUI()">
   Delivery
 </label>
 
@@ -193,6 +193,12 @@
             <strong>Delivery Address</strong>
             <%= (userAddressHtml.isEmpty() ? "No address found in your profile." : userAddressHtml) %>
           </div>
+<div id="qrBox" style="display:none; margin-top:15px; text-align:center;">
+    <p><strong>Scan to Pay</strong></p>
+    <img src="<%= request.getContextPath() %>/assets/images/qr/online_banking_qr.png"
+         alt="Online Banking QR"
+         style="max-width:180px;">
+</div>
 
           <!-- hidden values sent to servlet -->
           
@@ -288,65 +294,50 @@
 <script>
 const placeBtn = document.getElementById("placeOrderBtn");
 const prepTimeText = document.getElementById("prepTimeText");
+const deliveryBox = document.getElementById("deliveryBox");
+const hintLine = document.getElementById("hintLine");
+const qrBox = document.getElementById("qrBox");
 
-function getSelected(name){
-  const el = document.querySelector(`input[name="${name}"]:checked`);
-  return el ? el.value : "";
+function getVal(name){
+  const r = document.querySelector(`input[name="${name}"]:checked`);
+  return r ? r.value : "";
 }
 
 function updateUI(){
-    const orderType = getSelected("orderType");
-    const payment  = getSelected("paymentMethod");
+  const orderType = getVal("orderType");
+  const payment   = getVal("paymentMethod");
 
-    if (orderType === "DELIVERY") {
-        deliveryBox.style.display = "block";
-        prepTimeText.textContent = "Estimated Preparation Time: 30 – 40 minutes";
-        shippingAddress.value = userAddress;
-    } else if (orderType === "DINE_IN") {
-        deliveryBox.style.display = "none";
-        prepTimeText.textContent = "Estimated Preparation Time: 15 – 20 minutes";
-        shippingAddress.value = "";
-    } else {
-        deliveryBox.style.display = "none";
-        prepTimeText.textContent = "Estimated Preparation Time: 15 – 20 minutes";
-        shippingAddress.value = "";
-    }
+  // Prep time + delivery box
+  if(orderType === "DELIVERY"){
+    deliveryBox.style.display = "block";
+    prepTimeText.textContent = "Estimated Preparation Time: 30 – 40 minutes";
+  } else if(orderType === "DINE_IN"){
+    deliveryBox.style.display = "none";
+    prepTimeText.textContent = "Estimated Preparation Time: 15 – 20 minutes";
+  } else {
+    deliveryBox.style.display = "none";
+    prepTimeText.textContent = "Estimated Preparation Time: —";
+  }
 
-    const canPlace = orderType !== "" && payment !== "";
+  // QR box
+  qrBox.style.display = (payment === "ONLINE_BANKING") ? "block" : "none";
 
-    // ✅ THIS is the ONLY correct way
-    placeBtn.disabled = !canPlace;
+  // Enable button only if both selected
+  const canSubmit = orderType !== "" && payment !== "";
+  placeBtn.disabled = !canSubmit;
 
-    hintLine.innerHTML = canPlace
-        ? "<b>All set!</b> You can place your order now."
-        : "Please choose <b>Order Type</b> and <b>Payment Method</b> to continue.";
+  hintLine.innerHTML = canSubmit
+    ? "<b>All set!</b> You can place your order now."
+    : "Please choose <b>Order Type</b> and <b>Payment Method</b> to continue.";
 }
 
-function showModal(){
-    orderModal.classList.add("show");
-  }
+/* 🔥 IMPORTANT: make it available for your inline onclick="updateUI()" */
+window.updateUI = updateUI;
 
-  function closeModal(){
-    orderModal.classList.remove("show");
-  }
+/* Also update when radio changes (works even without onclick) */
+document.querySelectorAll('input[name="orderType"], input[name="paymentMethod"]')
+  .forEach(r => r.addEventListener("change", updateUI));
 
-  // ✅ expose closeModal for the X / OK buttons (onclick)
-  window.closeModal = closeModal;
-
-  // Close modal when clicking outside the modal box
-  orderModal.addEventListener("click", (e) => {
-    if (e.target === orderModal) closeModal();
-  });
-
-// listeners
-document.querySelectorAll('input[name="orderType"]').forEach(r =>
-  r.addEventListener("change", updateUI)
-);
-document.querySelectorAll('input[name="paymentMethod"]').forEach(r =>
-  r.addEventListener("change", updateUI)
-);
-
-// initial state
 updateUI();
 </script>
 
