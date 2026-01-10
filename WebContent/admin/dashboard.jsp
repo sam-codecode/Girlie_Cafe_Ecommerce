@@ -32,7 +32,8 @@
     <title>Admin Dashboard | Girlie's Café</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/admin.css">
 </head>
-<body class="admin-page">
+<body class="admin-page"
+style="background-image: url('<%= request.getContextPath() %>/assets/images/admin-bg.jpg');">
 
 
 <div class="admin-layout">

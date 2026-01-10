@@ -38,7 +38,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="admin-page">
+<body class="admin-page"
+style="background-image: url('<%= request.getContextPath() %>/assets/images/admin-bg.jpg');">
 
 <div class="admin-layout">
 

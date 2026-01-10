@@ -21,7 +21,8 @@
     <title>Order Details</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/admin.css">
 </head>
-<body>
+<body class = "admin-page"
+style="background-image: url('<%= request.getContextPath() %>/assets/images/admin-bg.jpg');">
 
 <div class="admin-layout">
 
@@ -29,7 +30,7 @@
 
     <div class="main">
 
-        <h2>Order Details</h2>
+        <h2 class = "header">Order Details</h2>
 
         <div class="admin-card">
 

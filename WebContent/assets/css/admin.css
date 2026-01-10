@@ -159,13 +159,7 @@ tbody tr:nth-child(even) {
 /* =========================
    ADMIN LOGIN (KEEP INTACT)
 ========================= */
-.admin-login-wrapper {
-    height: 100vh;
-    background: linear-gradient(135deg, #fff7ef, #f9efe6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .admin-login-box {
     background: #ffffff;
@@ -476,10 +470,14 @@ tbody tr:nth-child(even) {
 /* =========================
    ADMIN LOGIN – ENHANCED
 ========================= */
+.header{
+	color:white;
+}
 
 body.admin-login-page{
-    background: url("../images/admin-bg.jpg") center / cover no-repeat;
-    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 /* Dark overlay */
@@ -565,4 +563,8 @@ body.admin-login-page{
     font-size: 13px;
     font-weight: 700;
 }
-
+body.admin-page{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
