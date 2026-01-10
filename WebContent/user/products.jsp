@@ -88,6 +88,10 @@
            class="category-pill ${activeCategory == 5 ? 'active' : ''}">
            Beverages
         </a>
+         <a href="<%= request.getContextPath() %>/products?categoryId=6"
+           class="category-pill ${activeCategory == 6 ? 'active' : ''}">
+           Snacks & Sides
+        </a>
       </div>
     </form>
 

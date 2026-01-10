@@ -31,7 +31,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Action</th>
+                    
                 </tr>
                 </thead>
 
@@ -51,13 +51,7 @@
                         <td><%= user.getName() %></td>
                         <td><%= user.getEmail() %></td>
                         <td><%= user.getPhone() %></td>
-                        <td>
-                            <a href="<%= request.getContextPath() %>/admin/users?action=delete&id=<%= user.getUserId() %>"
-                               class="btn-delete"
-                               onclick="return confirm('Delete this user?')">
-                                Delete
-                            </a>
-                        </td>
+
                     </tr>
                 <%
                         }

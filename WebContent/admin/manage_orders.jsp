@@ -58,9 +58,10 @@
                         <td><%= o.getOrderDate() %></td>
                         <td>RM <%= String.format("%.2f", o.getTotalAmount()) %></td>
                         <td>
-                            <span class="status <%= o.getOrderStatus().toUpperCase() %>">
-                                <%= o.getOrderStatus() %>
-                            </span>
+<span class="status-pill status-<%= o.getOrderStatus().toLowerCase() %>">
+  <%= o.getOrderStatus().toUpperCase() %>
+</span>
+
                         </td>
                         <td>
                             <a class="btn-edit"

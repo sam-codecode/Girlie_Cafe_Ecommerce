@@ -59,7 +59,7 @@
                         <td><%= p.getName() %></td>
                         <td>RM <%= String.format("%.2f", p.getPrice()) %></td>
                         <td><%= p.getStock() %></td>
-                        <td>Category <%= p.getCategoryId() %></td>
+                        <td><%= p.getCategoryId() %></td>
                         <td>
 <div class="action-buttons">
     <a href="<%= request.getContextPath() %>/admin/products?action=edit&id=<%= p.getProductId() %>"

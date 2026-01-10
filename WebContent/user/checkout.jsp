@@ -17,12 +17,17 @@
         return;
     }
 
-    @SuppressWarnings("unchecked")
+    // ✅ IMPORTANT: check success FIRST (so we don't redirect away before showing modal)
+    boolean showSuccess = "1".equals(request.getParameter("success"));
+
     int userId = user.getUserId();
+
+    @SuppressWarnings("unchecked")
     Map<Integer, Integer> cart =
         (Map<Integer, Integer>) sess.getAttribute("cart_" + userId);
 
-    if (cart == null || cart.isEmpty()) {
+    // ✅ Only redirect to cart when NOT showing success modal
+    if ((cart == null || cart.isEmpty()) && !showSuccess) {
         response.sendRedirect(request.getContextPath() + "/user/cart.jsp");
         return;
     }
@@ -31,8 +36,7 @@
     double grandTotal = 0.0;
 
     // Address from user profile
-    String userAddress = "";
-    userAddress = (user.getAddress() == null) ? "" : user.getAddress().trim();
+    String userAddress = (user.getAddress() == null) ? "" : user.getAddress().trim();
 
     // HTML-safe version for display
     String userAddressHtml = userAddress
@@ -50,9 +54,6 @@
         .replace("\"", "\\\"")
         .replace("`", "\\`")
         .replace("'", "\\'");
-
-    // Show modal only when redirected back with success=1 (servlet should do this)
-    boolean showSuccess = "1".equals(request.getParameter("success"));
 %>
 
 <!DOCTYPE html>
@@ -83,10 +84,7 @@
       <a class="navi-link" href="<%= request.getContextPath() %>/user/index.jsp">Home</a>
       <a class="navi-link" href="<%= request.getContextPath() %>/products">Menu</a>
       <a class="navi-link" href="<%= request.getContextPath() %>/user/cart.jsp">Cart</a>
-      <a class="navi-link" href="<%= request.getContextPath() %>/orderHistory">
-    My History
-</a>
-
+      <a class="navi-link" href="<%= request.getContextPath() %>/orderHistory">My History</a>
     </div>
 
     <a class="nav-cta pop-effect" href="<%= request.getContextPath() %>/user/cart.jsp">Back</a>
@@ -117,17 +115,19 @@
 
           <tbody>
           <%
-              for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
-                  int productId = entry.getKey();
-                  int qty = entry.getValue();
+              // ✅ Only render items if cart exists (success page will have empty cart)
+              if (cart != null && !cart.isEmpty()) {
+                  for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
+                      int productId = entry.getKey();
+                      int qty = entry.getValue();
 
-                  Product p = productDAO.getProductById(productId);
-                  if (p == null) continue;
+                      Product p = productDAO.getProductById(productId);
+                      if (p == null) continue;
 
-                  if (qty > p.getStock()) qty = p.getStock();
+                      if (qty > p.getStock()) qty = p.getStock();
 
-                  double sub = p.getPrice() * qty;
-                  grandTotal += sub;
+                      double sub = p.getPrice() * qty;
+                      grandTotal += sub;
           %>
             <tr>
               <td class="checkout-item"><%= p.getName() %></td>
@@ -135,7 +135,10 @@
               <td><%= String.format("%.2f", p.getPrice()) %></td>
               <td><%= String.format("%.2f", sub) %></td>
             </tr>
-          <% } %>
+          <%
+                  }
+              }
+          %>
           </tbody>
 
           <tfoot>
@@ -159,16 +162,15 @@
         <section class="checkout-box">
           <h3 class="checkout-box-title">Payment Method</h3>
           <div class="option-row">
-<label class="radio-pill pop-effect">
-<input type="radio" name="paymentMethod" value="CASH" onclick="updateUI()">
-  Cash
-</label>
+            <label class="radio-pill pop-effect">
+              <input type="radio" name="paymentMethod" value="CASH" required>
+              Cash
+            </label>
 
-<label class="radio-pill pop-effect">
-<input type="radio" name="paymentMethod" value="ONLINE_BANKING" onclick="updateUI()">
-  Online Banking
-</label>
-
+            <label class="radio-pill pop-effect">
+              <input type="radio" name="paymentMethod" value="ONLINE_BANKING" required>
+              Online Banking
+            </label>
           </div>
           <p class="small-note">You must choose a payment method.</p>
         </section>
@@ -177,45 +179,40 @@
           <h3 class="checkout-box-title">Order Type</h3>
 
           <div class="option-row">
-<label class="radio-pill pop-effect">
-<input type="radio" name="orderType" value="DINE_IN" onclick="updateUI()">
-  Dine-In
-</label>
+            <label class="radio-pill pop-effect">
+              <input type="radio" name="orderType" value="DINE_IN" required>
+              Dine-In
+            </label>
 
-<label class="radio-pill pop-effect">
-<input type="radio" name="orderType" value="DELIVERY" onclick="updateUI()">
-  Delivery
-</label>
-
+            <label class="radio-pill pop-effect">
+              <input type="radio" name="orderType" value="DELIVERY" required>
+              Delivery
+            </label>
           </div>
 
           <div class="delivery-address" id="deliveryBox">
             <strong>Delivery Address</strong>
             <%= (userAddressHtml.isEmpty() ? "No address found in your profile." : userAddressHtml) %>
           </div>
-<div id="qrBox" style="display:none; margin-top:15px; text-align:center;">
-    <p><strong>Scan to Pay</strong></p>
-    <img src="<%= request.getContextPath() %>/assets/images/qr/online_banking_qr.png"
-         alt="Online Banking QR"
-         style="max-width:180px;">
-</div>
 
           <!-- hidden values sent to servlet -->
-          
           <input type="hidden" name="note" value="" />
 
           <p class="small-note" id="prepTimeText">Estimated Preparation Time: --</p>
+
+          <div id="qrBox" style="display:none; margin-top:15px; text-align:center;">
+            <p><strong>Scan to Pay</strong></p>
+            <img id="qrImg"
+                 src="<%= request.getContextPath() %>/assets/images/qr/online_banking_qr.png"
+                 alt="Online Banking QR">
+          </div>
         </section>
 
         <div class="checkout-bottom">
           <div class="total-badge">Total: RM <%= String.format("%.2f", grandTotal) %></div>
-<button type="submit" id="placeOrderBtn" class="place-btn pop-effect">
-  Place Order
-</button>
-
-
-
-
+          <button type="submit" id="placeOrderBtn" class="place-btn pop-effect">
+            Place Order
+          </button>
         </div>
 
       </form>
@@ -223,7 +220,7 @@
 
   </div>
 
-  <!-- ORDER SUCCESS MODAL (kept) -->
+  <!-- ORDER SUCCESS MODAL -->
   <div class="modal-overlay" id="orderModal">
     <div class="modal-box">
       <button class="modal-close" type="button" onclick="closeModal()">×</button>
@@ -241,9 +238,6 @@
 
 </main>
 
-<!-- =========================
-     FOOTER
-========================== -->
 <footer class="footer">
   <div class="wrap footer-grid">
 
@@ -292,14 +286,12 @@
 <input type="hidden" id="orderSuccessFlag" value="<%= showSuccess ? 1 : 0 %>">
 
 <script>
-const placeBtn = document.getElementById("placeOrderBtn");
 const prepTimeText = document.getElementById("prepTimeText");
-const deliveryBox = document.getElementById("deliveryBox");
-const hintLine = document.getElementById("hintLine");
-const qrBox = document.getElementById("qrBox");
+const deliveryBox  = document.getElementById("deliveryBox");
+const qrBox        = document.getElementById("qrBox");
 
 function getVal(name){
-  const r = document.querySelector(`input[name="${name}"]:checked`);
+  const r = document.querySelector('input[name="' + name + '"]:checked');
   return r ? r.value : "";
 }
 
@@ -307,40 +299,41 @@ function updateUI(){
   const orderType = getVal("orderType");
   const payment   = getVal("paymentMethod");
 
-  // Prep time + delivery box
   if(orderType === "DELIVERY"){
-    deliveryBox.style.display = "block";
-    prepTimeText.textContent = "Estimated Preparation Time: 30 – 40 minutes";
+    if (deliveryBox) deliveryBox.style.display = "block";
+    if (prepTimeText) prepTimeText.textContent = "Estimated Preparation Time: 30 – 40 minutes";
   } else if(orderType === "DINE_IN"){
-    deliveryBox.style.display = "none";
-    prepTimeText.textContent = "Estimated Preparation Time: 15 – 20 minutes";
+    if (deliveryBox) deliveryBox.style.display = "none";
+    if (prepTimeText) prepTimeText.textContent = "Estimated Preparation Time: 15 – 20 minutes";
   } else {
-    deliveryBox.style.display = "none";
-    prepTimeText.textContent = "Estimated Preparation Time: —";
+    if (deliveryBox) deliveryBox.style.display = "none";
+    if (prepTimeText) prepTimeText.textContent = "Estimated Preparation Time: —";
   }
 
-  // QR box
-  qrBox.style.display = (payment === "ONLINE_BANKING") ? "block" : "none";
-
-  // Enable button only if both selected
-  const canSubmit = orderType !== "" && payment !== "";
-  placeBtn.disabled = !canSubmit;
-
-  hintLine.innerHTML = canSubmit
-    ? "<b>All set!</b> You can place your order now."
-    : "Please choose <b>Order Type</b> and <b>Payment Method</b> to continue.";
+  if (qrBox) qrBox.style.display = (payment === "ONLINE_BANKING") ? "block" : "none";
 }
 
-/* 🔥 IMPORTANT: make it available for your inline onclick="updateUI()" */
-window.updateUI = updateUI;
-
-/* Also update when radio changes (works even without onclick) */
 document.querySelectorAll('input[name="orderType"], input[name="paymentMethod"]')
-  .forEach(r => r.addEventListener("change", updateUI));
+  .forEach(el => el.addEventListener("change", updateUI));
 
 updateUI();
-</script>
 
+document.addEventListener("DOMContentLoaded", () => {
+  const successFlag = document.getElementById("orderSuccessFlag");
+  const modal = document.getElementById("orderModal");
+
+  if (successFlag && successFlag.value === "1") {
+    modal.classList.add("show");
+  }
+});
+
+function closeModal(){
+  document.getElementById("orderModal").classList.remove("show");
+  window.location.href = "<%= request.getContextPath() %>/orderHistory";
+}
+
+window.addEventListener("pageshow", updateUI);
+</script>
 
 </body>
 </html>

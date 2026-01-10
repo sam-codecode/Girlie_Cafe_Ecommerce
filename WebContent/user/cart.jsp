@@ -80,16 +80,21 @@
     <div class="cart-wrap">
 
         <div class="cart-card">
-            <h2 class="cart-title">Your Items</h2>
+            <h2 class="cart-title">Hi Bestie ✨</h2>
 
-            <% if (cart.isEmpty()) { %>
+<% if (cart.isEmpty()) { %>
+  <div class="empty-cart">
+    <div class="empty-icon">🧁☕🍰</div>
+    <h3>Your cart is empty</h3>
+    <p>Looks like you haven’t added anything yet</p>
 
-                <p>Your cart is empty.</p>
-                <a class="btn-primary" href="<%= request.getContextPath() %>/products">
-                    Browse Menu
-                </a>
+    <a class="btn-primary empty-btn"
+       href="<%= request.getContextPath() %>/products">
+      Browse Menu
+    </a>
+  </div>
+<% } else { %>
 
-            <% } else { %>
 
             <table class="cart-table">
                 <thead>

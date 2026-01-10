@@ -7,14 +7,21 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/admin.css">
 </head>
 
-<body>
+<body class="admin-login-page">
+
+<div class="admin-login-overlay"></div>
 
 <div class="admin-login-wrapper">
 
     <div class="admin-login-box">
-        <h2>Admin Login</h2>
-	<p class="login-subtitle">Girlie's Cafe Administration ☕🥰</p>
 
+        <!-- Logo -->
+        <div class="admin-login-logo">
+            <img src="<%= request.getContextPath() %>/assets/images/logo.png" alt="Girlie's Café">
+        </div>
+
+        <h2>Admin Portal</h2>
+        <p class="login-subtitle">Girlie’s Café Administration</p>
 
         <form method="post" action="<%= request.getContextPath() %>/adminLogin">
 
@@ -27,9 +34,10 @@
             <button type="submit">Login</button>
         </form>
 
-        <a class="back-link" href="<%= request.getContextPath() %>/user/login.jsp">
-            ← Back to user login
-        </a>
+        <% if (request.getAttribute("error") != null) { %>
+            <p class="login-error"><%= request.getAttribute("error") %></p>
+        <% } %>
+
     </div>
 
 </div>

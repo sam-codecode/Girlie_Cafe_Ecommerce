@@ -102,12 +102,18 @@
               </div>
 
               <div class="order-meta">
-                <div>
-                  Status:
-                  <span class="status <%= o.getOrderStatus().equalsIgnoreCase("COMPLETED") ? "completed" : "pending" %>">
-                    <%= o.getOrderStatus() %>
-                  </span>
-                </div>
+<%
+  String rawStatus = (o.getOrderStatus() == null) ? "" : o.getOrderStatus().trim();
+  String statusKey = rawStatus.toLowerCase(); // pending / shipped / delivered
+%>
+
+<div>
+  Status:
+  <span class="status-pill status-<%= statusKey %>">
+    <%= rawStatus.toUpperCase() %>
+  </span>
+</div>
+
 
                 <div>
                   Payment:
