@@ -33,7 +33,7 @@ public class CategoryDAO {
     }
 
     // Retrieve all category records from the database
-    
+
     public List<Category> getAllCategories() {
 
         List<Category> categories = new ArrayList<>();
@@ -46,6 +46,7 @@ public class CategoryDAO {
             while (rs.next()) {
                 Category category = new Category();
 
+                // Map database result set to Category object
                 category.setCategoryId(rs.getInt("category_id"));
                 category.setCategoryName(rs.getString("category_name"));
                 category.setDescription(rs.getString("description"));
