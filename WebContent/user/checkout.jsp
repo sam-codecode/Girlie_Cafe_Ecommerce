@@ -4,6 +4,7 @@
 <%@ page import="model.Product" %>
 <%@ page import="model.User" %>
 
+<%-- Backend logic for authentication session, cart validation, totals, and address formatting --%>
 <%
     HttpSession sess = request.getSession(false);
     if (sess == null) {
@@ -17,7 +18,6 @@
         return;
     }
 
-    // ✅ IMPORTANT: check success FIRST (so we don't redirect away before showing modal)
     boolean showSuccess = "1".equals(request.getParameter("success"));
 
     int userId = user.getUserId();
@@ -26,7 +26,6 @@
     Map<Integer, Integer> cart =
         (Map<Integer, Integer>) sess.getAttribute("cart_" + userId);
 
-    // ✅ Only redirect to cart when NOT showing success modal
     if ((cart == null || cart.isEmpty()) && !showSuccess) {
         response.sendRedirect(request.getContextPath() + "/user/cart.jsp");
         return;
@@ -38,7 +37,6 @@
     // Address from user profile
     String userAddress = (user.getAddress() == null) ? "" : user.getAddress().trim();
 
-    // HTML-safe version for display
     String userAddressHtml = userAddress
             .replace("&", "&amp;")
             .replace("<", "&lt;")
@@ -46,7 +44,6 @@
             .replace("\r\n", "<br>")
             .replace("\n", "<br>");
 
-    // JS-safe version (escape quotes/newlines)
     String userAddressJs = userAddress
         .replace("\\", "\\\\")
         .replace("\r", "")
@@ -81,17 +78,17 @@
     </a>
 
     <div class="navi-links">
-      <a class="navi-link" href="<%= request.getContextPath() %>/user/index.jsp">Home</a>
-      <a class="navi-link" href="<%= request.getContextPath() %>/products">Menu</a>
-      <a class="navi-link" href="<%= request.getContextPath() %>/user/cart.jsp">Cart</a>
-      <a class="navi-link" href="<%= request.getContextPath() %>/orderHistory">My History</a>
+      <a class="navi-link" href ="<%= request.getContextPath() %>/user/index.jsp">Home</a>
+      <a class="navi-link" href ="<%= request.getContextPath() %>/products">Menu</a>
+      <a class="navi-link" href = "<%= request.getContextPath() %>/user/cart.jsp">Cart</a>
+      <a class="navi-link" href ="<%= request.getContextPath() %>/orderHistory">My History</a>
     </div>
 
     <a class="nav-cta pop-effect" href="<%= request.getContextPath() %>/user/cart.jsp">Back</a>
   </nav>
 
   <div class="main-text">
-    <h1 class="main-title">Checkout</h1>
+    <h1 class ="main-title">Checkout</h1>
     <p class="main-subtitle">One last step before we serve the goodness</p>
   </div>
 </header>
@@ -100,10 +97,11 @@
   <div class="cart-wrap">
 
     <div class="cart-card">
-      <h2 class="cart-title">Order Summary</h2>
+      <h2 class= "cart-title">Order Summary</h2>
 
-      <div class="table-wrap">
-        <table class="cart-table">
+      <%-- Order summary table that shows cart items and calculates the total --%>
+      <div class ="table-wrap">
+        <table class ="cart-table">
           <thead>
             <tr>
               <th>Product</th>
@@ -115,7 +113,7 @@
 
           <tbody>
           <%
-              // ✅ Only render items if cart exists (success page will have empty cart)
+              // Render items if cart exists 
               if (cart != null && !cart.isEmpty()) {
                   for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
                       int productId = entry.getKey();
@@ -143,27 +141,26 @@
 
           <tfoot>
             <tr>
-              <td colspan="3" class="total-label">Total :</td>
-              <td class="total-value"><%= String.format("%.2f", grandTotal) %></td>
+              <td colspan ="3" class="total-label">Total :</td>
+              <td class = "total-value"><%= String.format("%.2f", grandTotal) %></td>
             </tr>
           </tfoot>
         </table>
       </div>
 
-      <!-- Form submits normally to servlet -->
-      <form id="checkoutForm" class="checkout-grid"
-            action="<%= request.getContextPath() %>/checkout"
-            method="post">
+      <form id ="checkoutForm" class="checkout-grid"
+            action= "<%= request.getContextPath() %>/checkout"
+            method ="post">
 
         <div class="hint-line" id="hintLine">
           Please choose <b>Order Type</b> and <b>Payment Method</b> to continue.
         </div>
 
         <section class="checkout-box">
-          <h3 class="checkout-box-title">Payment Method</h3>
-          <div class="option-row">
-            <label class="radio-pill pop-effect">
-              <input type="radio" name="paymentMethod" value="CASH" required>
+          <h3 class ="checkout-box-title">Payment Method</h3>
+          <div class ="option-row">
+            <label class= "radio-pill pop-effect">
+              <input type= "radio" name ="paymentMethod" value="CASH" required>
               Cash
             </label>
 
@@ -175,17 +172,17 @@
           <p class="small-note">You must choose a payment method.</p>
         </section>
 
-        <section class="checkout-box">
-          <h3 class="checkout-box-title">Order Type</h3>
+        <section class ="checkout-box">
+          <h3 class= "checkout-box-title">Order Type</h3>
 
-          <div class="option-row">
+          <div class ="option-row">
             <label class="radio-pill pop-effect">
-              <input type="radio" name="orderType" value="DINE_IN" required>
+              <input type ="radio" name="orderType" value="DINE_IN" required>
               Dine-In
             </label>
 
             <label class="radio-pill pop-effect">
-              <input type="radio" name="orderType" value="DELIVERY" required>
+              <input type ="radio" name="orderType" value="DELIVERY" required>
               Delivery
             </label>
           </div>
@@ -195,7 +192,6 @@
             <%= (userAddressHtml.isEmpty() ? "No address found in your profile." : userAddressHtml) %>
           </div>
 
-          <!-- hidden values sent to servlet -->
           <input type="hidden" name="note" value="" />
 
           <p class="small-note" id="prepTimeText">Estimated Preparation Time: --</p>
@@ -208,8 +204,8 @@
           </div>
         </section>
 
-        <div class="checkout-bottom">
-          <div class="total-badge">Total: RM <%= String.format("%.2f", grandTotal) %></div>
+        <div class= "checkout-bottom">
+          <div class ="total-badge">Total: RM <%= String.format("%.2f", grandTotal) %></div>
           <button type="submit" id="placeOrderBtn" class="place-btn pop-effect">
             Place Order
           </button>
@@ -220,7 +216,6 @@
 
   </div>
 
-  <!-- ORDER SUCCESS MODAL -->
   <div class="modal-overlay" id="orderModal">
     <div class="modal-box">
       <button class="modal-close" type="button" onclick="closeModal()">×</button>
