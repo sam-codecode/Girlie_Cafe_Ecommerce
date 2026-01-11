@@ -114,8 +114,8 @@ public class OrderDAO {
         return orders;
     }
 
-    // Update the status of an existing order
-    
+    // Update payment status for a specific order
+
     public boolean updateOrderStatus(int orderId, String orderStatus) {
 
         String sql = "UPDATE orders SET order_status = ? WHERE order_id = ?";
