@@ -1,21 +1,26 @@
-package controller;
+package controller; // Handles Checkout Servlet Controller
 
+// DAO and model imports
 import dao.*;
 import model.*;
 
+// Servlet and utility imports
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.Map;
 
+// Handle checkout operations which are create order, update stock and record payment
 @WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
-
+    
+    // DAO  objects for database operations
     private OrderDAO orderDAO;
     private OrderItemDAO orderItemDAO;
     private ProductDAO productDAO;
     private PaymentDAO paymentDAO;
 
+    // Initialize all DAO objects
     @Override
     public void init() {
         orderDAO = new OrderDAO();
@@ -24,43 +29,55 @@ public class CheckoutServlet extends HttpServlet {
         paymentDAO = new PaymentDAO();
     }
 
+    // Handle POST requests for checkout process
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        // Fetch existing session
         HttpSession session = request.getSession(false);
+
+        // Redirect to login if session does not exist
         if (session == null) {
             response.sendRedirect(request.getContextPath() + "/user/login.jsp");
             return;
         }
 
+        // Get logged-in user from session
         User user = (User) session.getAttribute("user");
+
+        // Redirect to login if user not authenticated
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/user/login.jsp");
             return;
         }
 
+        // Get unique cart key for this user
         String cartKey = "cart_" + user.getUserId();
-
+        
+        // Fetch cart from session
         @SuppressWarnings("unchecked")
         Map<Integer, Integer> cart =
                 (Map<Integer, Integer>) session.getAttribute(cartKey);
 
+        // Redirect to cart page if cart is empty
         if (cart == null || cart.isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/user/cart.jsp");
             return;
         }
 
+        // Get checkout form parameters
         String paymentMethod = request.getParameter("paymentMethod");
         String orderType = request.getParameter("orderType");
         String note = request.getParameter("note");
-
+        
+        // Validate required parameters
         if (paymentMethod == null || orderType == null) {
             response.sendRedirect(request.getContextPath() + "/user/checkout.jsp");
             return;
         }
 
-        // Resolve address server-side
+        // Resolve address if order type is DELIVERY
         String shippingAddress = "";
         if ("DELIVERY".equalsIgnoreCase(orderType)) {
             shippingAddress = user.getAddress();
@@ -70,7 +87,7 @@ public class CheckoutServlet extends HttpServlet {
             }
         }
 
-        // 1️⃣ Calculate total
+        // Calculate total amount of the cart
         double total = 0.0;
 
         for (Map.Entry<Integer, Integer> e : cart.entrySet()) {
@@ -83,12 +100,13 @@ public class CheckoutServlet extends HttpServlet {
             total += p.getPrice() * qty;
         }
 
+        // Redirect to cart page if total <= 0
         if (total <= 0) {
             response.sendRedirect(request.getContextPath() + "/user/cart.jsp");
             return;
         }
 
-        // 2️⃣ Create order
+        // Create order object
         Order order = new Order();
         order.setUserId(user.getUserId());
         order.setTotalAmount(total);
@@ -99,13 +117,14 @@ public class CheckoutServlet extends HttpServlet {
         order.setShippingAddress(shippingAddress);
         order.setNote(note == null ? "" : note);
 
+        // Save order in database
         int orderId = orderDAO.createOrder(order);
         if (orderId <= 0) {
             response.sendRedirect(request.getContextPath() + "/user/checkout.jsp");
             return;
         }
 
-        // 3️⃣ Order items + stock update
+        // Create OrderItems and update product stock
         for (Map.Entry<Integer, Integer> e : cart.entrySet()) {
             Product p = productDAO.getProductById(e.getKey());
             if (p == null) continue;
@@ -113,17 +132,19 @@ public class CheckoutServlet extends HttpServlet {
             int qty = Math.min(e.getValue(), p.getStock());
             if (qty <= 0) continue;
 
+            // Create order item
             OrderItem item = new OrderItem();
             item.setOrderId(orderId);
             item.setProductId(p.getProductId());
             item.setQuantity(qty);
             item.setPrice(p.getPrice());
 
+            // Save order item and update stock
             orderItemDAO.addOrderItem(item);
             productDAO.updateStock(p.getProductId(), qty);
         }
 
-        // 4️⃣ CREATE PAYMENT RECORD (THIS WAS MISSING)
+        // Create payment record
         Payment payment = new Payment();
         payment.setOrderId(orderId);
         payment.setPaymentDate(new java.util.Date());
@@ -132,10 +153,10 @@ public class CheckoutServlet extends HttpServlet {
 
         paymentDAO.addPayment(payment);
 
-        // 5️⃣ Clear cart
+        // Clear cart from session
         session.removeAttribute(cartKey);
 
-        // 6️⃣ Success
+        // Redirect to checkout page with success message
         response.sendRedirect(request.getContextPath() + "/user/checkout.jsp?success=1");
     }
 }
