@@ -73,7 +73,8 @@ public class DashboardDAO {
         return 0.0;
     }
 
-    // Recent orders with customer name
+    // Retrieve latest orders with customer details for dashboard table
+    
     public List<Map<String, Object>> getRecentOrders(int limit) {
 
         List<Map<String, Object>> list = new ArrayList<>();
