@@ -154,9 +154,8 @@ public class OrderDAO {
         }
         return false;
     }
- // =========================
- // READ : Get All Orders (Admin)
- // =========================
+ // / Retrieve all orders for admin management view
+ 
     public List<Order> getAllOrders() {
         List<Order> list = new ArrayList<>();
 
