@@ -42,7 +42,7 @@ public class DashboardDAO {
     }
 
     // Count total registered users for dashboard overview
-    
+
     public int countUsers() {
         String sql = "SELECT COUNT(*) FROM users";
         try (Connection con = DBConnection.getConnection();
@@ -57,7 +57,8 @@ public class DashboardDAO {
         return 0;
     }
 
-    // Total revenue = sum of order total_amount (only delivered OR all orders - choose your rule)
+    // Calculate total revenue by summing order total amounts
+
     public double getTotalRevenue() {
         String sql = "SELECT COALESCE(SUM(total_amount), 0) FROM orders";
         try (Connection con = DBConnection.getConnection();
