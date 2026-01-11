@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 
 public class AdminDAO {
 
-    // Validation (Check Username Exists)
+    // Check if admin username already exixts
 
     public boolean usernameExists(String username) {
 
@@ -24,12 +24,12 @@ public class AdminDAO {
             return rs.next(); 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
         }
         return false;
     }
 
-    // Authenthication (Admin Login)
+    // Admin login authentication
 
     public Admin login(String username, String password) {
 
@@ -46,6 +46,7 @@ public class AdminDAO {
             if (rs.next()) {
                 Admin admin = new Admin();
 
+                // Map database record to Admin object
                 admin.setAdminId(rs.getInt("admin_id"));
                 admin.setName(rs.getString("name"));
                 admin.setUsername(rs.getString("username"));
@@ -58,10 +59,10 @@ public class AdminDAO {
             e.printStackTrace();
         }
 
-        return null;
+        return null; // login failed
     }
 
-    //  Read (Get Admin By ID)
+    //  Retrieve admin details based on admin ID
 
     public Admin getAdminById(int adminId) {
 

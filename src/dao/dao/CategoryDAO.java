@@ -11,9 +11,8 @@ import java.util.List;
 
 public class CategoryDAO {
 
-    // ===========================
-    // Create (Add New Category)
-    // ===========================
+    // Insert a new category record into the categories table
+
     public boolean addCategory(Category category) {
 
         String sql = "INSERT INTO categories (category_name, description, image_name) VALUES (?, ?, ?)";
@@ -25,7 +24,7 @@ public class CategoryDAO {
             ps.setString(2, category.getDescription());
             ps.setString(3, category.getImageName());
 
-            return ps.executeUpdate() > 0;
+            return ps.executeUpdate() > 0; // Returns true if insert is successful
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,9 +32,8 @@ public class CategoryDAO {
         return false;
     }
 
-    // =========================
-    // Read (Get All Category)
-    // =========================
+    // Retrieve all category records from the database
+
     public List<Category> getAllCategories() {
 
         List<Category> categories = new ArrayList<>();
@@ -48,6 +46,7 @@ public class CategoryDAO {
             while (rs.next()) {
                 Category category = new Category();
 
+                // Map database result set to Category object
                 category.setCategoryId(rs.getInt("category_id"));
                 category.setCategoryName(rs.getString("category_name"));
                 category.setDescription(rs.getString("description"));
@@ -63,9 +62,8 @@ public class CategoryDAO {
         return categories;
     }
 
-    // ===========================
-    // Read (Get Category By ID)
-    // ===========================
+    // Retrieve a single category based on category ID
+
     public Category getCategoryById(int categoryId) {
 
         String sql = "SELECT * FROM categories WHERE category_id = ?";
@@ -94,9 +92,8 @@ public class CategoryDAO {
         return category;
     }
 
-    // =========================
-    // Update (Category Details)
-    // =========================
+    // Update existing category details using category ID
+
     public boolean updateCategory(Category category) {
 
         String sql = "UPDATE categories SET category_name=?, description=?, image_name=? WHERE category_id=?";
@@ -109,7 +106,7 @@ public class CategoryDAO {
             ps.setString(3, category.getImageName());
             ps.setInt(4, category.getCategoryId());
 
-            return ps.executeUpdate() > 0;
+            return ps.executeUpdate() > 0; // True if update succeeds
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,9 +114,8 @@ public class CategoryDAO {
         return false;
     }
 
-    // =========================
-    // Delete (Remove Category)
-    // =========================
+    // Remove a category record from the database using category ID
+
     public boolean deleteCategory(int categoryId) {
 
         String sql = "DELETE FROM categories WHERE category_id = ?";

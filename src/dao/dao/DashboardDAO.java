@@ -9,6 +9,8 @@ import java.util.*;
 
 public class DashboardDAO {
 
+    // Count total number of products for dashboard summary
+
     public int countProducts() {
         String sql = "SELECT COUNT(*) FROM products";
         try (Connection con = DBConnection.getConnection();
@@ -22,6 +24,8 @@ public class DashboardDAO {
         }
         return 0;
     }
+
+    // Count total number of orders for dashboard display
 
     public int countOrders() {
         String sql = "SELECT COUNT(*) FROM orders";
@@ -37,6 +41,8 @@ public class DashboardDAO {
         return 0;
     }
 
+    // Count total registered users for dashboard overview
+
     public int countUsers() {
         String sql = "SELECT COUNT(*) FROM users";
         try (Connection con = DBConnection.getConnection();
@@ -51,7 +57,8 @@ public class DashboardDAO {
         return 0;
     }
 
-    // Total revenue = sum of order total_amount (only delivered OR all orders - choose your rule)
+    // Calculate total revenue by summing order total amounts
+
     public double getTotalRevenue() {
         String sql = "SELECT COALESCE(SUM(total_amount), 0) FROM orders";
         try (Connection con = DBConnection.getConnection();
@@ -66,7 +73,8 @@ public class DashboardDAO {
         return 0.0;
     }
 
-    // Recent orders with customer name
+    // Retrieve latest orders with customer details for dashboard table
+
     public List<Map<String, Object>> getRecentOrders(int limit) {
 
         List<Map<String, Object>> list = new ArrayList<>();
@@ -85,6 +93,8 @@ public class DashboardDAO {
 
             while (rs.next()) {
                 Map<String, Object> row = new HashMap<>();
+
+                // Map recent order data into key-value structure for UI
                 row.put("orderId", rs.getInt("order_id"));
                 row.put("customer", rs.getString("customer"));
 

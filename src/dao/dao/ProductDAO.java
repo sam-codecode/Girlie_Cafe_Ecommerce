@@ -11,9 +11,7 @@ import java.util.List;
 
 public class ProductDAO {
 
-    // ===============================
-    // Create (Add New Product)
-    // ===============================
+    // Add a new product to the database
     public boolean addProduct(Product product) {
 
         String sql = "INSERT INTO products (category_id, name, description, price, stock, image_name) VALUES (?, ?, ?, ?, ?, ?)";
@@ -29,15 +27,14 @@ public class ProductDAO {
             ps.setString(6, product.getImageName());
 
             return ps.executeUpdate() > 0;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    // ===============================
-    // Read (Get All Products)
-    // ===============================
+    // Retrieve all products
     public List<Product> getAllProducts() {
 
         List<Product> products = new ArrayList<>();
@@ -50,6 +47,7 @@ public class ProductDAO {
             while (rs.next()) {
                 Product product = new Product();
 
+                // Map database record to Product object
                 product.setProductId(rs.getInt("product_id"));
                 product.setCategoryId(rs.getInt("category_id"));
                 product.setName(rs.getString("name"));
@@ -68,9 +66,7 @@ public class ProductDAO {
         return products;
     }
 
-    // ===============================
-    // Read (Get Products By Category)
-    // ===============================
+    // Retrieve products by category
     public List<Product> getProductsByCategory(int categoryId) {
 
         List<Product> products = new ArrayList<>();
@@ -84,6 +80,7 @@ public class ProductDAO {
 
             while (rs.next()) {
                 Product product = new Product();
+
                 product.setProductId(rs.getInt("product_id"));
                 product.setCategoryId(rs.getInt("category_id"));
                 product.setName(rs.getString("name"));
@@ -101,9 +98,7 @@ public class ProductDAO {
         return products;
     }
 
-    // ===============================
-    // Read (Get Product By ID)
-    // ===============================
+    // Retrieve a single product by ID
     public Product getProductById(int productId) {
 
         String sql = "SELECT * FROM products WHERE product_id = ?";
@@ -117,6 +112,7 @@ public class ProductDAO {
 
             if (rs.next()) {
                 product = new Product();
+
                 product.setProductId(rs.getInt("product_id"));
                 product.setCategoryId(rs.getInt("category_id"));
                 product.setName(rs.getString("name"));
@@ -133,9 +129,7 @@ public class ProductDAO {
         return product;
     }
 
-    // ===============================
-    // Search Products (Keyword)
-    // ===============================
+    // Search products by keyword within a category
     public List<Product> searchProducts(String keyword, int categoryId) {
 
         String sql = "SELECT * FROM products WHERE category_id = ? AND name LIKE ?";
@@ -151,12 +145,14 @@ public class ProductDAO {
 
             while (rs.next()) {
                 Product p = new Product();
+
                 p.setProductId(rs.getInt("product_id"));
+                p.setCategoryId(rs.getInt("category_id"));
                 p.setName(rs.getString("name"));
                 p.setDescription(rs.getString("description"));
                 p.setPrice(rs.getDouble("price"));
                 p.setImageName(rs.getString("image_name"));
-                p.setCategoryId(rs.getInt("category_id"));
+
                 list.add(p);
             }
 
@@ -167,9 +163,7 @@ public class ProductDAO {
         return list;
     }
 
-    // ===============================
-    // Update Product
-    // ===============================
+    // Update existing product details
     public boolean updateProduct(Product product) {
 
         String sql = "UPDATE products SET category_id=?, name=?, description=?, price=?, stock=?, image_name=? WHERE product_id=?";
@@ -193,9 +187,7 @@ public class ProductDAO {
         return false;
     }
 
-    // ===============================
-    // Update Stock (Checkout)
-    // ===============================
+    // Reduce stock after successful checkout
     public boolean updateStock(int productId, int quantitySold) {
 
         String sql = "UPDATE products SET stock = stock - ? WHERE product_id = ? AND stock >= ?";
@@ -215,9 +207,7 @@ public class ProductDAO {
         return false;
     }
 
-    // ===============================
-    // Delete Product
-    // ===============================
+    // Delete a product from the database
     public boolean deleteProduct(int productId) {
 
         String sql = "DELETE FROM products WHERE product_id = ?";
@@ -233,10 +223,11 @@ public class ProductDAO {
         }
         return false;
     }
+
+    // Retrieve random products (homepage / recommendations)
     public List<Product> getRandomProducts(int limit) {
 
         List<Product> list = new ArrayList<>();
-
         String sql = "SELECT * FROM products ORDER BY RAND() LIMIT ?";
 
         try (Connection con = DBConnection.getConnection();
@@ -247,12 +238,14 @@ public class ProductDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Product p = new Product();
+
                     p.setProductId(rs.getInt("product_id"));
                     p.setCategoryId(rs.getInt("category_id"));
                     p.setName(rs.getString("name"));
                     p.setDescription(rs.getString("description"));
                     p.setPrice(rs.getDouble("price"));
                     p.setImageName(rs.getString("image_name"));
+
                     list.add(p);
                 }
             }
@@ -263,6 +256,8 @@ public class ProductDAO {
 
         return list;
     }
+
+    // Search products across all categories
     public List<Product> searchProductsAll(String keyword) {
 
         List<Product> list = new ArrayList<>();
@@ -276,12 +271,14 @@ public class ProductDAO {
 
             while (rs.next()) {
                 Product p = new Product();
+
                 p.setProductId(rs.getInt("product_id"));
                 p.setCategoryId(rs.getInt("category_id"));
                 p.setName(rs.getString("name"));
                 p.setDescription(rs.getString("description"));
                 p.setPrice(rs.getDouble("price"));
                 p.setImageName(rs.getString("image_name"));
+
                 list.add(p);
             }
 
@@ -291,8 +288,4 @@ public class ProductDAO {
 
         return list;
     }
-
-
-
-
 }

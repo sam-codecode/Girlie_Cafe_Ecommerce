@@ -13,9 +13,8 @@ import java.util.Map;
 
 public class OrderDAO {
 
-    // =========================
-    // CREATE : Place New Order
-    // =========================
+    // Create a new order record and return the generated order ID
+
 	public int createOrder(Order order) {
 
 	    String sql = "INSERT INTO orders (user_id, total_amount, order_status, payment_status, shipping_address, note) " +
@@ -35,7 +34,7 @@ public class OrderDAO {
 
 	        try (ResultSet rs = ps.getGeneratedKeys()) {
 	            if (rs.next()) {
-	                return rs.getInt(1); // ✅ order_id
+	                return rs.getInt(1); 
 	            }
 	        }
 
@@ -43,13 +42,11 @@ public class OrderDAO {
 	        e.printStackTrace();
 	    }
 
-	    return -1; // ❌ failed
-	}
+	    return -1; 
 
 
-    // =========================
-    // READ : Get Order by ID
-    // =========================
+    // Retrieve a single order using order ID
+
     public Order getOrderById(int orderId) {
 
         String sql = "SELECT * FROM orders WHERE order_id = ?";
@@ -64,6 +61,7 @@ public class OrderDAO {
                 if (rs.next()) {
                     order = new Order();
 
+                    // Map database order record to Order object
                     order.setOrderId(rs.getInt("order_id"));
                     order.setUserId(rs.getInt("user_id"));
                     order.setOrderDate(rs.getTimestamp("order_date"));
@@ -81,9 +79,8 @@ public class OrderDAO {
         return order;
     }
 
-    // =========================
-    // READ : Get Orders by User
-    // =========================
+    // Retrieve all orders placed by a specific user
+
     public List<Order> getOrdersByUserId(int userId) {
 
         List<Order> orders = new ArrayList<>();
@@ -117,9 +114,8 @@ public class OrderDAO {
         return orders;
     }
 
-    // =========================
-    // UPDATE : Order Status
-    // =========================
+    // Update payment status for a specific order
+
     public boolean updateOrderStatus(int orderId, String orderStatus) {
 
         String sql = "UPDATE orders SET order_status = ? WHERE order_id = ?";
@@ -138,9 +134,8 @@ public class OrderDAO {
         return false;
     }
 
-    // =========================
-    // UPDATE : Payment Status
-    // =========================
+    // Update payment status for a specific order
+
     public boolean updatePaymentStatus(int orderId, String paymentStatus) {
 
         String sql = "UPDATE orders SET payment_status = ? WHERE order_id = ?";
@@ -158,9 +153,9 @@ public class OrderDAO {
         }
         return false;
     }
- // =========================
- // READ : Get All Orders (Admin)
- // =========================
+
+ // Retrieve all orders for admin management view
+
     public List<Order> getAllOrders() {
         List<Order> list = new ArrayList<>();
 
@@ -190,6 +185,8 @@ public class OrderDAO {
         return list;
     }
 
+// Calculate total monthly sales for paid orders
+
  public List<Map<String, Object>> getMonthlySales() {
 	    List<Map<String, Object>> list = new ArrayList<>();
 
@@ -218,7 +215,7 @@ public class OrderDAO {
 	    return list;
 	}
 
-
+// Retrieve top 5 best-selling products based on quantity sold
 
  public List<Map<String, Object>> getTopProducts() {
 	    List<Map<String, Object>> list = new ArrayList<>();
@@ -246,9 +243,5 @@ public class OrderDAO {
 	        e.printStackTrace();
 	    }
 	    return list;
-	}
-
-
-
-    
+	}    
 }

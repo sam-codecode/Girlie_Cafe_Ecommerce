@@ -11,9 +11,8 @@ import java.util.List;
 
 public class OrderItemDAO {
 
-    // =========================
-    // CREATE : Add Item to Order
-    // =========================
+    // Add a product item into an existing order
+
 	public boolean addOrderItem(OrderItem item) {
 
 	    String sql = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
@@ -35,9 +34,8 @@ public class OrderItemDAO {
 	}
 
 
-    // =========================
-    // READ : Get Items by Order
-    // =========================
+    // Retrieve all items associated with a specific order
+    
     public List<OrderItem> getItemsByOrderId(int orderId) {
 
         List<OrderItem> items = new ArrayList<>();
