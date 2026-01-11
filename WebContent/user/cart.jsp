@@ -1,17 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%-- Import required Java classes and models --%>
 <%@ page import="java.util.*" %>
 <%@ page import="dao.ProductDAO" %>
 <%@ page import="model.Product" %>
 <%@ page import="model.User" %>
 
-    <!-- Google Fonts -->
+  <%-- Import google fonts --%>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+ 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <%
-    // ---------- AUTH CHECK ----------
+    // user authentication check
     HttpSession sess = request.getSession(false);
     if (sess == null) {
         response.sendRedirect(request.getContextPath() + "/user/login.jsp");
@@ -26,7 +29,7 @@
 
     int userId = user.getUserId();
 
-    // ---------- USER-SPECIFIC CART ----------
+    // user specific cart
     @SuppressWarnings("unchecked")
     Map<Integer, Integer> cart =
             (Map<Integer, Integer>) sess.getAttribute("cart_" + userId);
@@ -64,9 +67,7 @@
             <a class="navi-link" href="<%= request.getContextPath() %>/orderHistory">
     My History
 </a>
-
-        </div>
-
+    </div>
         <a class="nav-cta" href="<%= request.getContextPath() %>/user/checkout.jsp">Checkout</a>
     </nav>
 
@@ -76,38 +77,38 @@
     </div>
 </header>
 
-<main class="cart-section">
-    <div class="cart-wrap">
+ <%-- Cart page  --%>
+    <main class="cart-section">
+        <div class="cart-wrap">
+            <div class="cart-card">
+                <h2 class="cart-title">Hi Bestie ✨</h2>
 
-        <div class="cart-card">
-            <h2 class="cart-title">Hi Bestie ✨</h2>
-
-<% if (cart.isEmpty()) { %>
-  <div class="empty-cart">
-    <div class="empty-icon">🧁☕🍰</div>
-    <h3>Your cart is empty</h3>
-    <p>Looks like you haven’t added anything yet</p>
-
-    <a class="btn-primary empty-btn"
+    <%-- Display empty cart message if cart has no items --%>
+    <% if (cart.isEmpty()) { %>
+        <div class="empty-cart">
+            <div class="empty-icon">🧁☕🍰</div>
+                <h3>Your cart is empty</h3>
+                <p>Looks like you haven’t added anything yet</p>
+                <a class="btn-primary empty-btn"
        href="<%= request.getContextPath() %>/products">
       Browse Menu
     </a>
   </div>
 <% } else { %>
 
+        <%-- Cart items table --%>
+        <table class="cart-table">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price (RM)</th>
+                <th>Qty</th>
+                <th>Subtotal (RM)</th>
+                <th>Action</th>
+            </tr>
+            </thead>
 
-            <table class="cart-table">
-                <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Price (RM)</th>
-                    <th>Qty</th>
-                    <th>Subtotal (RM)</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-
-                <tbody>
+            <tbody>
                 <%
                     for (Map.Entry<Integer, Integer> item : cart.entrySet()) {
                         int productId = item.getKey();
@@ -143,14 +144,13 @@
     </form>
 </td>
 
-
                     <td><%= String.format("%.2f", subtotal) %></td>
 
                     <td>
-                        <form action="<%= request.getContextPath() %>/cart" method="post">
-                            <input type="hidden" name="productId" value="<%= productId %>">
-                            <input type="hidden" name="action" value="remove">
-                            <button type="submit" class="remove-btn">Remove</button>
+                        <form action = "<%= request.getContextPath() %>/cart" method="post">
+                            <input type ="hidden" name ="productId" value="<%= productId %>">
+                            <input type ="hidden" name="action" value="remove">
+                            <button type ="submit" class="remove-btn">Remove</button>
                         </form>
                     </td>
                 </tr>
@@ -179,9 +179,6 @@
     </div>
 </main>
 
-<!-- =========================
-     FOOTER
-========================== -->
 <footer class="footer">
   <div class="wrap footer-grid">
 
