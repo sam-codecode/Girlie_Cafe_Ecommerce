@@ -1,19 +1,8 @@
-/* =========================
-   GLOBAL
-========================= */
 * { box-sizing: border-box; }
 
 :root{
-  --cream: #fff5e9;
-  --cream-2: #f7eadc;
-  --brown: #6b4630;
-  --brown-2: #553625;
-  --header: #b08a6a;
-  --header-2: #9b7559;
   --maroon: #7A2E3A;
   --text: #3b2418;
-  --pink: rgba(234,196,207,0.45);
-  --pink-border: rgba(148,44,73,0.22);
 }
 
 html, body {
@@ -23,16 +12,12 @@ html, body {
   background: linear-gradient(135deg, #f3ebe2 0%, #e6d2c3 50%, #dcc3b1 100%);
 }
 
-/* Thin black scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.45); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.65); }
 * { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.45) transparent; }
 
-/* =========================
-   UNIVERSAL POP EFFECT
-========================= */
 .pop-effect {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -42,9 +27,6 @@ html, body {
 }
 .pop-effect:active { transform: translateY(-1px) scale(0.98); }
 
-/* =========================
-   HERO
-========================= */
 .top-hero {
   min-height: 46vh;
   background: url("../images/brown.jpg") center / cover no-repeat;
@@ -72,9 +54,7 @@ html, body {
 
 .top-navi, .main-text { position: relative; z-index: 1; }
 
-/* =========================
-   NAVIGATION
-========================= */
+/* navigation bar deisgn */
 .top-navi {
   width: min(1200px, 92%);
   margin: 0 auto;
@@ -177,9 +157,6 @@ html, body {
   background: rgba(0,0,0,0.35);
 }
 
-/* =========================
-   HERO TEXT
-========================= */
 .main-text { text-align: center; padding: 16px 10px 0; }
 
 .main-title {
@@ -198,9 +175,7 @@ html, body {
   font-size: 16px;
 }
 
-/* =========================
-   HISTORY SECTION
-========================= */
+/* order history styling*/
 .history-section{
   padding: 28px 0 44px;
 }
@@ -218,7 +193,6 @@ html, body {
   box-shadow: 0 16px 34px rgba(0,0,0,0.12);
 }
 
-/* cards list */
 .orders-wrap{
   display: grid;
   gap: 14px;
@@ -232,7 +206,6 @@ html, body {
   box-shadow: 0 10px 22px rgba(0,0,0,0.08);
 }
 
-/* row: id | date | total */
 .order-row{
   display: grid;
   grid-template-columns: 1.1fr 1.3fr 0.8fr;
@@ -264,7 +237,6 @@ html, body {
   text-align: right;
 }
 
-/* meta row */
 .order-meta{
   margin-top: 10px;
   display: flex;
@@ -278,8 +250,7 @@ html, body {
   color: var(--text);
 }
 
-/* status chips */
-.status, .payment{
+.payment{
   display: inline-flex;
   align-items: center;
   padding: 4px 10px;
@@ -289,26 +260,6 @@ html, body {
   letter-spacing: .6px;
 }
 
-/* status variants */
-.status.completed{
-  background: rgba(60, 171, 90, 0.18);
-  border: 1px solid rgba(60, 171, 90, 0.35);
-  color: #1f7a37;
-}
-
-.status.pending{
-  background: rgba(255, 176, 46, 0.18);
-  border: 1px solid rgba(255, 176, 46, 0.35);
-  color: #8a5a00;
-}
-
-.status.shipped{
-  background: rgba(215, 75, 75, 0.16);
-  border: 1px solid rgba(215, 75, 75, 0.35);
-  color: #8a1b1b;
-}
-
-/* payment variants */
 .payment.paid{
   background: rgba(148,44,73,0.12);
   border: 1px solid rgba(148,44,73,0.22);
@@ -320,9 +271,8 @@ html, body {
   border: 1px solid rgba(0,0,0,0.14);
   color: rgba(0,0,0,0.60);
 }
-/* =========================
-   ORDER STATUS PILLS (HISTORY)
-========================= */
+
+/* order status */
 .order-card .status-pill{
   display: inline-block;
   padding: 6px 14px;
@@ -338,32 +288,28 @@ html, body {
   line-height: 1;
 }
 
-/* PENDING (same / neutral) */
+/* PENDING styling */
 .order-card .status-pending{
   background: rgba(255, 215, 150, 0.35);
   color: #8a5a00;
   border-color: rgba(138, 90, 0, 0.25);
 }
 
-/* SHIPPED (orange) */
+/* SHIPPED styling*/
 .order-card .status-shipped{
   background: rgba(255, 180, 90, 0.35);
   color: #c25a00;
   border-color: rgba(194, 90, 0, 0.35);
 }
 
-/* DELIVERED (green) */
+/* DELIVERED styling */
 .order-card .status-delivered{
   background: rgba(160, 220, 180, 0.4);
   color: #1e7a3c;
   border-color: rgba(30, 122, 60, 0.35);
 }
 
-
-/* =========================
-   FOOTER
-========================= */
-
+/* footer section */
 .footer{
   background: linear-gradient(180deg, #24150f 0%, #1c110c 100%);
   color: rgba(243,233,220,0.88);
@@ -371,7 +317,6 @@ html, body {
   position: relative;
 }
 
-/* soft top divider */
 .footer::before{
   content:"";
   position:absolute;
@@ -385,7 +330,6 @@ html, body {
   );
 }
 
-/* grid */
 .footer-grid{
   display:grid;
   grid-template-columns: 1.4fr 1fr 1fr;
@@ -393,14 +337,12 @@ html, body {
   align-items: start;
 }
 
-/* columns */
 .footer-col{
   display:flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* brand */
 .footer-brand{
   font-family: "Lora", serif;
   font-weight: 700;
@@ -410,7 +352,6 @@ html, body {
   color: rgba(243,233,220,0.95);
 }
 
-/* titles */
 .footer-title{
   font-family: "Libre Baskerville", serif;
   font-size: 14px;
@@ -419,7 +360,6 @@ html, body {
   color: rgba(243,233,220,0.92);
 }
 
-/* text */
 .footer-text{
   margin: 0;
   font-size: 13px;
@@ -431,7 +371,6 @@ html, body {
   color: rgba(243,233,220,0.9);
 }
 
-/* links */
 .footer-link{
   display: inline-flex;
   align-items: center;
@@ -450,18 +389,16 @@ html, body {
   transform: translateX(4px);
 }
 
-/* icons */
 .footer-link i{
   font-size: 15px;
   width: 18px;
   color: #e8cbb8;
 }
 
-/* hover brand colours */
 .footer-social:hover .fa-instagram{ color:#E1306C; }
 .footer-social:hover .fa-facebook-f{ color:#1877F2; }
 
-/* bottom bar */
+
 .footer-bottom{
   width: min(1200px, 92%);
   margin: 24px auto 0;
@@ -470,28 +407,4 @@ html, body {
   font-size: 12px;
   text-align: center;
   color: rgba(243,233,220,0.55);
-}
-
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 900px){
-  .footer-grid{ grid-template-columns: 1fr; }
-  .navi-links{ gap: 22px; }
-}
-
-@media (max-width: 650px){
-  .order-row{
-    grid-template-columns: 1fr;
-    text-align: left;
-  }
-  .order-date{ text-align: left; }
-  .order-total{ text-align: left; }
-}
-
-@media (max-width: 560px){
-  .brand-name{ display:none; }
-  .brand-logo{ width: 80px; }
-  .nav-cta{ display:none; }
 }
