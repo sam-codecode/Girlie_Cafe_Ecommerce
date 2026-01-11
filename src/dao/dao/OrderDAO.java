@@ -214,7 +214,7 @@ public class OrderDAO {
 	    return list;
 	}
 
-
+// Retrieve top 5 best-selling products based on quantity sold
 
  public List<Map<String, Object>> getTopProducts() {
 	    List<Map<String, Object>> list = new ArrayList<>();
