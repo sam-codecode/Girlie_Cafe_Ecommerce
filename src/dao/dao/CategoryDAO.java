@@ -12,7 +12,7 @@ import java.util.List;
 public class CategoryDAO {
 
     // Insert a new category record into the categories table
-    
+
     public boolean addCategory(Category category) {
 
         String sql = "INSERT INTO categories (category_name, description, image_name) VALUES (?, ?, ?)";
@@ -24,7 +24,7 @@ public class CategoryDAO {
             ps.setString(2, category.getDescription());
             ps.setString(3, category.getImageName());
 
-            return ps.executeUpdate() > 0;
+            return ps.executeUpdate() > 0; // Returns true if insert is successful
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,9 +32,8 @@ public class CategoryDAO {
         return false;
     }
 
-    // =========================
-    // Read (Get All Category)
-    // =========================
+    // Retrieve all category records from the database
+    
     public List<Category> getAllCategories() {
 
         List<Category> categories = new ArrayList<>();
