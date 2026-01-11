@@ -34,7 +34,7 @@ public class OrderDAO {
 
 	        try (ResultSet rs = ps.getGeneratedKeys()) {
 	            if (rs.next()) {
-	                return rs.getInt(1); // ✅ order_id
+	                return rs.getInt(1); 
 	            }
 	        }
 
@@ -42,12 +42,11 @@ public class OrderDAO {
 	        e.printStackTrace();
 	    }
 
-	    return -1; // ❌ failed
-	}
+	    return -1; 
 
 
     // Retrieve a single order using order ID
-    
+
     public Order getOrderById(int orderId) {
 
         String sql = "SELECT * FROM orders WHERE order_id = ?";
@@ -62,6 +61,7 @@ public class OrderDAO {
                 if (rs.next()) {
                     order = new Order();
 
+                    // Map database order record to Order object
                     order.setOrderId(rs.getInt("order_id"));
                     order.setUserId(rs.getInt("user_id"));
                     order.setOrderDate(rs.getTimestamp("order_date"));
