@@ -181,7 +181,7 @@ INSERT INTO products (category_id, name, description, price, stock, image_name) 
 
 (5,'Iced Espresso (on Ice)',
 'A single shot of freshly brewed espresso served chilled over ice, delivering an intense, bold flavour for true coffee enthusiasts.',
-6.00,60,'iced_espresso.png'),
+6.00,60,'iced_espresso_(on_ice).png'),
 
 -- CHOCOLATE & SODAS
 (5,'Belgian Chocolate',
