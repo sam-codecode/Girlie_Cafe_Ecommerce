@@ -32,7 +32,8 @@
     <title>Admin Dashboard | Girlie's Café</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/admin.css">
 </head>
-<body class="admin-page">
+<body class="admin-page"
+style="background-image: url('<%= request.getContextPath() %>/assets/images/admin-bg.jpg');">
 
 
 <div class="admin-layout">
@@ -106,19 +107,22 @@
                             String date = String.valueOf(row.get("date"));
                             double total = (double) row.get("total");
                             String status = String.valueOf(row.get("status"));
+                            String statusClass = "status-" + status.toLowerCase();
 
-                            String statusClass = "pending";
-                            if ("Shipped".equalsIgnoreCase(status)) statusClass = "shipped";
-                            if ("Delivered".equalsIgnoreCase(status)) statusClass = "shipped"; // reuse green
                 %>
                     <tr>
                         <td>#<%= orderId %></td>
                         <td><%= customer %></td>
                         <td><%= date %></td>
                         <td>RM <%= String.format("%.2f", total) %></td>
-                        <td><span class="status <%= statusClass %>"><%= status %></span></td>
+                       <td>
+  <span class="status-pill <%= statusClass %>">
+    <%= status.toUpperCase() %>
+  </span>
+</td>
+
                         <td>
-                            <a class="action-btn"
+                            <a class="btn-edit"
                                href="<%= request.getContextPath() %>/admin/orders?action=view&orderId=<%= orderId %>">
                                 View
                             </a>

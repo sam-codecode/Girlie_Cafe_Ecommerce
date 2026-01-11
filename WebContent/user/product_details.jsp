@@ -1,13 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="model.Product" %>
 
 <%
-  Product product = (Product) request.getAttribute("product");
-  if (product == null) {
-      response.sendRedirect(request.getContextPath() + "/products.jsp");
-      return;
-  }
+    Product product = (Product) request.getAttribute("product");
+    if (product == null) {
+        response.sendRedirect(request.getContextPath() + "/products");
+        return;
+    }
 %>
 
 <!DOCTYPE html>
@@ -15,45 +14,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Details | Girlie’s Café</title>
+
+  <title><%= product.getName() %> | Girlie’s Café</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;600&family=Lora:wght@400;600&family=Quicksand:wght@400;600&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="../css/product.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/product.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
 
 <!-- =========================
-     NAVIGATION (same design)
+     NAVIGATION
 ========================= -->
 <header class="top-hero">
   <nav class="top-navi">
-    <a class="brand" href="home.jsp">
-      <img src="../images/logo.png" alt="Girlie’s Café" class="brand-logo">
+    <a class="brand" href="<%= request.getContextPath() %>/user/index.jsp">
+      <img src="<%= request.getContextPath() %>/assets/images/logo.png"
+           class="brand-logo" alt="Girlie’s Café">
       <span class="brand-name">Girlie’s Café</span>
     </a>
 
     <div class="navi-links">
-      <a class="navi-link" href="home.jsp">Home</a>
-      <a class="navi-link active" href="products.jsp">Menu</a>
-      <a class="navi-link" href="cart.jsp">Cart</a>
-      <a class="navi-link" href="history.jsp">My History</a>
+      <a class="navi-link" href="<%= request.getContextPath() %>/user/index.jsp">Home</a>
+      <a class="navi-link active" href="<%= request.getContextPath() %>/products">Menu</a>
+      <a class="navi-link" href="<%= request.getContextPath() %>/user/cart.jsp">Cart</a>
+      <a class="navi-link" href="<%= request.getContextPath() %>/orderHistory">
+    My History
+</a>
+
     </div>
 
-    <a class="nav-cta pop-effect" href="cart.jsp">Checkout</a>
+    <a class="nav-cta pop-effect"
+       href="<%= request.getContextPath() %>/user/cart.jsp">Checkout</a>
   </nav>
 
   <div class="main-text">
-    <h1 class="main-title">Explore Our Menu</h1>
+    <h1 class="main-title">Product Details</h1>
     <p class="main-subtitle">Tantalise Your Tastebuds</p>
   </div>
 </header>
-
 
 <!-- =========================
      PRODUCT DETAILS
@@ -61,48 +66,61 @@
 <main class="menu-section">
   <div class="menu-wrap">
 
-    <!-- Back link OUTSIDE the card (top) -->
-    <a href="products.jsp" class="back-top-link">← Back to Menu</a>
-
-    <!-- Pop Toast -->
-    <div class="success-toast" id="successToast" aria-live="polite">
-      Item has successfully been added into My Cart.
-      <a href="cart.jsp">Go to Cart</a>
-    </div>
+    <!-- Back to menu -->
+    <a href="<%= request.getContextPath() %>/products"
+       class="back-top-link">← Back to Menu</a>
 
     <!-- Product Card -->
     <div class="product-details">
 
-      <!-- Image -->
-      <img id="productImage"
-           src="../images/placeholder.png"
-           alt="Product Image"
-           onerror="this.src='../images/placeholder.png'">
+      <!-- Product Image -->
+      <img src="<%= request.getContextPath() %>/assets/images/menu/<%= product.getCategoryId() %>/<%= product.getImageName() %>"
+           alt="<%= product.getName() %>"
+           onerror="this.src='<%= request.getContextPath() %>/assets/images/placeholder.png'">
 
-      <!-- Right side info -->
+      <!-- Product Info -->
       <div class="product-details-info">
 
         <div class="product-row">
-          <h3 class="product-name" id="productName">Loading...</h3>
-          <span class="product-price" id="productPrice">RM 0.00</span>
+          <h3 class="product-name"><%= product.getName() %></h3>
+          <span class="product-price">
+            RM <%= String.format("%.2f", product.getPrice()) %>
+          </span>
         </div>
 
-        <p class="product-desc" id="productDesc">Loading description...</p>
+        <p class="product-desc">
+          <%= product.getDescription() %>
+        </p>
 
-        <form id="addCartForm">
-          <input type="hidden" id="productId" value="">
+        <!-- Add to Cart -->
+        <form action="<%= request.getContextPath() %>/cart" method="post">
 
-          <!-- Quantity centered + lower -->
+          <input type="hidden" name="action" value="add">
+          <input type="hidden" name="productId"
+                 value="<%= product.getProductId() %>">
+
+          <!-- Quantity -->
           <div class="qty-area">
-            <button type="button" id="minusBtn">-</button>
-            <input type="number" id="qtyInput" name="quantity" value="1" min="1" >
+            <button type="button" id="minusBtn">−</button>
+
+            <input type="number"
+                   id="qtyInput"
+                   name="quantity"
+                   value="1"
+                   min="1"
+                   max="<%= product.getStock() %>">
+
             <button type="button" id="plusBtn">+</button>
           </div>
 
-          <!-- Buttons row -->
           <div class="action-row">
-            <button type="submit" class="btn-addcart">ADD TO CART</button>
+            <button type="submit"
+                    class="btn-addcart"
+                    <%= product.getStock() <= 0 ? "disabled" : "" %>>
+              <%= product.getStock() <= 0 ? "OUT OF STOCK" : "ADD TO CART" %>
+            </button>
           </div>
+
         </form>
 
       </div>
@@ -112,8 +130,8 @@
 </main>
 
 <!-- =========================
-     FOOTER (same design)
-========================= -->
+     FOOTER
+========================== -->
 <footer class="footer">
   <div class="wrap footer-grid">
 
@@ -121,22 +139,35 @@
       <div class="footer-brand">Girlie’s Café</div>
       <p class="footer-text">
         <strong>Operating Hours</strong><br>
-        Mon – Sat: 8:00 AM – 7:00 PM<br>
-        Sun & Public Holidays: Closed
+        Monday – Saturday: 8:00 AM – 7:00 PM<br>
+        Sunday &amp; Public Holidays: Closed
       </p>
     </div>
 
     <div class="footer-col">
       <div class="footer-title">Customer Care</div>
       <a class="footer-link" href="#">FAQ</a>
-      <a class="footer-link" href="https://wa.me/60123456789" target="_blank">Contact Us (WhatsApp)</a>
+      <a class="footer-link" href="https://wa.me/60123456789" target="_blank" rel="noopener">WhatsApp Us</a>
     </div>
 
     <div class="footer-col">
       <div class="footer-title">Connect</div>
-      <a class="footer-link" href="https://instagram.com/girliescafe" target="_blank">Instagram</a>
-      <a class="footer-link" href="https://facebook.com/girliescafe" target="_blank">Facebook</a>
-      <a class="footer-link" href="tel:+60111111111">+60-11-1111111</a>
+
+      <a class="footer-link footer-social"
+         href="https://instagram.com/girliescafe"
+         target="_blank" rel="noopener">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+
+      <a class="footer-link footer-social"
+         href="https://facebook.com/girliescafe"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i> Facebook
+      </a>
+
+      <a class="footer-link footer-contact" href="tel:+60111111111">
+        <i class="fas fa-phone-alt"></i> +60-11-1111111
+      </a>
     </div>
 
   </div>
@@ -146,96 +177,36 @@
   </div>
 </footer>
 
-
+<!-- =========================
+     JAVASCRIPT (Quantity only)
+========================= -->
 <script>
-  // ===== Quantity stepper =====
   const minusBtn = document.getElementById("minusBtn");
   const plusBtn  = document.getElementById("plusBtn");
   const qtyInput = document.getElementById("qtyInput");
 
-  const MIN_QTY = 1;
-  const MAX_QTY = 15;
+  const MIN = 1;
+  const MAX = parseInt(qtyInput.max || 1);
 
-  function clampQty(v){
-    v = parseInt(v || MIN_QTY, 10);
-    if (isNaN(v) || v < MIN_QTY) v = MIN_QTY;
-    if (v > MAX_QTY) v = MAX_QTY;
-    return v;
-  }
-
-  function updateButtons(){
-    const v = clampQty(qtyInput.value);
-    qtyInput.value = v;
-    minusBtn.disabled = v <= MIN_QTY;
-    plusBtn.disabled  = v >= MAX_QTY;
+  function updateButtons() {
+    const val = parseInt(qtyInput.value);
+    minusBtn.disabled = val <= MIN;
+    plusBtn.disabled  = val >= MAX;
   }
 
   minusBtn.addEventListener("click", () => {
-    const v = clampQty(qtyInput.value);
-    qtyInput.value = Math.max(MIN_QTY, v - 1);
+    qtyInput.value = Math.max(MIN, qtyInput.value - 1);
     updateButtons();
   });
 
   plusBtn.addEventListener("click", () => {
-    const v = clampQty(qtyInput.value);
-
-    if (v >= MAX_QTY){
-      updateButtons();
-      return;
-    }
-
-    qtyInput.value = v + 1;
+    qtyInput.value = Math.min(MAX, parseInt(qtyInput.value) + 1);
     updateButtons();
   });
 
-  qtyInput.addEventListener("input", () => {
-    qtyInput.value = clampQty(qtyInput.value);
-    updateButtons();
-  });
-
+  qtyInput.addEventListener("input", updateButtons);
   updateButtons();
-
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id") || 1;
-  document.getElementById("productId").value = id;
-
-  // ===== TEMP data (replace later) =====
-  const productsData = [
-    { id:"1", category:"1", name:"Classic Brunch Set", price:12.90, image:"classic-brunch.jpg", desc:"A cozy set with eggs, toast and a side salad." },
-    { id:"2", category:"1", name:"Avocado Toast", price:14.50, image:"avocado-toast.jpg", desc:"Creamy avocado, crunchy toast, light and filling." },
-    { id:"3", category:"2", name:"Chicken Parmigiana", price:23.00, image:"chicken-parmigiana.jpg", desc:"Crispy chicken, rich tomato sauce, melted cheese." },
-    { id:"4", category:"3", name:"Tonkatsu Rice", price:19.00, image:"tonkatsu-rice.jpg", desc:"Golden tonkatsu with warm rice and sauce." },
-    { id:"5", category:"4", name:"Chocolate Lava Cake", price:9.90, image:"chocolate-lava-cake.jpg", desc:"Soft cake with gooey molten chocolate center." },
-    { id:"6", category:"5", name:"Iced Lotus Latte", price:12.00, image:"iced-lotus-latte.jpg", desc:"Sweet lotus vibe with creamy iced latte." }
-  ];
-
-  const product = productsData.find(p => p.id === id) || productsData[0];
-
-  document.title = `${product.name} | Girlie’s Café`;
-  document.getElementById("productName").textContent = product.name;
-  document.getElementById("productPrice").textContent = `RM ${product.price.toFixed(2)}`;
-  document.getElementById("productDesc").textContent = product.desc;
-
-  document.getElementById("productImage").src = product.image;
-
-  // ===== Success Toast Pop =====
-  const toast = document.getElementById("successToast");
-
-  function showToast(){
-    toast.classList.remove("hide");
-    toast.classList.add("show");
-    setTimeout(() => {
-      toast.classList.remove("show");
-      toast.classList.add("hide");
-    }, 2500);
-  }
-
-  document.getElementById("addCartForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    showToast();
-  });
 </script>
-
 
 </body>
 </html>

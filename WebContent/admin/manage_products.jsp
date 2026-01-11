@@ -12,7 +12,8 @@
     <title>Product Management | Admin</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/admin.css">
 </head>
-<body class="admin-page">
+<body class="admin-page"
+style="background-image: url('<%= request.getContextPath() %>/assets/images/admin-bg.jpg');">
 
 
 <div class="admin-layout">
@@ -22,7 +23,7 @@
     <div class="main">
 
 <div class="page-header">
-    <h1>Product Management</h1>
+    <h1 class = "header" >Product Management</h1>
 
     <a href="<%= request.getContextPath() %>/admin/products?action=add"
        class="btn-add">
@@ -59,7 +60,7 @@
                         <td><%= p.getName() %></td>
                         <td>RM <%= String.format("%.2f", p.getPrice()) %></td>
                         <td><%= p.getStock() %></td>
-                        <td>Category <%= p.getCategoryId() %></td>
+                        <td><%= p.getCategoryId() %></td>
                         <td>
 <div class="action-buttons">
     <a href="<%= request.getContextPath() %>/admin/products?action=edit&id=<%= p.getProductId() %>"

@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDAO {
 
@@ -159,36 +161,94 @@ public class OrderDAO {
  // =========================
  // READ : Get All Orders (Admin)
  // =========================
- public List<Order> getAllOrders() {
+    public List<Order> getAllOrders() {
+        List<Order> list = new ArrayList<>();
 
-     List<Order> orders = new ArrayList<>();
-     String sql = "SELECT * FROM orders ORDER BY order_date DESC";
+        String sql = "SELECT * FROM orders ORDER BY order_id ASC";
 
-     try (Connection con = DBConnection.getConnection();
-          PreparedStatement ps = con.prepareStatement(sql);
-          ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-         while (rs.next()) {
-             Order order = new Order();
+            while (rs.next()) {
+                Order o = new Order();
+                o.setOrderId(rs.getInt("order_id"));
+                o.setUserId(rs.getInt("user_id"));
+                o.setOrderDate(rs.getTimestamp("order_date"));
+                o.setTotalAmount(rs.getDouble("total_amount"));
+                o.setOrderStatus(rs.getString("order_status"));
+                o.setPaymentStatus(rs.getString("payment_status"));
+                o.setShippingAddress(rs.getString("shipping_address"));
+                o.setNote(rs.getString("note"));
+                list.add(o);
+            }
 
-             order.setOrderId(rs.getInt("order_id"));
-             order.setUserId(rs.getInt("user_id"));
-             order.setOrderDate(rs.getTimestamp("order_date"));
-             order.setTotalAmount(rs.getDouble("total_amount"));
-             order.setOrderStatus(rs.getString("order_status"));
-             order.setPaymentStatus(rs.getString("payment_status"));
-             order.setShippingAddress(rs.getString("shipping_address"));
-             order.setNote(rs.getString("note"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-             orders.add(order);
-         }
+        return list;
+    }
 
-     } catch (Exception e) {
-         e.printStackTrace();
-     }
+ public List<Map<String, Object>> getMonthlySales() {
+	    List<Map<String, Object>> list = new ArrayList<>();
 
-     return orders;
- }
+	    String sql = """
+	        SELECT DATE_FORMAT(order_date, '%Y-%m') AS month,
+	               SUM(total_amount) AS total
+	        FROM orders
+	        WHERE payment_status = 'PAID'
+	        GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+	        ORDER BY month
+	    """;
+
+	    try (Connection con = DBConnection.getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
+
+	        while (rs.next()) {
+	            Map<String, Object> row = new HashMap<>();
+	            row.put("month", rs.getString("month"));
+	            row.put("total", rs.getDouble("total"));
+	            list.add(row);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return list;
+	}
+
+
+
+ public List<Map<String, Object>> getTopProducts() {
+	    List<Map<String, Object>> list = new ArrayList<>();
+
+	    String sql = """
+	        SELECT p.name, SUM(oi.quantity) AS sold
+	        FROM order_items oi
+	        JOIN products p ON oi.product_id = p.product_id
+	        GROUP BY p.product_id, p.name
+	        ORDER BY sold DESC
+	        LIMIT 5
+	    """;
+
+	    try (Connection con = DBConnection.getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
+
+	        while (rs.next()) {
+	            Map<String, Object> row = new HashMap<>();
+	            row.put("name", rs.getString("name"));
+	            row.put("sold", rs.getInt("sold"));
+	            list.add(row);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return list;
+	}
+
+
 
     
 }

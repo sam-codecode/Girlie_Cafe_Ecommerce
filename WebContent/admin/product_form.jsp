@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/product_form.css">
 </head>
 
-<body class="admin-page">
+<body class="admin-page"
+style="background-image: url('<%= request.getContextPath() %>/assets/images/admin-bg.jpg');">
 
 <div class="admin-layout">
 
@@ -23,7 +24,7 @@
     <!-- MAIN CONTENT -->
     <main class="admin-main">
 
-        <h1 class="page-title">
+        <h1 class="page-title" style="color: white;">
             <%= isEdit ? "Edit Product" : "Add Product" %>
         </h1>
 

@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/admin.css">
 </head>
 
-<body class="admin-page">
+<body class="admin-page"
+style="background-image: url('<%= request.getContextPath() %>/assets/images/admin-bg.jpg');">
 
 <div class="admin-layout">
 
@@ -21,7 +22,7 @@
 
     <div class="main">
 
-        <h1>User Management</h1>
+        <h1 class = "header">Registered User</h1>
 
         <div class="table-container">
             <table>
@@ -31,7 +32,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Action</th>
+                    
                 </tr>
                 </thead>
 
@@ -51,13 +52,7 @@
                         <td><%= user.getName() %></td>
                         <td><%= user.getEmail() %></td>
                         <td><%= user.getPhone() %></td>
-                        <td>
-                            <a href="<%= request.getContextPath() %>/admin/users?action=delete&id=<%= user.getUserId() %>"
-                               class="btn-delete"
-                               onclick="return confirm('Delete this user?')">
-                                Delete
-                            </a>
-                        </td>
+
                     </tr>
                 <%
                         }
