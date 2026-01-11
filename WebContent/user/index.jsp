@@ -1,3 +1,4 @@
+<%-- JSP page configuration and character encoding --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,36 +7,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home | Girlie’s Café</title>
 
-  <!-- Google Fonts -->
+  <%-- Import Google Fonts --%>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- HOME CSS (your given path) -->
+  <%-- Home page stylesheet path  --%>
   <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/home.css">
-  <!-- Swiper (CDN) -->
+
+  <%-- Swiper library stylesheet for sliders and carousels --%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   
-
-  <!-- Font Awesome -->
+  <%-- Font Awesome icons library --%>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
 
-<!-- =========================
-     TOP HERO + NAV
-========================== -->
+<%-- Top hero section with main navigation bar and branding --%>
 <header class="top-hero">
 
   <nav class="top-navi">
-    <!-- Brand -->
+
     <a class="brand" href="<%= request.getContextPath() %>/user/index.jsp">
       <img src="<%= request.getContextPath() %>/assets/images/logo.png" class="brand-logo" alt="Girlie’s Café">
       <span class="brand-name">Girlie’s Café</span>
     </a>
 
-    <!-- Nav Links -->
+    <%-- Navigation bar links --%>
     <div class="navi-links">
       <a class="navi-link active" href="<%= request.getContextPath() %>/user/index.jsp">Home</a>
       <a class="navi-link" href="<%= request.getContextPath() %>/products">Menu</a>
@@ -46,13 +45,11 @@
 
     </div>
 
-    <!-- CTA -->
+    <%-- checkout button link --%>
     <a class="nav-cta pop-effect" href="<%= request.getContextPath() %>/user/cart.jsp">Checkout</a>
   </nav>
 
-  <!-- =========================
-       NEW YEAR PROMO
-  ========================== -->
+  <%-- New Year promotional banner with festive offers --%>
   <section class="ny-promo">
     <div class="ny-card">
 
@@ -78,9 +75,7 @@
 
 </header>
 
-<!-- =========================
-     ABOUT US
-========================== -->
+<%-- About us section --%>
 <section class="section about-section">
   <div class="wrap about-grid">
 
@@ -135,9 +130,7 @@
   </div>
 </section>
 
-<!-- =========================
-     SECTION 3: CAFÉ HIGHLIGHTS
-========================== -->
+<%-- Café highlights slider showing top 5 menus --%>
 <section class="fav-section" id="highlights">
   <div class="fav-overlay">
     <div class="wrap fav-wrap">
@@ -238,7 +231,6 @@
 
   </div>
 
-  <!-- arrows + dots -->
   <div class="swiper-button-prev fav-swiper-prev"></div>
   <div class="swiper-button-next fav-swiper-next"></div>
   <div class="swiper-pagination fav-swiper-pagination"></div>
@@ -249,9 +241,7 @@
   </div>
 </section>
 
-<!-- =========================
-     SECTION 4: SERVICES
-========================== -->
+<%-- Services section --%>
 <section class="section services-section">
   <div class="wrap">
 
@@ -299,9 +289,7 @@
   </div>
 </section>
 
-<!-- =========================
-     SECTION: MEET OUR TEAM (SLIDER)
-========================== -->
+<%-- Team section slider introducing cafe members --%>
 <section class="team-section" id="ourTeam">
   <div class="team-overlay">
 
@@ -385,7 +373,6 @@
 
   </div>
 
-  <!-- arrows + dots -->
   <div class="swiper-button-prev team-swiper-prev"></div>
   <div class="swiper-button-next team-swiper-next"></div>
   <div class="swiper-pagination team-swiper-pagination"></div>
@@ -394,10 +381,7 @@
   </div>
 </section>
 
-
-<!-- =========================
-     FOOTER
-========================== -->
+<%-- Footer section with contact details and social links --%>
 <footer class="footer">
   <div class="wrap footer-grid">
 
@@ -443,9 +427,10 @@
   </div>
 </footer>
 
+<%-- JavaScript for the cafe highlights and team sliders--%>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // Cafe Highlights
+  // Cafe Highlights Slider
   new Swiper(".favSwiper", {
     loop: true,
     slidesPerView: 1,
@@ -461,7 +446,7 @@ document.addEventListener("DOMContentLoaded", () => {
     autoplay: { delay: 3000, disableOnInteraction: false },
   });
 
-  // Team
+  // Team Slider
   new Swiper(".teamSwiper", {
     loop: true,
     slidesPerView: 1,
