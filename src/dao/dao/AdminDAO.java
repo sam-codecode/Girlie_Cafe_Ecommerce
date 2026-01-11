@@ -24,7 +24,7 @@ public class AdminDAO {
             return rs.next(); 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
         }
         return false;
     }
@@ -46,6 +46,7 @@ public class AdminDAO {
             if (rs.next()) {
                 Admin admin = new Admin();
 
+                // Map database record to Admin object
                 admin.setAdminId(rs.getInt("admin_id"));
                 admin.setName(rs.getString("name"));
                 admin.setUsername(rs.getString("username"));
