@@ -80,7 +80,7 @@ public class OrderDAO {
     }
 
     // Retrieve all orders placed by a specific user
-    
+
     public List<Order> getOrdersByUserId(int userId) {
 
         List<Order> orders = new ArrayList<>();
@@ -114,9 +114,8 @@ public class OrderDAO {
         return orders;
     }
 
-    // =========================
-    // UPDATE : Order Status
-    // =========================
+    // Update the status of an existing order
+    
     public boolean updateOrderStatus(int orderId, String orderStatus) {
 
         String sql = "UPDATE orders SET order_status = ? WHERE order_id = ?";
