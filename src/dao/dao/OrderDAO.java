@@ -135,7 +135,7 @@ public class OrderDAO {
     }
 
     // Update payment status for a specific order
-    
+
     public boolean updatePaymentStatus(int orderId, String paymentStatus) {
 
         String sql = "UPDATE orders SET payment_status = ? WHERE order_id = ?";
@@ -243,9 +243,5 @@ public class OrderDAO {
 	        e.printStackTrace();
 	    }
 	    return list;
-	}
-
-
-
-    
+	}    
 }

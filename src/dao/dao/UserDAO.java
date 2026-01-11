@@ -12,9 +12,8 @@ import java.util.List;
 
 public class UserDAO {
 
-    // ===============================
-    // Register User
-    // ===============================
+    // Handles user registration and saves a hashed password
+
     public boolean registerUser(User user) {
 
         String sql = "INSERT INTO users (name, email, password, phone, address) VALUES (?, ?, ?, ?, ?)";
@@ -38,9 +37,8 @@ public class UserDAO {
         return false;
     }
 
-    // ===============================
-    // Check Email Exists
-    // ===============================
+    // Checks if the email is already registered in the system
+
     public boolean emailExists(String email) {
 
         String sql = "SELECT user_id FROM users WHERE email = ?";
@@ -58,9 +56,8 @@ public class UserDAO {
         return false;
     }
 
-    // ===============================
-    // Login (Authentication)
-    // ===============================
+    // Verifies login credentials using hashed password comparison
+
     public User login(String email, String password) {
 
         String sql = "SELECT * FROM users WHERE email = ?";
@@ -95,9 +92,8 @@ public class UserDAO {
         return null;
     }
 
-    // ===============================
-    // Get All Users
-    // ===============================
+    // Retrieves all users for admin or management view
+
     public List<User> getAllUsers() {
 
         List<User> users = new ArrayList<>();
@@ -125,9 +121,8 @@ public class UserDAO {
         return users;
     }
 
-    // ===============================
-    // Get User By ID
-    // ===============================
+    // Gets user details based on the provided user ID
+
     public User getUserById(int userId) {
 
         String sql = "SELECT * FROM users WHERE user_id = ?";
@@ -154,9 +149,8 @@ public class UserDAO {
         return user;
     }
 
-    // ===============================
-    // Update User
-    // ===============================
+    // Updates basic user profile information
+
     public boolean updateUser(User user) {
 
         String sql = "UPDATE users SET name = ?, email = ?, phone = ?, address = ? WHERE user_id = ?";
@@ -178,9 +172,8 @@ public class UserDAO {
         return false;
     }
 
-    // ===============================
-    // Delete User
-    // ===============================
+    // Permanently removes a user from the database
+
     public boolean deleteUser(int userId) {
 
         String sql = "DELETE FROM users WHERE user_id = ?";
