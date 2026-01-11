@@ -7,20 +7,19 @@
   <meta charset="UTF-8">
   <title>Menu | Girlie’s Café</title>
   
-    <!-- Google Fonts -->
+  <%-- Import Google Fonts --%>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+  <%-- Product page stylesheet path  --%>
   <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/product.css">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
 
-<!-- =========================
-     NAVIGATION
-========================= -->
 <header class="top-hero">
   <nav class="top-navi">
     <a class="brand" href="<%= request.getContextPath() %>/user/index.jsp">
@@ -44,13 +43,10 @@
   </div>
 </header>
 
-<!-- =========================
-     MENU SECTION
-========================= -->
+ <%-- Menu section  --%>
 <main class="menu-section">
   <div class="menu-wrap">
 
-    <!-- SEARCH -->
     <form class="product-toolbar" method="get" action="<%= request.getContextPath() %>/products">
 
       <div class="search-row">
@@ -62,7 +58,7 @@
         <button class="search-btn">Search</button>
       </div>
 
-      <!-- CATEGORY -->
+       <%-- category --%>
       <div class="categories-row">
         <a href="<%= request.getContextPath() %>/products?categoryId=1"
            class="category-pill ${activeCategory == 1 ? 'active' : ''}">
@@ -95,7 +91,7 @@
       </div>
     </form>
 
-    <!-- PRODUCTS GRID -->
+     <%-- Product grids--%>
     <div class="product-container">
 
       <c:if test="${empty products}">
@@ -127,9 +123,7 @@
   </div>
 </main>
 
-<!-- =========================
-     FOOTER
-========================== -->
+ <%-- footer --%>
 <footer class="footer">
   <div class="wrap footer-grid">
 

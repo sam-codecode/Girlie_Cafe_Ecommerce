@@ -17,34 +17,30 @@
 
   <title><%= product.getName() %> | Girlie’s Café</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;600&family=Lora:wght@400;600&family=Quicksand:wght@400;600&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/product.css" />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
 
-<!-- =========================
-     NAVIGATION
-========================= -->
-<header class="top-hero">
-  <nav class="top-navi">
-    <a class="brand" href="<%= request.getContextPath() %>/user/index.jsp">
+<header class= "top-hero">
+  <nav class= "top-navi">
+    <a class ="brand" href="<%= request.getContextPath() %>/user/index.jsp">
       <img src="<%= request.getContextPath() %>/assets/images/logo.png"
            class="brand-logo" alt="Girlie’s Café">
       <span class="brand-name">Girlie’s Café</span>
     </a>
 
     <div class="navi-links">
-      <a class="navi-link" href="<%= request.getContextPath() %>/user/index.jsp">Home</a>
+      <a class ="navi-link" href="<%= request.getContextPath() %>/user/index.jsp">Home</a>
       <a class="navi-link active" href="<%= request.getContextPath() %>/products">Menu</a>
-      <a class="navi-link" href="<%= request.getContextPath() %>/user/cart.jsp">Cart</a>
-      <a class="navi-link" href="<%= request.getContextPath() %>/orderHistory">
+      <a class= "navi-link" href ="<%= request.getContextPath() %>/user/cart.jsp">Cart</a>
+      <a class="navi-link" href ="<%= request.getContextPath() %>/orderHistory">
     My History
 </a>
 
@@ -60,25 +56,19 @@
   </div>
 </header>
 
-<!-- =========================
-     PRODUCT DETAILS
-========================= -->
+ <%-- product detail  --%>
 <main class="menu-section">
   <div class="menu-wrap">
 
-    <!-- Back to menu -->
     <a href="<%= request.getContextPath() %>/products"
        class="back-top-link">← Back to Menu</a>
 
-    <!-- Product Card -->
     <div class="product-details">
 
-      <!-- Product Image -->
       <img src="<%= request.getContextPath() %>/assets/images/menu/<%= product.getCategoryId() %>/<%= product.getImageName() %>"
            alt="<%= product.getName() %>"
            onerror="this.src='<%= request.getContextPath() %>/assets/images/placeholder.png'">
 
-      <!-- Product Info -->
       <div class="product-details-info">
 
         <div class="product-row">
@@ -92,14 +82,12 @@
           <%= product.getDescription() %>
         </p>
 
-        <!-- Add to Cart -->
         <form action="<%= request.getContextPath() %>/cart" method="post">
 
           <input type="hidden" name="action" value="add">
           <input type="hidden" name="productId"
                  value="<%= product.getProductId() %>">
 
-          <!-- Quantity -->
           <div class="qty-area">
             <button type="button" id="minusBtn">−</button>
 
@@ -129,9 +117,6 @@
   </div>
 </main>
 
-<!-- =========================
-     FOOTER
-========================== -->
 <footer class="footer">
   <div class="wrap footer-grid">
 
@@ -177,9 +162,7 @@
   </div>
 </footer>
 
-<!-- =========================
-     JAVASCRIPT (Quantity only)
-========================= -->
+<%-- JavaScript logic for quantity increment and decrement controls --%>
 <script>
   const minusBtn = document.getElementById("minusBtn");
   const plusBtn  = document.getElementById("plusBtn");
