@@ -62,9 +62,8 @@ public class CategoryDAO {
         return categories;
     }
 
-    // ===========================
-    // Read (Get Category By ID)
-    // ===========================
+    // Retrieve a single category based on category ID
+
     public Category getCategoryById(int categoryId) {
 
         String sql = "SELECT * FROM categories WHERE category_id = ?";
