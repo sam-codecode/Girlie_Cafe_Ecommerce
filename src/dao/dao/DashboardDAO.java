@@ -74,7 +74,7 @@ public class DashboardDAO {
     }
 
     // Retrieve latest orders with customer details for dashboard table
-    
+
     public List<Map<String, Object>> getRecentOrders(int limit) {
 
         List<Map<String, Object>> list = new ArrayList<>();
@@ -93,6 +93,8 @@ public class DashboardDAO {
 
             while (rs.next()) {
                 Map<String, Object> row = new HashMap<>();
+
+                // Map recent order data into key-value structure for UI
                 row.put("orderId", rs.getInt("order_id"));
                 row.put("customer", rs.getString("customer"));
 
