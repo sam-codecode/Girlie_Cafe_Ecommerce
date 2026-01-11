@@ -134,9 +134,8 @@ public class OrderDAO {
         return false;
     }
 
-    // =========================
-    // UPDATE : Payment Status
-    // =========================
+    // Update payment status for a specific order
+    
     public boolean updatePaymentStatus(int orderId, String paymentStatus) {
 
         String sql = "UPDATE orders SET payment_status = ? WHERE order_id = ?";
@@ -154,8 +153,9 @@ public class OrderDAO {
         }
         return false;
     }
- // / Retrieve all orders for admin management view
- 
+
+ // Retrieve all orders for admin management view
+
     public List<Order> getAllOrders() {
         List<Order> list = new ArrayList<>();
 
