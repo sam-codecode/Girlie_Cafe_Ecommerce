@@ -46,9 +46,8 @@ public class OrderDAO {
 	}
 
 
-    // =========================
-    // READ : Get Order by ID
-    // =========================
+    // Retrieve a single order using order ID
+    
     public Order getOrderById(int orderId) {
 
         String sql = "SELECT * FROM orders WHERE order_id = ?";
