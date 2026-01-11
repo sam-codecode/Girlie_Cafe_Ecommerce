@@ -1,6 +1,3 @@
-/* =========================
-   GLOBAL
-========================= */
 * { box-sizing: border-box; }
 
 :root{
@@ -23,16 +20,12 @@ html, body {
   background: url("../images/order.jpg") ;
 }
 
-/* Thin black scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.45); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.65); }
 * { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.45) transparent; }
 
-/* =========================
-   UNIVERSAL POP EFFECT
-========================= */
 .pop-effect {
   transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
 }
@@ -42,9 +35,6 @@ html, body {
 }
 .pop-effect:active { transform: translateY(-1px) scale(0.98); }
 
-/* =========================
-   SECTION 1: TOP HERO
-========================= */
 .top-hero {
   min-height: 46vh;
   background: url("../images/brown.jpg") center / cover no-repeat;
@@ -72,9 +62,6 @@ html, body {
 
 .top-navi, .main-text { position: relative; z-index: 1; }
 
-/* =========================
-   NAVI
-========================= */
 .top-navi {
   width: min(1200px, 92%);
   margin: 0 auto;
@@ -177,9 +164,6 @@ html, body {
   background: rgba(0,0,0,0.35);
 }
 
-/* =========================
-   HERO TEXT
-========================= */
 .main-text { text-align: center; padding: 16px 10px 0; }
 
 .main-title {
@@ -198,9 +182,7 @@ html, body {
   font-size: 16px;
 }
 
-/* =========================
-   CART SECTION
-========================= */
+/* cart section */
 .cart-section { padding: 28px 0 44px; }
 .cart-wrap { width: min(1100px, 92%); margin: 0 auto; }
 
@@ -241,54 +223,49 @@ html, body {
   vertical-align: middle;
 
   font-family: "Libre Baskerville", serif;
-  font-size: 14px;         /* bigger */
+  font-size: 14px;       
   letter-spacing: 0.8px;
 }
 
 .cart-table td{
-  padding: 18px 12px;      /* more breathing room */
+  padding: 18px 12px;     
   border-bottom: 1px solid rgba(75,47,36,0.15);
   color: var(--text);
-  font-size: 15px;         /* base text bigger */
+  font-size: 15px;        
 }
 
-/* Product column: Libre */
 .cart-table td:nth-child(1){
   text-align: left;
   font-family: "Libre Baskerville", serif;
   font-weight: 800;
-  font-size: 16px;       /* product name bigger */
+  font-size: 16px;    
 }
 
-/* Numeric columns: Nunito */
 .cart-table td:nth-child(2),
 .cart-table td:nth-child(3),
 .cart-table td:nth-child(4),
 .cart-table td:nth-child(5){
   text-align: center;
   vertical-align: middle;
-  font-family: "Nunito", sans-serif;  /* numbers font */
+  font-family: "Nunito", sans-serif;  
   font-weight: 800;
-  font-size: 16.5px;                  /* numbers bigger */
+  font-size: 16.5px;               
   letter-spacing: 0.2px;
 }
 
-/* Row zebra */
 .cart-table tbody tr:nth-child(even) td{ 
   background: rgba(231,213,199,0.55); 
 }
 
-/* Prices + subtotals emphasis */
 .price,
 .subtotal,
 .total-value{
   font-family: "Nunito", sans-serif;
   font-weight: 900;
   color: var(--maroon);
-  font-size: 17px; /* makes prices clearer */
+  font-size: 17px; 
 }
 
-/* Total row */
 .cart-table tfoot td{
   background: rgba(231,213,199,0.45);
   border-bottom: none;
@@ -307,24 +284,13 @@ html, body {
   font-size: 18px;
 }
 
-/* =========================
-   Quantity controls
-========================= */
-.qty-wrap{
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.qty-cell{
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border-radius: 14px;
-  background: #e7d5c7;
-  border: 1px solid rgba(75,47,36,0.16);
+.qty-display{
+  display: inline-block;
+  min-width: 28px;
+  text-align: center;
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+  color: var(--text);
 }
 
 .qty-btn{
@@ -354,37 +320,7 @@ html, body {
   box-shadow: none;
 }
 
-.qty-input{
-  width: 62px;
-  height: 38px;
-  text-align: center;
-  border-radius: 12px;
-  border: 1px solid rgba(75,47,36,0.18);
-  background: var(--cream);
-  outline: none;
-
-  font-family: "Nunito", sans-serif; /* number font */
-  font-weight: 900;
-  font-size: 16px;
-}
-
-.qty-input::-webkit-outer-spin-button,
-.qty-input::-webkit-inner-spin-button{
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.stock-note{
-  margin: 0;
-  font-size: 13px;
-  opacity: 0.75;
-  font-family: "Nunito", sans-serif;
-  font-weight: 800;
-}
-
-/* =========================
-   Buttons / Actions
-========================= */
+/* remove button styling */
 .remove-btn{
   padding: 12px 14px;
   border-radius: 12px;
@@ -441,9 +377,7 @@ html, body {
   border: 1px solid rgba(148,44,73,0.22);
 }
 
-/* =========================
-   CHECKOUT PAGE ADDITIONS
-========================= */
+/* Checkout Page Styling  */
 
 .checkout-grid{
   display: grid;
@@ -452,7 +386,6 @@ html, body {
   margin-top: 16px;
 }
 
-/* Checkout sections */
 .checkout-box{
   background: rgba(255,245,233,0.92);
   border: 1px solid rgba(75,47,36,0.18);
@@ -469,14 +402,12 @@ html, body {
   color: #3b2418;
 }
 
-/* Radio option row */
 .option-row{
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
 }
 
-/* Radio pill buttons */
 .radio-pill{
   display: flex;
   align-items: center;
@@ -501,7 +432,6 @@ html, body {
   accent-color: #942c49;
 }
 
-/* Small helper text */
 .small-note{
   margin: 10px 0 0;
   font-size: 13px;
@@ -510,7 +440,6 @@ html, body {
   font-weight: 800;
 }
 
-/* Delivery address box */
 .delivery-address{
   margin-top: 14px;
   padding: 14px 16px;
@@ -532,7 +461,6 @@ html, body {
   color: #7A2E3A;
 }
 
-/* Bottom section (Total + Button) */
 .checkout-bottom{
   display: flex;
   flex-direction: column;
@@ -562,23 +490,6 @@ html, body {
   transition: transform .2s ease, box-shadow .2s ease;
 }
 
-/* Update this in cart.css */
-.place-btn:disabled, 
-.place-btn.disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-    transform: none !important;
-    box-shadow: none !important;
-}
-
-/* Ensure the button pops when it's actually active */
-.place-btn:not(:disabled):hover {
-    transform: translateY(-3px) scale(1.02);
-    background-color: #7A2E3A; /* Slightly darker on hover */
-    cursor: pointer;
-}
-
-/* Hint line (IMPORTANT – bigger & above payment) */
 .hint-line{
   margin: 4px 0 16px;
   text-align: left;
@@ -589,13 +500,11 @@ html, body {
   letter-spacing: 0.3px;
 }
 
-/* Checkout table tweaks */
 .cart-table th:first-child,
 .cart-table td:first-child{
   width: 42%;
 }
 
-/* Product name left-aligned + compact */
 .checkout-item{
   text-align: left !important;
   font-family: "Libre Baskerville", serif;
@@ -604,8 +513,6 @@ html, body {
   padding-right: 10px;
 }
 
-
-/* ===== MODAL OVERLAY ===== */
 .modal-overlay{
   position: fixed;
   inset: 0;
@@ -625,7 +532,6 @@ html, body {
   pointer-events: auto;
 }
 
-/* ===== MODAL BOX ===== */
 .modal-box{
   background: #fff5ec;
   border-radius: 22px;
@@ -639,7 +545,6 @@ html, body {
   animation: popIn 0.35s ease;
 }
 
-/* close button */
 .modal-close{
   position: absolute;
   top: 12px;
@@ -651,13 +556,11 @@ html, body {
   color: #6b4630;
 }
 
-/* icon */
 .modal-icon{
   font-size: 40px;
   margin-bottom: 10px;
 }
 
-/* text */
 .modal-title{
   font-family: "Playfair Display", serif;
   font-size: 22px;
@@ -673,7 +576,6 @@ html, body {
   margin-bottom: 20px;
 }
 
-/* button */
 .modal-btn{
   background: linear-gradient(180deg, #eac4cf, #d8a8b6);
   border: 2px solid rgba(140,47,75,0.7);
@@ -691,10 +593,7 @@ html, body {
   box-shadow: 0 10px 20px rgba(0,0,0,0.18);
 }
 
-/* =========================
-   FOOTER
-========================= */
-
+/* footer  styling */
 .footer{
   background: linear-gradient(180deg, #24150f 0%, #1c110c 100%);
   color: rgba(243,233,220,0.88);
@@ -702,7 +601,6 @@ html, body {
   position: relative;
 }
 
-/* soft top divider */
 .footer::before{
   content:"";
   position:absolute;
@@ -716,22 +614,19 @@ html, body {
   );
 }
 
-/* grid */
 .footer-grid{
-  display:grid;
+  display: grid;
   grid-template-columns: 1.4fr 1fr 1fr;
-  gap: 28px;
+  gap : 28px;
   align-items: start;
 }
 
-/* columns */
 .footer-col{
   display:flex;
   flex-direction: column;
-  gap: 10px;
+  gap : 10px;
 }
 
-/* brand */
 .footer-brand{
   font-family: "Lora", serif;
   font-weight: 700;
@@ -741,20 +636,18 @@ html, body {
   color: rgba(243,233,220,0.95);
 }
 
-/* titles */
 .footer-title{
   font-family: "Libre Baskerville", serif;
-  font-size: 14px;
-  letter-spacing: .6px;
-  margin-bottom: 6px;
+  font-size:  14px;
+  letter-spacing : .6px;
+  margin-bottom : 6px;
   color: rgba(243,233,220,0.92);
 }
 
-/* text */
 .footer-text{
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.8;
+  margin : 0;
+  font-size : 13px;
+  line-height : 1.8;
   color: rgba(243,233,220,0.72);
 }
 
@@ -762,11 +655,10 @@ html, body {
   color: rgba(243,233,220,0.9);
 }
 
-/* links */
 .footer-link{
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  display : inline-flex;
+  align-items : center;
+  gap : 10px;
   width: fit-content;
 
   text-decoration: none;
@@ -777,11 +669,10 @@ html, body {
 }
 
 .footer-link:hover{
-  color: rgba(243,233,220,1);
+  color : rgba(243,233,220,1);
   transform: translateX(4px);
 }
 
-/* icons */
 .footer-link i{
   font-size: 15px;
   width: 18px;
@@ -793,11 +684,9 @@ html, body {
 	margin: 0 auto; 
 }
 
-/* hover brand colours */
 .footer-social:hover .fa-instagram{ color:#E1306C; }
 .footer-social:hover .fa-facebook-f{ color:#1877F2; }
 
-/* bottom bar */
 .footer-bottom{
   width: min(1200px, 92%);
   margin: 24px auto 0;
@@ -827,20 +716,18 @@ html, body {
   border: 1px solid rgba(75,47,36,0.18);
   box-shadow: 0 10px 20px rgba(0,0,0,0.12);
 }
-/* =========================
-   EMPTY CART STATE
-========================= */
 
+/* empty cart message styling */
 .empty-cart{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items : center;
   justify-content: center;
 
   padding: 48px 20px;
   text-align: center;
 
-  min-height: 260px; /* prevents awkward tall space */
+  min-height: 260px; 
 }
 
 .empty-icon{
@@ -867,22 +754,6 @@ html, body {
   border-radius: 999px;
 }
 
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 900px){
-  .footer-grid{ grid-template-columns:1fr; }
-  .navi-links{ gap:22px; }
-}
-
-@media (max-width: 560px){
-  .brand-name{ display:none; }
-  .brand-logo{ width: 80px; }
-  .nav-cta{ display:none; }
-  .cart-table{ min-width: 660px; }
-}
-
 @keyframes popIn{
   from{
     transform: scale(0.9) translateY(10px);
@@ -893,5 +764,3 @@ html, body {
     opacity: 1;
   }
 }
-
-
