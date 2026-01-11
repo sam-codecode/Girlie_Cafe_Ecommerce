@@ -79,9 +79,8 @@ public class OrderDAO {
         return order;
     }
 
-    // =========================
-    // READ : Get Orders by User
-    // =========================
+    // Retrieve all orders placed by a specific user
+    
     public List<Order> getOrdersByUserId(int userId) {
 
         List<Order> orders = new ArrayList<>();
