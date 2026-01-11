@@ -92,9 +92,8 @@ public class CategoryDAO {
         return category;
     }
 
-    // =========================
-    // Update (Category Details)
-    // =========================
+    // Update existing category details using category ID
+    
     public boolean updateCategory(Category category) {
 
         String sql = "UPDATE categories SET category_name=?, description=?, image_name=? WHERE category_id=?";
