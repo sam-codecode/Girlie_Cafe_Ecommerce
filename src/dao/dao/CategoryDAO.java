@@ -11,9 +11,8 @@ import java.util.List;
 
 public class CategoryDAO {
 
-    // ===========================
-    // Create (Add New Category)
-    // ===========================
+    // Insert a new category record into the categories table
+    
     public boolean addCategory(Category category) {
 
         String sql = "INSERT INTO categories (category_name, description, image_name) VALUES (?, ?, ?)";
