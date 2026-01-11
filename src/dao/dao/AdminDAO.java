@@ -62,7 +62,7 @@ public class AdminDAO {
         return null; // login failed
     }
 
-    //  Read (Get Admin By ID)
+    //  Retrieve admin details based on admin ID
 
     public Admin getAdminById(int adminId) {
 
