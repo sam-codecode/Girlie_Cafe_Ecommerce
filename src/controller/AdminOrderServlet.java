@@ -1,6 +1,6 @@
-package controller; // Handles servlet controller
+package controller; // Handles Admin Order Management Servlet Controller
 
-// Java utilities and servlet API 
+// Java utilities and servlet API
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -15,95 +15,100 @@ import dao.OrderItemDAO;
 import model.Order;
 import model.OrderItem;
 
-// Handle admin order management
+// Handle admin order management (view, list, and update orders)
 @WebServlet("/admin/orders")
 public class AdminOrderServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private OrderDAO orderDAO;
-    private OrderItemDAO orderItemDAO;
-    
+    private OrderDAO orderDAO;         // DAO for accessing order data
+    private OrderItemDAO orderItemDAO; // DAO for accessing order item data
+
     // Initialize DAOs
     @Override
     public void init() {
-        orderDAO = new OrderDAO();
-        orderItemDAO = new OrderItemDAO();
+        orderDAO = new OrderDAO();         // Create OrderDAO object for database operations
+        orderItemDAO = new OrderItemDAO(); // Create OrderItemDAO object for database operations
     }
-    
-    // Handle GET requests
+
+    // Handle GET requests (list orders or view order details)
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // Verify admin session
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("admin") == null) {
+            // Redirect to admin login if session is invalid
             response.sendRedirect(request.getContextPath() + "/admin/admin_login.jsp");
             return;
         }
-        
-        // Determine action (default: list)
+
+        // Determine requested action (default is "list")
         String action = request.getParameter("action");
         if (action == null) action = "list";
 
         switch (action) {
 
-        case "list":
-            List<Order> orderList = orderDAO.getAllOrders();
-            request.setAttribute("orders", orderList);
-            request.getRequestDispatcher("/admin/manage_orders.jsp")
-                   .forward(request, response);
-            break;
+            // Display all orders
+            case "list":
+                List<Order> orderList = orderDAO.getAllOrders();
+                request.setAttribute("orders", orderList);
 
-        case "view":
-            int orderId = Integer.parseInt(request.getParameter("orderId"));
+                // Forward to order management JSP
+                request.getRequestDispatcher("/admin/manage_orders.jsp")
+                       .forward(request, response);
+                break;
 
-            Order order = orderDAO.getOrderById(orderId);
-            List<OrderItem> items = orderItemDAO.getItemsByOrderId(orderId);
+            // Display order details for a specific order
+            case "view":
+                int orderId = Integer.parseInt(request.getParameter("orderId"));
 
-            request.setAttribute("order", order);
-            request.setAttribute("items", items);
+                Order order = orderDAO.getOrderById(orderId);             // Fetch order data
+                List<OrderItem> items = orderItemDAO.getItemsByOrderId(orderId); // Fetch order items
 
-            // ✅ IMPORTANT: forward to order_details.jsp
-            request.getRequestDispatcher("/admin/order_details.jsp")
-                   .forward(request, response);
-            break;
+                request.setAttribute("order", order); // Set order as request attribute
+                request.setAttribute("items", items); // Set order items as request attribute
 
-        default:
-            response.sendRedirect(request.getContextPath() +
-                                  "/admin/orders?action=list");
+                // Forward to order details JSP
+                request.getRequestDispatcher("/admin/order_details.jsp")
+                       .forward(request, response);
+                break;
+
+            // Default: redirect to order list
+            default:
+                response.sendRedirect(request.getContextPath() +
+                                      "/admin/orders?action=list");
+        }
     }
 
-    }
-    
     // Handle POST requests (update order status)
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // Verify admin session
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("admin") == null) {
+            // Redirect to admin login if session is invalid
             response.sendRedirect(request.getContextPath() + "/admin/admin_login.jsp");
             return;
         }
-        
-        // Get form data 
+
+        // Retrieve order ID and new status from form submission
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         String newStatus = request.getParameter("orderStatus");
-        
-        // Update order status
+
+        // Update order status in database
         boolean updated = orderDAO.updateOrderStatus(orderId, newStatus);
 
         if (updated) {
-            // Redirect to order list on success
+            // Redirect to order list page on success
             response.sendRedirect(request.getContextPath() + "/admin/orders?action=list");
         } else {
-            // Show error if update fails
+            // Set error message and forward back to manage orders page if update fails
             request.setAttribute("errorMessage", "Order status update failed.");
             request.getRequestDispatcher("/admin/manage_orders.jsp").forward(request, response);
-
         }
     }
 }
