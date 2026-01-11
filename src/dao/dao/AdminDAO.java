@@ -59,7 +59,7 @@ public class AdminDAO {
             e.printStackTrace();
         }
 
-        return null;
+        return null; // login failed
     }
 
     //  Read (Get Admin By ID)
