@@ -13,9 +13,8 @@ import java.util.Map;
 
 public class OrderDAO {
 
-    // =========================
-    // CREATE : Place New Order
-    // =========================
+    // Create a new order record and return the generated order ID
+
 	public int createOrder(Order order) {
 
 	    String sql = "INSERT INTO orders (user_id, total_amount, order_status, payment_status, shipping_address, note) " +
