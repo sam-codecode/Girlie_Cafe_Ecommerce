@@ -10,9 +10,8 @@ import java.sql.Timestamp;
 
 public class PaymentDAO {
 
-    // =========================
-    // CREATE : Record Payment
-    // =========================
+    // Record a payment transaction for a specific order
+
 	public boolean addPayment(Payment payment) {
 
 	    String sql = "INSERT INTO payments (order_id, payment_date, payment_method, amount) " +
@@ -35,9 +34,8 @@ public class PaymentDAO {
 	}
 
 
-    // =========================
-    // READ : Get Payment By Order
-    // =========================
+    // Retrieve payment details associated with a specific order
+
     public Payment getPaymentByOrderId(int orderId) {
 
         String sql = "SELECT * FROM payments WHERE order_id = ?";
