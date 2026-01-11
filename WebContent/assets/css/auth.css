@@ -1,11 +1,12 @@
 @charset "UTF-8";
+/* import google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@400;500&display=swap');
 
 * {
   box-sizing: border-box;
 }
 
-/* Updated Background Styling */
+/* background image */
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
@@ -27,9 +28,7 @@ body {
 
 }
 
-/* =========================
-   REGISTER PAGE */
-
+/* register page */
 .register-wrapper {
   height: 100vh;
   display: flex;
@@ -120,7 +119,7 @@ button.btn-register {
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 4px 0 #5a0f28;
-  transition: bg 0.3s ease;
+  transition: background-colour 0.3s ease;
 }
 
 button.btn-register:hover {
@@ -157,10 +156,7 @@ button.btn-register:hover {
   color: #8e24aa;
 }
 
-
-/* =========================
-   LOGIN PAGE
-*/
+/* login page styling */
 .auth-wrapper{
   height: 100vh;
   display: flex;
@@ -186,12 +182,6 @@ button.btn-register:hover {
   width: 200px;
   display:block;
   margin-bottom: -50px;
-}
-
-.login-title {
-  font-size: 28px;
-  font-weight: bold;
-  color: #5b3a2e;
 }
 
 .auth-container h2 {
