@@ -2,13 +2,16 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Order" %>
 
-    <!-- Google Fonts -->
+  <%-- Import Google Fonts --%>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+  <%-- Font Awesome icons library --%>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<%
+
+  <%-- User authentication check --%>
+ <%
     if (session ==null || session.getAttribute("user") == null) {
         response.sendRedirect(request.getContextPath() + "/user/login.jsp");
         return;
@@ -22,9 +25,7 @@
         response.sendRedirect(request.getContextPath() + "/orderHistory");
         return;
     }
-%>
-
-
+ %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,9 +38,7 @@
 
 <body>
 
-<!-- =========================
-     NAVIGATION
-========================= -->
+<%-- Header and navigation bar --%>
 <header class="top-hero">
   <nav class="top-navi">
     <a class="brand" href="<%= request.getContextPath() %>/user/index.jsp">
@@ -63,9 +62,7 @@
   </div>
 </header>
 
-<!-- =========================
-     ORDERS CONTENT
-========================= -->
+<%-- Main order history section --%>
 <main class="history-section">
   <div class="history-wrap">
 
@@ -73,7 +70,6 @@
 
       <% if (orders == null || orders.isEmpty()) { %>
 
-        <!-- EMPTY STATE -->
         <div class="empty-state">
           <p>No orders yet 😢</p>
           <a class="btn-primary" href="<%= request.getContextPath() %>/products">
@@ -87,7 +83,7 @@
 
           <% for (Order o : orders) { %>
 
-            <div class="order-card">
+            <div class="order-card pop-effect">
 
               <div class="order-row">
                 <div class="order-id">Order #<%= o.getOrderId() %></div>
@@ -107,21 +103,19 @@
   String statusKey = rawStatus.toLowerCase(); // pending / shipped / delivered
 %>
 
-<div>
-  Status:
-  <span class="status-pill status-<%= statusKey %>">
-    <%= rawStatus.toUpperCase() %>
-  </span>
-</div>
-
-
-                <div>
-                  Payment:
-                  <span class="payment <%= o.getPaymentStatus().equalsIgnoreCase("PAID") ? "paid" : "unpaid" %>">
-                    <%= o.getPaymentStatus() %>
-                  </span>
-                </div>
+  <div>
+     Status:
+    <span class="status-pill status-<%= statusKey %>">
+     <%= rawStatus.toUpperCase() %>
+    </span>
+  </div>
+            <div>
+                Payment:
+                <span class="payment <%= o.getPaymentStatus().equalsIgnoreCase("PAID") ? "paid" : "unpaid" %>">
+                  <%= o.getPaymentStatus() %>
+                </span>
               </div>
+            </div>
 
             </div>
 
@@ -136,9 +130,7 @@
   </div>
 </main>
 
-<!-- =========================
-     FOOTER
-========================== -->
+<%-- Footer section --%>
 <footer class="footer">
   <div class="wrap footer-grid">
 
