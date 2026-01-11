@@ -186,6 +186,8 @@ public class OrderDAO {
         return list;
     }
 
+// Calculate total monthly sales for paid orders
+
  public List<Map<String, Object>> getMonthlySales() {
 	    List<Map<String, Object>> list = new ArrayList<>();
 
