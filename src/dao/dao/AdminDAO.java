@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 
 public class AdminDAO {
 
-    // Validation (Check Username Exists)
+    // Check if admin username already exixts
 
     public boolean usernameExists(String username) {
 
