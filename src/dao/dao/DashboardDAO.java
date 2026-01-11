@@ -25,6 +25,8 @@ public class DashboardDAO {
         return 0;
     }
 
+    // Count total number of orders for dashboard display
+    
     public int countOrders() {
         String sql = "SELECT COUNT(*) FROM orders";
         try (Connection con = DBConnection.getConnection();
