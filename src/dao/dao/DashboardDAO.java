@@ -9,6 +9,8 @@ import java.util.*;
 
 public class DashboardDAO {
 
+    // Count total number of products for dashboard summary
+
     public int countProducts() {
         String sql = "SELECT COUNT(*) FROM products";
         try (Connection con = DBConnection.getConnection();
