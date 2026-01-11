@@ -29,7 +29,7 @@ public class AdminDAO {
         return false;
     }
 
-    // Authenthication (Admin Login)
+    // Admin login authentication
 
     public Admin login(String username, String password) {
 
