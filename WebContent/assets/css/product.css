@@ -530,6 +530,10 @@ html, body {
   color: #e8cbb8;
 }
 
+.footer .wrap{ 
+	width: min(1200px, 92%); 
+	margin: 0 auto; 
+}
 /* hover brand colours */
 .footer-social:hover .fa-instagram{ color:#E1306C; }
 .footer-social:hover .fa-facebook-f{ color:#1877F2; }

@@ -472,6 +472,10 @@ html, body {
   color: rgba(243,233,220,0.55);
 }
 
+.footer .wrap{ 
+	width: min(1200px, 92%); 
+	margin: 0 auto; 
+}
 
 /* =========================
    RESPONSIVE

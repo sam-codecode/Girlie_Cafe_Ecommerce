@@ -42,7 +42,8 @@ public class OrderDAO {
 	        e.printStackTrace();
 	    }
 
-	    return -1; 
+	    return -1;
+	}
 
 
     // Retrieve a single order using order ID
