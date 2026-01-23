@@ -5,15 +5,20 @@ import java.sql.DriverManager;
 
 public class DBConnection {
 
-    private static final String URL =
-        "jdbc:mysql://localhost:3306/girlicafe?useSSL=false&serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASSWORD = "Onelastime1#";
-
     public static Connection getConnection() {
         try {
+            String host = System.getenv("MYSQLHOST");
+            String port = System.getenv("MYSQLPORT");
+            String db   = System.getenv("MYSQLDATABASE");
+            String user = System.getenv("MYSQLUSER");
+            String pass = System.getenv("MYSQLPASSWORD");
+
+            String url = "jdbc:mysql://" + host + ":" + port + "/" + db
+                    + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+
             Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(URL, USER, PASSWORD);
+            return DriverManager.getConnection(url, user, pass);
+
         } catch (Exception e) {
             e.printStackTrace();
             return null;
