@@ -41,7 +41,7 @@ public class UserLoginServlet extends HttpServlet {
             session.setAttribute("user", user);
 
             // Redirect to user home page
-            response.sendRedirect(request.getContextPath() + "/user/index.jsp");
+            response.sendRedirect(request.getContextPath() + "/user/index.jsp"); // products
         } else {
             // Failed login: set error message and forward back to login page
             request.setAttribute("errorMessage",

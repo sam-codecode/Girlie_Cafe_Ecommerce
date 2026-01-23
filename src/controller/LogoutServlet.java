@@ -10,19 +10,15 @@ import java.io.IOException;
 @WebServlet("/admin/logout")
 public class LogoutServlet extends HttpServlet {
 
-    // Handle GET requests for admin logout
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
 
-        // Retrieve existing session without creating a new one
         HttpSession session = request.getSession(false);
-
-        // Invalidate session if it exists to log out admin
         if (session != null) {
             session.invalidate();
         }
-        // Redirect to admin login page after logout
-        response.sendRedirect(request.getContextPath() + "/admin/logout");
+
+        response.sendRedirect(request.getContextPath() + "/adminLogin");
     }
 }

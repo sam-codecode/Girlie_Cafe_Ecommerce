@@ -1,60 +1,25 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*" %>
-<%@ page import="dao.ProductDAO" %>
 <%@ page import="model.Product" %>
-<%@ page import="model.User" %>
 
 <%
-    HttpSession sess = request.getSession(false);
-    if (sess == null) {
-        response.sendRedirect(request.getContextPath() + "/user/login.jsp");
-        return;
-    }
-
-    User user = (User) sess.getAttribute("user");
-    if (user == null) {
-        response.sendRedirect(request.getContextPath() + "/user/login.jsp");
-        return;
-    }
-
-    // ✅ IMPORTANT: check success FIRST (so we don't redirect away before showing modal)
-    boolean showSuccess = "1".equals(request.getParameter("success"));
-
-    int userId = user.getUserId();
-
     @SuppressWarnings("unchecked")
-    Map<Integer, Integer> cart =
-        (Map<Integer, Integer>) sess.getAttribute("cart_" + userId);
+    Map<Product, Integer> checkoutItems =
+        (Map<Product, Integer>) request.getAttribute("checkoutItems");
 
-    // ✅ Only redirect to cart when NOT showing success modal
-    if ((cart == null || cart.isEmpty()) && !showSuccess) {
-        response.sendRedirect(request.getContextPath() + "/user/cart.jsp");
+    Double grandTotal =
+        (Double) request.getAttribute("grandTotal");
+
+    String userAddressHtml =
+        (String) request.getAttribute("userAddressHtml");
+
+    if (checkoutItems == null || grandTotal == null) {
+        response.sendRedirect(request.getContextPath() + "/cart");
         return;
     }
-
-    ProductDAO productDAO = new ProductDAO();
-    double grandTotal = 0.0;
-
-    // Address from user profile
-    String userAddress = (user.getAddress() == null) ? "" : user.getAddress().trim();
-
-    // HTML-safe version for display
-    String userAddressHtml = userAddress
-            .replace("&", "&amp;")
-            .replace("<", "&lt;")
-            .replace(">", "&gt;")
-            .replace("\r\n", "<br>")
-            .replace("\n", "<br>");
-
-    // JS-safe version (escape quotes/newlines)
-    String userAddressJs = userAddress
-        .replace("\\", "\\\\")
-        .replace("\r", "")
-        .replace("\n", "\\n")
-        .replace("\"", "\\\"")
-        .replace("`", "\\`")
-        .replace("'", "\\'");
 %>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -83,11 +48,11 @@
     <div class="navi-links">
       <a class="navi-link" href="<%= request.getContextPath() %>/user/index.jsp">Home</a>
       <a class="navi-link" href="<%= request.getContextPath() %>/products">Menu</a>
-      <a class="navi-link" href="<%= request.getContextPath() %>/user/cart.jsp">Cart</a>
+      <a class="navi-link" href="<%= request.getContextPath() %>/cart">Cart</a>
       <a class="navi-link" href="<%= request.getContextPath() %>/orderHistory">My History</a>
     </div>
 
-    <a class="nav-cta pop-effect" href="<%= request.getContextPath() %>/user/cart.jsp">Back</a>
+    <a class="nav-cta pop-effect" href="<%= request.getContextPath() %>/cart">Back</a>
   </nav>
 
   <div class="main-text">
@@ -113,33 +78,24 @@
             </tr>
           </thead>
 
-          <tbody>
-          <%
-              // ✅ Only render items if cart exists (success page will have empty cart)
-              if (cart != null && !cart.isEmpty()) {
-                  for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
-                      int productId = entry.getKey();
-                      int qty = entry.getValue();
+         <tbody>
+<%
+    for (Map.Entry<Product, Integer> item : checkoutItems.entrySet()) {
+        Product p = item.getKey();
+        int qty = item.getValue();
+        double sub = p.getPrice() * qty;
+%>
+<tr>
+    <td><%= p.getName() %></td>
+    <td><%= qty %></td>
+    <td><%= String.format("%.2f", p.getPrice()) %></td>
+    <td><%= String.format("%.2f", sub) %></td>
+</tr>
+<%
+    }
+%>
+</tbody>
 
-                      Product p = productDAO.getProductById(productId);
-                      if (p == null) continue;
-
-                      if (qty > p.getStock()) qty = p.getStock();
-
-                      double sub = p.getPrice() * qty;
-                      grandTotal += sub;
-          %>
-            <tr>
-              <td class="checkout-item"><%= p.getName() %></td>
-              <td><%= qty %></td>
-              <td><%= String.format("%.2f", p.getPrice()) %></td>
-              <td><%= String.format("%.2f", sub) %></td>
-            </tr>
-          <%
-                  }
-              }
-          %>
-          </tbody>
 
           <tfoot>
             <tr>
@@ -209,7 +165,10 @@
         </section>
 
         <div class="checkout-bottom">
-          <div class="total-badge">Total: RM <%= String.format("%.2f", grandTotal) %></div>
+          <div class="total-badge">
+    Total: RM <%= String.format("%.2f", grandTotal) %>
+</div>
+
           <button type="submit" id="placeOrderBtn" class="place-btn pop-effect">
             Place Order
           </button>
@@ -282,8 +241,6 @@
     © 2025 Girlie’s Café. All Rights Reserved.
   </div>
 </footer>
-
-<input type="hidden" id="orderSuccessFlag" value="<%= showSuccess ? 1 : 0 %>">
 
 <script>
 const prepTimeText = document.getElementById("prepTimeText");

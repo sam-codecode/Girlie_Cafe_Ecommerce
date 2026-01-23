@@ -40,7 +40,7 @@
     <!-- REGISTER LINK (FIXED) -->
     <p class="switch-text">
         Don’t have an account?
-        <a href="<%= request.getContextPath() %>/user/register.jsp">
+        <a href="<%= request.getContextPath() %>/register">
             Register here →
         </a>
     </p>

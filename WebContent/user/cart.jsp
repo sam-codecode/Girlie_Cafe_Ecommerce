@@ -4,12 +4,6 @@
 <%@ page import="model.User" %>
 
 <%
-    // ---------- AUTH CHECK ----------
-    HttpSession sess = request.getSession(false);
-    if (sess == null || sess.getAttribute("user") == null) {
-        response.sendRedirect(request.getContextPath() + "/user/login.jsp");
-        return;
-    }
 
     // ---------- DATA FROM SERVLET ----------
     @SuppressWarnings("unchecked")
@@ -57,7 +51,7 @@
             <a class="navi-link" href="<%= request.getContextPath() %>/orderHistory">My History</a>
         </div>
 
-        <a class="nav-cta" href="<%= request.getContextPath() %>/user/checkout.jsp">Checkout</a>
+        <a class="nav-cta" href="<%= request.getContextPath() %>/checkout">Checkout</a>
     </nav>
 
     <div class="main-text">
@@ -153,7 +147,7 @@
 
             <div class="cart-actions">
                 <a class="btn-secondary pop-effect" href="<%= request.getContextPath() %>/products">+ Add More Items</a>
-                <a class="btn-primary pop-effect" href="<%= request.getContextPath() %>/user/checkout.jsp">
+                <a class="btn-primary pop-effect" href="<%= request.getContextPath() %>/checkout">
                     Proceed to Checkout
                 </a>
             </div>

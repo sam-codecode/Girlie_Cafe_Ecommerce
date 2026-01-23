@@ -34,7 +34,7 @@ public class OrderHistoryServlet extends HttpServlet {
 
         // Redirect to login if session does not exist
         if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
@@ -43,7 +43,7 @@ public class OrderHistoryServlet extends HttpServlet {
 
         // Redirect to login if user is not authenticated
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 

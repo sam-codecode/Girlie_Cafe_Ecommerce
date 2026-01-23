@@ -44,12 +44,12 @@
 
       <p class="login-text">
         Already have an account?
-        <a href="<%= request.getContextPath() %>/user/login.jsp">Login here →</a>
+        <a href="<%= request.getContextPath() %>/login">Login here →</a>
       </p>
     </div>
 
     <div class="right-panel">
-      <a href="<%= request.getContextPath() %>/admin/admin_login.jsp" class="admin-login">
+      <a href="<%= request.getContextPath() %>/adminLogin" class="admin-login">
         admin login
       </a>
     </div>

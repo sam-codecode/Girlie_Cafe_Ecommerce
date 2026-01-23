@@ -34,10 +34,10 @@
             <button type="submit">Login</button>
         </form>
 
-        <% if (request.getAttribute("error") != null) { %>
-            <div class="login-error">
-                <%= request.getAttribute("error") %>
-            </div>
+        <% if (request.getAttribute("errorMessage") != null) { %>
+<div class="login-error">
+    <%= request.getAttribute("errorMessage") %>
+</div>
         <% } %>
 
     </div>

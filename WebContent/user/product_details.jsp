@@ -43,7 +43,7 @@
     <div class="navi-links">
       <a class="navi-link" href="<%= request.getContextPath() %>/user/index.jsp">Home</a>
       <a class="navi-link active" href="<%= request.getContextPath() %>/products">Menu</a>
-      <a class="navi-link" href="<%= request.getContextPath() %>/user/cart.jsp">Cart</a>
+      <a class="navi-link" href="<%= request.getContextPath() %>/cart">Cart</a>
       <a class="navi-link" href="<%= request.getContextPath() %>/orderHistory">
     My History
 </a>
@@ -51,7 +51,7 @@
     </div>
 
     <a class="nav-cta pop-effect"
-       href="<%= request.getContextPath() %>/user/cart.jsp">Checkout</a>
+       href="<%= request.getContextPath() %>/cart">Checkout</a>
   </nav>
 
   <div class="main-text">

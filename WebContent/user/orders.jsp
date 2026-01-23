@@ -2,17 +2,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Order" %>
 
-<%
-    if (session ==null || session.getAttribute("user") == null) {
-        response.sendRedirect(request.getContextPath() + "/user/login.jsp");
-        return;
-    }
-
-    @SuppressWarnings("unchecked")
-    List<Order> orders = (List<Order>) request.getAttribute("orders");
-%>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +33,7 @@
     <div class="navi-links">
       <a class="navi-link" href="<%= request.getContextPath() %>/user/index.jsp">Home</a>
       <a class="navi-link" href="<%= request.getContextPath() %>/products">Menu</a>
-      <a class="navi-link" href="<%= request.getContextPath() %>/user/cart.jsp">Cart</a>
+      <a class="navi-link" href="<%= request.getContextPath() %>/cart">Cart</a>
       <a class="navi-link active" href="<%= request.getContextPath() %>/orderHistory">My History</a>
     </div>
 

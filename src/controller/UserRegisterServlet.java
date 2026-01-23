@@ -59,7 +59,7 @@ public class UserRegisterServlet extends HttpServlet {
 
         if (success) {
             // Successful registration: redirect to login page
-            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
         } else {
             // Failed registration: set error message and forward back to registration page
             request.setAttribute("errorMessage",

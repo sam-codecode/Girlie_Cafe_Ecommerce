@@ -40,7 +40,7 @@ public class AdminOrderServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("admin") == null) {
             // Redirect to admin login if session is invalid
-            response.sendRedirect(request.getContextPath() + "/admin/admin_login.jsp");
+            response.sendRedirect(request.getContextPath() + "/adminLogin");
             return;
         }
 

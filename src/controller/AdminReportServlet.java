@@ -35,7 +35,7 @@ public class AdminReportServlet extends HttpServlet {
         // Check whether admin is logged in
         if (session == null || session.getAttribute("admin") == null) {
             // Redirect to admin login page if authentication fails
-            response.sendRedirect(request.getContextPath() + "/admin/admin_login.jsp");
+            response.sendRedirect(request.getContextPath() + "/adminLogin");
             return;
         }
         

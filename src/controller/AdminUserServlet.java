@@ -36,7 +36,7 @@ public class AdminUserServlet extends HttpServlet {
         // Check admin authentication
         if (admin == null) {
             // Redirect to admin login if not authenticated
-            response.sendRedirect(request.getContextPath() + "/admin/admin_login.jsp");
+            response.sendRedirect(request.getContextPath() + "/adminLogin");
             return;
         }
 

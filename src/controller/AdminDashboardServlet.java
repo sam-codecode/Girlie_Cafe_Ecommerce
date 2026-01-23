@@ -36,7 +36,7 @@ public class AdminDashboardServlet extends HttpServlet {
         // Check admin authentication
         if (session == null || session.getAttribute("admin") == null) {
             // Redirect to admin login if session is invalid
-        	response.sendRedirect(request.getContextPath() + "/admin/admin_login.jsp");
+        	response.sendRedirect(request.getContextPath() + "/adminLogin");
             return;
         }
 

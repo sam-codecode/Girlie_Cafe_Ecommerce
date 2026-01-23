@@ -4,10 +4,12 @@ package controller; // Handles Checkout Servlet Controller
 import dao.*;
 import model.*;
 
+import javax.servlet.ServletException;
 // Servlet and utility imports
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 // Handle checkout operations which are create order, update stock and record payment
@@ -28,7 +30,58 @@ public class CheckoutServlet extends HttpServlet {
         productDAO = new ProductDAO();
         paymentDAO = new PaymentDAO();
     }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        User user = (User) session.getAttribute("user");
+        int userId = user.getUserId();
+
+        @SuppressWarnings("unchecked")
+        Map<Integer, Integer> cart =
+                (Map<Integer, Integer>) session.getAttribute("cart_" + userId);
+
+        if (cart == null || cart.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/cart");
+            return;
+        }
+
+        Map<Product, Integer> checkoutItems = new LinkedHashMap<>();
+        double grandTotal = 0.0;
+
+        for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
+            Product p = productDAO.getProductById(entry.getKey());
+            if (p == null) continue;
+
+            int qty = Math.min(entry.getValue(), p.getStock());
+            checkoutItems.put(p, qty);
+            grandTotal += p.getPrice() * qty;
+        }
+
+        String address = user.getAddress() == null ? "" : user.getAddress().trim();
+        String addressHtml = address
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\n", "<br>");
+
+        request.setAttribute("checkoutItems", checkoutItems);
+        request.setAttribute("grandTotal", grandTotal);
+        request.setAttribute("userAddressHtml", addressHtml);
+
+        request.getRequestDispatcher("/user/checkout.jsp").forward(request, response);
+    }
+
+
+
+    
     // Handle POST requests for checkout process
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +92,7 @@ public class CheckoutServlet extends HttpServlet {
 
         // Redirect to login if session does not exist
         if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
@@ -48,7 +101,7 @@ public class CheckoutServlet extends HttpServlet {
 
         // Redirect to login if user not authenticated
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
@@ -73,7 +126,7 @@ public class CheckoutServlet extends HttpServlet {
         
         // Validate required parameters
         if (paymentMethod == null || orderType == null) {
-            response.sendRedirect(request.getContextPath() + "/user/checkout.jsp");
+            response.sendRedirect(request.getContextPath() + "/checkout");
             return;
         }
 
@@ -82,7 +135,7 @@ public class CheckoutServlet extends HttpServlet {
         if ("DELIVERY".equalsIgnoreCase(orderType)) {
             shippingAddress = user.getAddress();
             if (shippingAddress == null || shippingAddress.trim().isEmpty()) {
-                response.sendRedirect(request.getContextPath() + "/user/checkout.jsp");
+                response.sendRedirect(request.getContextPath() + "/checkout");
                 return;
             }
         }
@@ -120,7 +173,7 @@ public class CheckoutServlet extends HttpServlet {
         // Save order in database
         int orderId = orderDAO.createOrder(order);
         if (orderId <= 0) {
-            response.sendRedirect(request.getContextPath() + "/user/checkout.jsp");
+            response.sendRedirect(request.getContextPath() + "/checkout");
             return;
         }
 
