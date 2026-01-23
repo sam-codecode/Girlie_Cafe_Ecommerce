@@ -62,7 +62,7 @@ public class CheckoutServlet extends HttpServlet {
 
         // Redirect to cart page if cart is empty
         if (cart == null || cart.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/user/cart.jsp");
+            response.sendRedirect(request.getContextPath() + "/cart");
             return;
         }
 
@@ -102,7 +102,7 @@ public class CheckoutServlet extends HttpServlet {
 
         // Redirect to cart page if total <= 0
         if (total <= 0) {
-            response.sendRedirect(request.getContextPath() + "/user/cart.jsp");
+            response.sendRedirect(request.getContextPath() + "/cart");
             return;
         }
 
@@ -157,6 +157,6 @@ public class CheckoutServlet extends HttpServlet {
         session.removeAttribute(cartKey);
 
         // Redirect to checkout page with success message
-        response.sendRedirect(request.getContextPath() + "/user/checkout.jsp?success=1");
+        response.sendRedirect(request.getContextPath() + "/orderHistory");
     }
 }

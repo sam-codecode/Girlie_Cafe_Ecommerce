@@ -2,12 +2,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Order" %>
 
-    <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <%
     if (session ==null || session.getAttribute("user") == null) {
         response.sendRedirect(request.getContextPath() + "/user/login.jsp");
@@ -16,12 +10,6 @@
 
     @SuppressWarnings("unchecked")
     List<Order> orders = (List<Order>) request.getAttribute("orders");
-
-    // IMPORTANT FIX
-    if (orders == null) {
-        response.sendRedirect(request.getContextPath() + "/orderHistory");
-        return;
-    }
 %>
 
 
@@ -33,6 +21,12 @@
   <title>My Orders | Girlie’s Café</title>
 
   <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/history.css">
+      <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>

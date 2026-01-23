@@ -56,7 +56,7 @@ public class AdminOrderServlet extends HttpServlet {
                 request.setAttribute("orders", orderList);
 
                 // Forward to order management JSP
-                request.getRequestDispatcher("/admin/manage_orders.jsp")
+                request.getRequestDispatcher("/admin/orders.jsp")
                        .forward(request, response);
                 break;
 
@@ -91,7 +91,7 @@ public class AdminOrderServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("admin") == null) {
             // Redirect to admin login if session is invalid
-            response.sendRedirect(request.getContextPath() + "/admin/admin_login.jsp");
+            response.sendRedirect(request.getContextPath() + "/adminLogin");
             return;
         }
 
@@ -108,7 +108,7 @@ public class AdminOrderServlet extends HttpServlet {
         } else {
             // Set error message and forward back to manage orders page if update fails
             request.setAttribute("errorMessage", "Order status update failed.");
-            request.getRequestDispatcher("/admin/manage_orders.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/orders").forward(request, response);
         }
     }
 }
