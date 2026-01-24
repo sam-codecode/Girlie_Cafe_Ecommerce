@@ -56,7 +56,7 @@ public class AdminOrderServlet extends HttpServlet {
                 request.setAttribute("orders", orderList);
 
                 // Forward to order management JSP
-                request.getRequestDispatcher("/admin/orders.jsp")
+                request.getRequestDispatcher("/admin/manage_orders.jsp")
                        .forward(request, response);
                 break;
 
