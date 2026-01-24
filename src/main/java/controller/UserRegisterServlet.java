@@ -1,5 +1,4 @@
 package controller; // Handles User Registration Servlet Controller
-import util.PasswordUtil;
 // DAO and model imports
 import dao.UserDAO;
 import model.User;
@@ -36,7 +35,7 @@ public class UserRegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
-        String hashedPassword = PasswordUtil.hashPassword(password);
+        
         // Check if email already exists in the database
         if (userDAO.emailExists(email)) {
             // Set error message and forward back to registration page
@@ -53,7 +52,7 @@ public class UserRegisterServlet extends HttpServlet {
         newUser.setPassword(password);
         newUser.setPhone(phone);
         newUser.setAddress(address);
-        newUser.setPassword(hashedPassword);
+        
         // Attempt to register the user in the database
         boolean success = userDAO.registerUser(newUser);
 
