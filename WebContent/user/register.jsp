@@ -49,7 +49,7 @@
     </div>
 
     <div class="right-panel">
-      <a href="<%= request.getContextPath() %>/adminLogin" class="admin-login">
+      <a href="<%= request.getContextPath() %>/adminLogin"class="admin-login">
         admin login
       </a>
     </div>
